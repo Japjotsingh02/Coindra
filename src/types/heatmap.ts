@@ -1,0 +1,13 @@
+import { Candle } from "./candle";
+import { ColorVariant } from "./theme";
+
+export interface HeatmapCell extends Candle {
+  liquidity: number;
+  volatilityDaily: number;
+  volatilityRolling: number | null;
+  performancePct: number;
+  performance: "positive" | "negative" | "neutral";
+  color: ColorVariant;
+  prices7d: number[];
+  intraday?: { time: string; open: number; high: number; low: number; close: number }[];
+}

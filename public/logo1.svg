@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100" fill="none">
+  <!-- Hexagon C shape -->
+  <path d="M50 5 
+           L85 25 
+           L85 45 
+           L70 45 
+           L70 35 
+           L50 23 
+           L30 35 
+           L30 65 
+           L50 77 
+           L70 65 
+           L70 55 
+           L85 55 
+           L85 75 
+           L50 95 
+           L15 75 
+           L15 25 Z" 
+        fill="none" stroke="#bb9c2d" stroke-width="6" stroke-linejoin="round"/>
+</svg>
