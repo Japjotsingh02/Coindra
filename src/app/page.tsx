@@ -32,13 +32,6 @@ export default function Home() {
           <CalendarHeatmap />
         </div>
       </div>
-      {/* <div className="max-w-lg">
-      <VolatilityChart />
-      </div>
-  
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Details">
-      <p>Details for selected date will appear here.</p>
-      </Modal> */}
     </main>
   );
 }
