@@ -35,7 +35,7 @@ export function processHeatmapData(
     const variance =
       logReturns.reduce((a, b) => a + Math.pow(b - mean, 2), 0) /
       logReturns.length;
-      rollingVolatilities[window[window.length - 1].date] =
+    rollingVolatilities[window[window.length - 1].date] =
       Math.sqrt(variance) * 100;
   }
 
@@ -74,11 +74,9 @@ export function processHeatmapData(
 
     const prices7d = candles
       .slice(Math.max(0, idx - 6), idx + 1)
-      .map(c => c.close);
+      .map((c) => c.close);
 
-    const intradaySeries = [
-      candle.open, candle.high, candle.low, candle.close
-    ];
+    const intraday = [candle.open, candle.high, candle.low, candle.close];
 
     return {
       ...candle,
@@ -89,7 +87,7 @@ export function processHeatmapData(
       performance,
       color,
       prices7d,
-      intradaySeries
+      intraday,
     };
   });
 }
