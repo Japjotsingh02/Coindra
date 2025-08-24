@@ -16,7 +16,7 @@ const ChartCard = memo(({ title, option }: ChartCardProps) => {
       </div>
       <ReactECharts
         option={option}
-        style={{ height: 240 }}
+        style={{ height: 320 }} 
         className="rounded-lg"
       />
     </div>
