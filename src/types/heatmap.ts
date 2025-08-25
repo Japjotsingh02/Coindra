@@ -1,4 +1,4 @@
-import { Candle } from "./candle";
+import { Candle, OHLC } from "./candle";
 import { ColorVariant } from "./theme";
 
 export interface HeatmapCell extends Candle {
@@ -9,5 +9,5 @@ export interface HeatmapCell extends Candle {
   performance: "positive" | "negative" | "neutral";
   color: ColorVariant;
   prices7d: number[];
-  intraday?: { time: string; open: number; high: number; low: number; close: number }[];
+  intraday: OHLC;
 }

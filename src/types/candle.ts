@@ -7,6 +7,22 @@ export interface Candle {
   volume: number;
 }
 
+  export interface EnhancedBinanceCandle extends Candle {
+  timestamp: number;
+  closeTime: number;
+  quoteAssetVolume: number;
+  numberOfTrades: number;
+  takerBuyBaseAssetVolume: number;
+  takerBuyQuoteAssetVolume: number;
+  priceChange: number;
+  priceChangePercent: number;
+  highLowRange: number;
+  volumeWeightedAveragePrice: number;
+  index: number;
+}
+
+export type OHLC = [number, number, number, number];
+
 // Binance API response types
 export interface BinanceKline {
   0: number;   // Open time
@@ -33,4 +49,44 @@ export interface BinanceSymbol {
 
 export interface BinanceExchangeInfo {
   symbols: BinanceSymbol[];
+}
+
+export interface BinanceRealTimeData {
+  price: number | null;
+  volume24h: number | null;
+  priceChange24h: number | null;
+  priceChangePercent24h: number | null;
+  high24h: number | null;
+  low24h: number | null;
+  lastUpdate: Date | null;
+}
+
+export interface TickerData {
+  v: string;
+  P: string;
+  p: string;
+  h: string;
+  l: string;
+}
+
+export interface KlineData {
+  k: {
+    t: number; // start time
+    T: number; // end time
+    s: string; // symbol
+    i: string; // interval
+    f: number; // first trade ID
+    L: number; // last trade ID
+    o: string; // open
+    c: string; // close
+    h: string; // high
+    l: string; // low
+    v: string; // volume
+    n: number; // number of trades
+    x: boolean; // candle closed
+    q: string; // quote asset volume
+    V: string; // taker buy base asset volume
+    Q: string; // taker buy quote asset volume
+    B: string; // ignore
+  };
 }

@@ -1,5 +1,5 @@
 import { dark, light } from "@/settings/theme";
-import { Candle } from "@/types/candle";
+import { Candle, OHLC } from "@/types/candle";
 import { HeatmapCell } from "@/types/heatmap";
 
 export function processHeatmapData(
@@ -76,7 +76,7 @@ export function processHeatmapData(
       .slice(Math.max(0, idx - 6), idx + 1)
       .map((c) => c.close);
 
-    const intraday = [candle.open, candle.high, candle.low, candle.close];
+    const intraday = [candle.open, candle.high, candle.low, candle.close] as OHLC;
 
     return {
       ...candle,
