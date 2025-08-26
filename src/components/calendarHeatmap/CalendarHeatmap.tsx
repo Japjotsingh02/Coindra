@@ -1,37 +1,35 @@
 "use client";
 
 import {
-  eachDayOfInterval,
   startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  getDay,
-  addMonths,
   isSameDay,
   isSameMonth,
   isSameWeek,
-  format,
 } from "date-fns";
 import CalendarCell from "./CalendarCell";
 import { useAppStore } from "@/store/useAppStore";
 import CalendarHeader from "./CalendarHeader";
 import { useCallback, useState, useMemo } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import type { HeatmapCell } from "@/types/heatmap";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import DailyHeatmap from "./DailyHeatmap";
+import { getCalendarDays } from "@/helpers/calendar";
 
 export type ViewMode = "monthly" | "weekly" | "daily";
+interface CalendarHeatmapProps {
+  progress?: number;
+  isStreaming?: boolean;
+}
+
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const CalendarDays = ({ viewMode }: { viewMode: ViewMode }) => {
-  if (viewMode === "daily") {
-    return (
-      <div className="text-center text-lg font-medium text-gray-500 py-2">
-        Daily View
-      </div>
-    );
-  }
+  if (viewMode === "daily") return null;
 
   return (
     <div className="grid grid-cols-7 gap-3 px-2 py-2">
-      {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+      {DAYS.map((day) => (
         <div
           key={day}
           className="text-center text-lg font-medium text-gray-500"
@@ -43,86 +41,69 @@ const CalendarDays = ({ viewMode }: { viewMode: ViewMode }) => {
   );
 };
 
-export default function CalendarHeatmap() {
-  const {
-    selectedDate,
-    setSelectedDate,
-    processedHeatmapData: heatmapData,
-  } = useAppStore();
-  const [currentMonth, setCurrentMonth] = useState<Date>(
+type CalendarGridProps = {
+  viewMonth: Date;
+  selectedDate: Date | null;
+  onDateClick: (date: Date, cell?: HeatmapCell) => void;
+  isStreaming: boolean;
+  progress: number;
+  days: Date[];
+};
+
+function CalendarGrid({
+  viewMonth,
+  selectedDate,
+  onDateClick,
+  isStreaming,
+  progress,
+  days,
+}: CalendarGridProps) {
+  return (
+    <TooltipProvider delayDuration={150}>
+      <div className="grid grid-cols-7 gap-3 pt-2 text-lg">
+        {days.map((day, index) => {
+          const isCurrentMonth = isSameMonth(day, viewMonth);
+
+          if (isStreaming && index >= Math.floor(days.length * progress)) {
+            return (
+              <div key={day.getTime()} className="relative">
+                <Skeleton className="h-24 w-full" />
+                <div className="absolute inset-0 bg-[#bb9c2d]/5 rounded-md" />
+              </div>
+            );
+          }
+
+          return (
+            <CalendarCell
+              key={day.getTime()}
+              selectedDate={selectedDate}
+              day={day}
+              isCurrentMonth={isCurrentMonth}
+              onDateClick={(cell) => onDateClick(day, cell)}
+            />
+          );
+        })}
+      </div>
+    </TooltipProvider>
+  );
+}
+
+export default function CalendarHeatmap({
+  progress = 1,
+  isStreaming = false,
+}: CalendarHeatmapProps) {
+  const { processedHeatmapData: heatmapData, openDescriptionPanel } =
+    useAppStore();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>("monthly");
+  const [viewMonth, setViewMonth] = useState<Date>(
     startOfMonth(selectedDate ?? new Date())
   );
-  const [viewMode, setViewMode] = useState<ViewMode>("monthly");
 
-  // Calculate date ranges based on view mode
-  // const dateRange = useMemo(() => {
-  //   switch (viewMode) {
-  //     case "monthly":
-  //       return {
-  //         start: startOfMonth(currentMonth),
-  //         end: endOfMonth(currentMonth),
-  //       };
-  //     case "weekly":
-  //       const weekStart = startOfWeek(currentMonth, { weekStartsOn: 1 }); // Monday start
-  //       return {
-  //         start: weekStart,
-  //         end: endOfWeek(currentMonth, { weekStartsOn: 1 }),
-  //       };
-  //     case "daily":
-  //       return {
-  //         start: startOfDay(currentMonth),
-  //         end: endOfDay(currentMonth),
-  //       };
-  //     default:
-  //       return {
-  //         start: startOfMonth(currentMonth),
-  //         end: endOfMonth(currentMonth),
-  //       };
-  //   }
-  // }, [currentMonth, viewMode]);
-
-  const allDays = useMemo(() => {
-    switch (viewMode) {
-      case "monthly":
-        const monthStart = startOfMonth(currentMonth);
-        const monthEnd = endOfMonth(currentMonth);
-        const startDay = getDay(monthStart);
-        const daysFromPrevMonth = startDay === 0 ? 6 : startDay - 1;
-
-        const prevMonthDays = eachDayOfInterval({
-          start: addMonths(monthStart, -1),
-          end: addMonths(monthEnd, -1),
-        }).slice(-daysFromPrevMonth);
-
-        const currentMonthDays = eachDayOfInterval({
-          start: monthStart,
-          end: monthEnd,
-        });
-
-        const totalDays = currentMonthDays.length;
-        const daysFromNextMonth = 5 * 7 - (daysFromPrevMonth + totalDays);
-
-        const nextMonthDays = eachDayOfInterval({
-          start: addMonths(monthStart, 1),
-          end: addMonths(monthEnd, 1),
-        }).slice(0, daysFromNextMonth);
-
-        return [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
-
-      case "weekly":
-        const weekStart = startOfWeek(currentMonth, { weekStartsOn: 1 });
-        return eachDayOfInterval({
-          start: weekStart,
-          end: endOfWeek(currentMonth, { weekStartsOn: 1 }),
-        });
-
-      case "daily":
-        return [currentMonth];
-
-      default:
-        return [];
-    }
-  }, [currentMonth, viewMode]);
+  const allDays = useMemo(
+    () => getCalendarDays(viewMonth, viewMode),
+    [viewMonth, viewMode]
+  );
 
   const filteredHeatmapData = useMemo(() => {
     if (!heatmapData || heatmapData.length === 0) return [];
@@ -132,19 +113,19 @@ export default function CalendarHeatmap() {
 
       switch (viewMode) {
         case "monthly":
-          return isSameMonth(cellDate, currentMonth);
+          return isSameMonth(cellDate, viewMonth);
         case "weekly":
-          return isSameWeek(cellDate, currentMonth, { weekStartsOn: 1 });
+          return isSameWeek(cellDate, viewMonth, { weekStartsOn: 1 });
         case "daily":
-          return isSameDay(cellDate, currentMonth);
+          return isSameDay(cellDate, viewMonth);
         default:
           return false;
       }
     });
-  }, [heatmapData, currentMonth, viewMode]);
+  }, [heatmapData, viewMonth, viewMode]);
 
   const handleMonthChange = useCallback((newMonth: Date) => {
-    setCurrentMonth(newMonth);
+    setViewMonth(newMonth);
   }, []);
 
   const handleViewModeChange = useCallback((mode: ViewMode) => {
@@ -154,103 +135,48 @@ export default function CalendarHeatmap() {
   }, []);
 
   const handleDateClick = useCallback(
-    (date: Date) => {
+    (date: Date, cell?: HeatmapCell) => {
+      if (!cell) return;
       setSelectedDate(date);
+      const index = heatmapData.findIndex((d) => d.date === cell.date);
+      const history = heatmapData.slice(Math.max(0, index - 30), index + 1);
+      openDescriptionPanel({ cell, history }, () => {
+        setSelectedDate(null);
+      });
     },
-    [setSelectedDate]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [heatmapData]
   );
-
-  const handleCloseModal = useCallback(() => {
-    setSelectedDate(null);
-  }, [setSelectedDate]);
 
   const renderHeatmap = () => {
     switch (viewMode) {
       case "monthly":
         return (
-          <div className="grid grid-cols-7 gap-3 pt-2 text-lg">
-            {allDays.map((day) => (
-              <CalendarCell
-                key={day.toISOString()}
-                day={day}
-                isCurrentMonth={isSameMonth(day, currentMonth)}
-                onDateClick={(iso, cell) => handleDateClick(day)}
-                onCloseModal={handleCloseModal}
-              />
-            ))}
-          </div>
+          <CalendarGrid
+            viewMonth={viewMonth}
+            selectedDate={selectedDate}
+            onDateClick={handleDateClick}
+            isStreaming={isStreaming}
+            progress={progress}
+            days={allDays}
+          />
         );
-
+      // TODO: Remove this once we have a proper weekly view
       case "weekly":
         return (
-          <div className="grid grid-cols-7 gap-3 pt-2 text-lg">
-            {allDays.map((day) => (
-              <CalendarCell
-                key={day.toISOString()}
-                day={day}
-                isCurrentMonth={true}
-                onDateClick={(iso, cell) => handleDateClick(day)}
-              />
-            ))}
-          </div>
+          <CalendarGrid
+            viewMonth={viewMonth}
+            selectedDate={selectedDate}
+            onDateClick={handleDateClick}
+            isStreaming={isStreaming}
+            progress={progress}
+            days={allDays}
+          />
         );
 
       case "daily":
-        const dayData = filteredHeatmapData.find((cell) =>
-          isSameDay(new Date(cell.date), currentMonth)
-        );
 
-        return (
-          <div className="pt-4">
-            <div className="bg-[#1e2126] rounded-lg p-6 border border-[#2a2d36]">
-              <h3 className="text-xl font-semibold text-[#bb9c2d] mb-4">
-                {format(currentMonth, "EEEE, MMMM d, yyyy")}
-              </h3>
-              {dayData ? (
-                <div className="space-y-3">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-[#16171E] p-3 rounded border border-[#2a2d36]">
-                      <p className="text-sm text-[#7c8796]">Open</p>
-                      <p className="text-lg font-semibold text-white">
-                        ${dayData.open}
-                      </p>
-                    </div>
-                    <div className="bg-[#16171E] p-3 rounded border border-[#2a2d36]">
-                      <p className="text-sm text-[#7c8796]">Close</p>
-                      <p className="text-lg font-semibold text-white">
-                        ${dayData.close}
-                      </p>
-                    </div>
-                    <div className="bg-[#16171E] p-3 rounded border border-[#2a2d36]">
-                      <p className="text-sm text-[#7c8796]">High</p>
-                      <p className="text-lg font-semibold text-white">
-                        ${dayData.high}
-                      </p>
-                    </div>
-                    <div className="bg-[#16171E] p-3 rounded border border-[#2a2d36]">
-                      <p className="text-sm text-[#7c8796]">Low</p>
-                      <p className="text-lg font-semibold text-white">
-                        ${dayData.low}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="bg-[#16171E] p-3 rounded border border-[#2a2d36]">
-                    <p className="text-sm text-[#7c8796]">Volume</p>
-                    <p className="text-lg font-semibold text-white">
-                      {dayData.volume.toLocaleString()}
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <p className="text-[#7c8796]">
-                    No data available for this date
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        );
+        return <DailyHeatmap heatmapData={filteredHeatmapData} viewMonth={viewMonth} />;
 
       default:
         return null;
@@ -260,7 +186,7 @@ export default function CalendarHeatmap() {
   return (
     <div className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-[#0a0a0a] px-12 py-6">
       <CalendarHeader
-        currMonth={currentMonth}
+        viewMonth={viewMonth}
         onMonthChange={handleMonthChange}
         viewMode={viewMode}
         onViewModeChange={handleViewModeChange}

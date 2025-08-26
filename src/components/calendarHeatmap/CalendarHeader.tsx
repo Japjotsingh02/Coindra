@@ -11,35 +11,35 @@ import { ViewMode } from "./CalendarHeatmap";
 import { useCallback } from "react";
 
 type CalendarHeaderProps = {
-  currMonth: Date;
+  viewMonth: Date;
   onMonthChange: (date: Date) => void;
   viewMode: ViewMode;
   onViewModeChange: (viewMode: ViewMode) => void;
 };
 
 const CalendarHeader = ({
-  currMonth,
+  viewMonth,
   onMonthChange,
   viewMode,
   onViewModeChange,
 }: CalendarHeaderProps) => {
   const changeDate = useCallback(
     (amount: number) => {
-      let newDate = new Date(currMonth);
+      let newDate = new Date(viewMonth);
       switch (viewMode) {
         case "monthly":
-          newDate = amount > 0 ? addMonths(currMonth, amount) : subMonths(currMonth, -amount);
+          newDate = amount > 0 ? addMonths(viewMonth, amount) : subMonths(viewMonth, -amount);
           break;
         case "weekly":
-          newDate.setDate(currMonth.getDate() + (7 * amount));
+          newDate.setDate(viewMonth.getDate() + (7 * amount));
           break;
         case "daily":
-          newDate.setDate(currMonth.getDate() + amount);
+          newDate.setDate(viewMonth.getDate() + amount);
           break;
       }
       onMonthChange(newDate);
     },
-    [currMonth, onMonthChange, viewMode]
+    [viewMonth, onMonthChange, viewMode]
   );
 
   const onToday = useCallback(() => {
@@ -50,9 +50,9 @@ const CalendarHeader = ({
   const getTitle = () => {
     switch (viewMode) {
       case "monthly":
-        return format(currMonth, "MMMM yyyy");
+        return format(viewMonth, "MMMM yyyy");
       case "weekly":
-        const weekStart = startOfWeek(currMonth, { weekStartsOn: 1 });
+        const weekStart = startOfWeek(viewMonth, { weekStartsOn: 1 });
         const weekEnd = new Date(weekStart);
         weekEnd.setDate(weekStart.getDate() + 6);
 
@@ -68,9 +68,9 @@ const CalendarHeader = ({
           )}`;
         }
       case "daily":
-        return format(currMonth, "EEEE, MMMM d, yyyy");
+        return format(viewMonth, "EEEE, MMMM d, yyyy");
       default:
-        return format(currMonth, "MMMM yyyy");
+        return format(viewMonth, "MMMM yyyy");
     }
   };
 
