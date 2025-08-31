@@ -225,10 +225,10 @@ export default function CalendarCell({
               "h-56": viewMode === "weekly", // More height for weekly view
               "opacity-60": !isCurrentMonth,
               "ring-2 ring-[#bc7129] ring-offset-0": selected,
-              "bg-gradient-to-br from-[#1a1d24] to-[#1e2126] border border-[#2a2d36]":
+              "bg-gradient-to-br from-surface to-surface-border border border-surface-ring":
                 !hasData,
-              "hover:border-[#bb9c2d]/30": !hasData,
-              "hover:shadow-lg hover:shadow-[#bb9c2d]/5": !hasData,
+              "hover:border-brand/30": !hasData,
+              "hover:shadow-lg hover:shadow-brand/5": !hasData,
             },
             className
           )}
@@ -236,7 +236,7 @@ export default function CalendarCell({
         >
           <span
             className={cn("text-xl font-medium", {
-              "text-[#bb9c2d]": hasData,
+              "text-brand": hasData,
               "text-[#6b7280]": !isCurrentMonth,
               "text-[#9ca3af]": !hasData && isCurrentMonth,
             })}
@@ -269,7 +269,7 @@ export default function CalendarCell({
             <>
               {/* Subtle pattern overlay */}
               <div className="absolute inset-0 opacity-5">
-                <div className="w-full h-full bg-gradient-to-br from-[#bb9c2d] to-transparent rounded-md" />
+                <div className="w-full h-full bg-gradient-to-br from-brand to-transparent rounded-md" />
               </div>
 
               {/* No data indicator */}
@@ -279,12 +279,12 @@ export default function CalendarCell({
                   viewMode === "weekly" ? "bottom-3" : "bottom-2"
                 )}
               >
-                <div className="h-3 bg-gradient-to-r from-[#2a2d36] to-[#1e2126] rounded opacity-40" />
+                <div className="h-3 bg-gradient-to-r from-surface-ring to-surface-border rounded opacity-40" />
               </div>
 
               {/* Subtle corner accent */}
               <div className="absolute top-2 right-2">
-                <div className="h-1.5 w-1.5 bg-[#bb9c2d]/20 rounded-full" />
+                <div className="h-1.5 w-1.5 bg-brand/20 rounded-full" />
               </div>
             </>
           )}

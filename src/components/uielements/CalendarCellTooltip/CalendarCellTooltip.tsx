@@ -12,7 +12,7 @@ const TooltipMetric = ({
   value: string | number;
 }) => (
   <div className="text-center">
-    <div className="text-xs text-[#7c8796] font-medium uppercase tracking-wide mb-1">
+    <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
       {title}
     </div>
     <div className="text-lg font-bold text-white">{value}</div>
@@ -27,11 +27,11 @@ const TooltipPriceMetric = ({
   value: string | number;
 }) => (
   <div className="text-center">
-    <div className="text-xs text-[#7c8796] font-medium uppercase tracking-wide mb-1">
+    <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
       {title}
     </div>
     <div className="text-base font-bold text-white">
-      <span className="text-xs text-[#7c8796]">₹</span>
+      <span className="text-xs text-muted-secondary">₹</span>
       {value}
     </div>
   </div>
@@ -71,7 +71,7 @@ const RiskLevelBadge = ({ cell }: { cell: HeatmapCell }) => {
 
   return (
     <div className="text-center">
-      <div className="text-xs text-[#7c8796] font-medium uppercase tracking-wide mb-1">
+      <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
         Risk Level
       </div>
       <div
@@ -96,13 +96,13 @@ export const CalendarCellTooltip = ({
   <TooltipContent
     side="top"
     align="center"
-    className={`p-4 bg-[#1a1d24] border border-[#2a2d36] shadow-2xl rounded-lg min-w-[${
+    className={`p-4 bg-surface border border-surface-ring shadow-2xl rounded-lg min-w-[${
       !cell ? "200px" : "280px"
     }] -mt-6`}
   >
     <div className={`space-y-${!cell ? "2" : "3"}`}>
       <div className="text-center">
-        <h3 className="text-lg font-bold text-[#bb9c2d]">{iso}</h3>
+        <h3 className="text-lg font-bold text-brand">{iso}</h3>
         {cell ? (
           <>
             <div className="grid grid-cols-2 gap-4">
@@ -144,7 +144,7 @@ export const CalendarCellTooltip = ({
             <RiskLevelBadge cell={cell} />
           </>
         ) : (
-          <p className="text-sm text-[#7c8796]">No market data available</p>
+          <p className="text-sm text-muted-secondary">No market data available</p>
         )}
       </div>
     </div>

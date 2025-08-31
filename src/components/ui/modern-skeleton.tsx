@@ -37,7 +37,7 @@ export function ModernCalendarSkeleton() {
 
   return (
     <motion.div
-      className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-[#0a0a0a] px-12 py-6"
+      className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-background-dark px-12 py-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -49,24 +49,24 @@ export function ModernCalendarSkeleton() {
       >
         <div className="flex items-center space-x-4">
           <motion.div
-            className="h-8 w-32 bg-gradient-to-r from-[#1e2126] to-[#2a2d36] rounded-lg"
+            className="h-8 w-32 bg-gradient-to-r from-surface-border to-surface-ring rounded-lg"
             variants={pulseVariants}
             initial="initial"
             animate="animate"
           />
           <motion.div
-            className="h-10 w-20 bg-gradient-to-r from-[#bb9c2d] to-[#bc7129] rounded-lg"
+            className="h-10 w-20 bg-gradient-to-r from-brand to-[#bc7129] rounded-lg"
             variants={pulseVariants}
             initial="initial"
             animate="animate"
           />
         </div>
         <div className="flex items-center space-x-2">
-          <div className="flex items-center border border-[#1e2126] rounded-lg bg-[#1e2126] overflow-hidden">
+          <div className="flex items-center border border-surface-border rounded-lg bg-surface-border overflow-hidden">
             {[1, 2, 3].map((i) => (
               <motion.div
                 key={i}
-                className="h-10 w-16 bg-gradient-to-r from-[#2a2d36] to-[#1e2126]"
+                className="h-10 w-16 bg-gradient-to-r from-surface-ring to-surface-border"
                 variants={pulseVariants}
                 initial="initial"
                 animate="animate"
@@ -75,13 +75,13 @@ export function ModernCalendarSkeleton() {
             ))}
           </div>
           <motion.div
-            className="h-10 w-10 bg-gradient-to-r from-[#2a2d36] to-[#1e2126] rounded-lg"
+            className="h-10 w-10 bg-gradient-to-r from-surface-ring to-surface-border rounded-lg"
             variants={pulseVariants}
             initial="initial"
             animate="animate"
           />
           <motion.div
-            className="h-10 w-10 bg-gradient-to-r from-[#2a2d36] to-[#1e2126] rounded-lg"
+            className="h-10 w-10 bg-gradient-to-r from-surface-ring to-surface-border rounded-lg"
             variants={pulseVariants}
             initial="initial"
             animate="animate"
@@ -102,7 +102,7 @@ export function ModernCalendarSkeleton() {
             transition={{ delay: i * 0.05 }}
           >
             <motion.div
-              className="h-6 w-12 mx-auto bg-gradient-to-r from-[#1e2126] to-[#2a2d36] rounded"
+              className="h-6 w-12 mx-auto bg-gradient-to-r from-surface-border to-surface-ring rounded"
               variants={pulseVariants}
               initial="initial"
               animate="animate"
@@ -124,7 +124,7 @@ export function ModernCalendarSkeleton() {
             transition={{ delay: i * 0.02 }}
           >
             <motion.div
-              className="h-24 w-full rounded-md bg-gradient-to-br from-[#1e2126] via-[#2a2d36] to-[#1e2126] relative overflow-hidden"
+              className="h-24 w-full rounded-md bg-gradient-to-br from-surface-border via-surface-ring to-surface-border relative overflow-hidden"
               variants={pulseVariants}
               initial="initial"
               animate="animate"
@@ -144,7 +144,7 @@ export function ModernCalendarSkeleton() {
               {/* Date placeholder */}
               <div className="absolute top-2 left-2">
                 <motion.div
-                  className="h-4 w-4 bg-gradient-to-r from-[#bb9c2d] to-[#bc7129] rounded"
+                  className="h-4 w-4 bg-gradient-to-r from-brand to-[#bc7129] rounded"
                   variants={pulseVariants}
                   initial="initial"
                   animate="animate"
@@ -154,7 +154,7 @@ export function ModernCalendarSkeleton() {
               {/* Sparkline placeholder */}
               <div className="absolute bottom-2 left-1 right-1">
                 <motion.div
-                  className="h-3 bg-gradient-to-r from-[#2a2d36] to-[#1e2126] rounded"
+                  className="h-3 bg-gradient-to-r from-surface-ring to-surface-border rounded"
                   variants={pulseVariants}
                   initial="initial"
                   animate="animate"
@@ -204,7 +204,7 @@ export function ModernWelcomeSkeleton() {
       >
         {/* Logo/Icon placeholder */}
         <motion.div
-          className="mx-auto w-20 h-20 bg-gradient-to-br from-[#bb9c2d] to-[#bc7129] rounded-full flex items-center justify-center"
+          className="mx-auto w-20 h-20 bg-gradient-to-br from-brand to-[#bc7129] rounded-full flex items-center justify-center"
           animate={{
             rotate: [0, 360],
             scale: [1, 1.1, 1],
@@ -232,7 +232,7 @@ export function ModernWelcomeSkeleton() {
           variants={itemVariants}
         >
           <motion.h2
-            className="text-3xl font-bold bg-gradient-to-r from-[#bb9c2d] to-[#bc7129] bg-clip-text text-transparent"
+            className="text-3xl font-bold bg-gradient-to-r from-brand to-[#bc7129] bg-clip-text text-transparent"
             animate={{
               backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
             }}
@@ -244,7 +244,7 @@ export function ModernWelcomeSkeleton() {
             Welcome to Coindra
           </motion.h2>
           <motion.p
-            className="text-[#7c8796] text-lg max-w-md mx-auto leading-relaxed"
+            className="text-muted-secondary text-lg max-w-md mx-auto leading-relaxed"
             variants={itemVariants}
           >
             Select a trading pair from the sidebar to explore market seasonality patterns
@@ -259,7 +259,7 @@ export function ModernWelcomeSkeleton() {
           {[1, 2, 3].map((i) => (
             <motion.div
               key={i}
-              className="w-2 h-2 bg-gradient-to-r from-[#bb9c2d] to-[#bc7129] rounded-full"
+              className="w-2 h-2 bg-gradient-to-r from-brand to-[#bc7129] rounded-full"
               animate={{
                 y: [0, -10, 0],
                 opacity: [0.5, 1, 0.5],

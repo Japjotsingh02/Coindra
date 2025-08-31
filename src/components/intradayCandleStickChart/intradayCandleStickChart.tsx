@@ -14,7 +14,7 @@ export default function IntradayCandlestickChart({
     return getCandlestickOption(candles);
   }, [candles]);
 
-//   <div className="text-sm text-[#7c8796]">
+//   <div className="text-sm text-muted-secondary">
 //   {candles.length > 0 ? `${candles.length} candles` : 'Loading...'}
 // </div>
 
@@ -23,7 +23,7 @@ export default function IntradayCandlestickChart({
        {candles.length > 0 && (
           <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <div className="text-xs text-[#7c8796] font-medium uppercase tracking-wide mb-1">
+              <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
                 Current Price
               </div>
               <div className="text-lg font-bold text-white">
@@ -31,7 +31,7 @@ export default function IntradayCandlestickChart({
               </div>
             </div>
             <div>
-              <div className="text-xs text-[#7c8796] font-medium uppercase tracking-wide mb-1">
+              <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
                 Today&apos;s High
               </div>
               <div className="text-lg font-bold text-green-400">
@@ -39,7 +39,7 @@ export default function IntradayCandlestickChart({
               </div>
             </div>
             <div>
-              <div className="text-xs text-[#7c8796] font-medium uppercase tracking-wide mb-1">
+              <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
                 Today&apos;s Low
               </div>
               <div className="text-lg font-bold text-red-400">
@@ -47,7 +47,7 @@ export default function IntradayCandlestickChart({
               </div>
             </div>
             <div>
-              <div className="text-xs text-[#7c8796] font-medium uppercase tracking-wide mb-1">
+              <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
                 Total Volume
               </div>
               <div className="text-lg font-bold text-white">
