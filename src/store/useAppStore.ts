@@ -5,7 +5,7 @@ import { create } from "zustand";
 
 export const useAppStore = create<AppState>((set) => ({
   filters: {
-    symbol: "BTCUSDT",
+    symbol: "ETH/BTC",
     volatility: true,
     liquidity: true,
     performance: true,
@@ -34,6 +34,7 @@ export const useAppStore = create<AppState>((set) => ({
   descriptionPanel: {
     open: false,
   },
+  viewMonth: new Date(),
   setRealtime: (partial) =>
     set((state) => ({
       realtime: {
@@ -67,4 +68,5 @@ export const useAppStore = create<AppState>((set) => ({
     }),
   setSelectedDate: (date) => set({ selectedDate: date }),
   setViewMode: (mode) => set({ viewMode: mode }),
+  setViewMonth: (date) => set({ viewMonth: date }),
 }));

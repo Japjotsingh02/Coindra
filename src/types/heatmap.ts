@@ -3,6 +3,7 @@ import { ColorVariant } from "./theme";
 
 export interface HeatmapCell extends Candle {
   liquidity: number;
+  liquidityScore: number;
   volatilityDaily: number;
   volatilityRolling: number | null;
   performancePct: number;

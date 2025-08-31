@@ -70,4 +70,6 @@ export interface AppState {
   setRealtime: (partial: Partial<RealtimeData>) => void;
   latestCandle: OHLC | null;
   setLatestCandle: (candle: OHLC) => void;
+  viewMonth: Date;
+  setViewMonth: (date: Date) => void;
 }

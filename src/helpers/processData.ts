@@ -14,7 +14,7 @@ export function processHeatmapData(
     value: c.close > 0 ? ((c.high - c.low) / c.close) * 100 : 0,
   }));
 
-  // Rolling volatility (7-day returns)
+  // Rolling volatility (7-day window)
   const rollingVolatilities: Record<string, number> = {};
 
   for (let i = 1; i < candles.length; i++) {
@@ -42,6 +42,9 @@ export function processHeatmapData(
   const allRollingVols = Object.values(rollingVolatilities);
   const maxVolatility = Math.max(Math.max(...allRollingVols), 0.001);
   const volThreshold = maxVolatility * 0.1;
+
+  const volumes = candles.map((c) => c.volume);
+  const maxVolume = Math.max(...volumes, 1);
 
   return candles.map((candle, idx) => {
     const volatilityDaily = dailyVolatilities[idx].value;
@@ -72,6 +75,9 @@ export function processHeatmapData(
       return dark.colorPalette.volatility.neutral;
     })();
 
+    const liquidityRaw = candle.volume;
+    const liquidityScore = (liquidityRaw / maxVolume) * 100;
+
     const prices7d = candles
       .slice(Math.max(0, idx - 6), idx + 1)
       .map((c) => c.close);
@@ -80,7 +86,8 @@ export function processHeatmapData(
 
     return {
       ...candle,
-      liquidity: candle.volume,
+      liquidity: liquidityRaw,
+      liquidityScore,
       volatilityDaily,
       volatilityRolling,
       performancePct,
