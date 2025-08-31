@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  startOfMonth,
-  isSameDay,
-  isSameMonth,
-  isSameWeek,
-} from "date-fns";
+import { isSameDay, isSameMonth } from "date-fns";
 import CalendarCell from "./CalendarCell";
 import { useAppStore } from "@/store/useAppStore";
 import CalendarHeader from "./CalendarHeader";
@@ -15,6 +10,7 @@ import type { HeatmapCell } from "@/types/heatmap";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import DailyHeatmap from "./DailyHeatmap";
 import { getCalendarDays } from "@/helpers/calendar";
+import { cn } from "@/lib/utils";
 
 export type ViewMode = "monthly" | "weekly" | "daily";
 interface CalendarHeatmapProps {
@@ -48,6 +44,7 @@ type CalendarGridProps = {
   isStreaming: boolean;
   progress: number;
   days: Date[];
+  viewMode: ViewMode;
 };
 
 function CalendarGrid({
@@ -57,17 +54,29 @@ function CalendarGrid({
   isStreaming,
   progress,
   days,
+  viewMode,
 }: CalendarGridProps) {
   return (
     <TooltipProvider delayDuration={150}>
       <div className="grid grid-cols-7 gap-3 pt-2 text-lg">
         {days.map((day, index) => {
-          const isCurrentMonth = isSameMonth(day, viewMonth);
+          let isInView = false;
+
+          if (viewMode === "monthly") {
+            isInView = isSameMonth(day, viewMonth);
+          } else if (viewMode === "weekly") {
+            isInView = true;
+          } else if (viewMode === "daily") {
+            isInView = isSameDay(day, viewMonth);
+          }
 
           if (isStreaming && index >= Math.floor(days.length * progress)) {
             return (
               <div key={day.getTime()} className="relative">
-                <Skeleton className="h-24 w-full" />
+                <Skeleton className={cn(
+                  "w-full",
+                  viewMode === "weekly" ? "h-32" : "h-24"
+                )} />
                 <div className="absolute inset-0 bg-[#bb9c2d]/5 rounded-md" />
               </div>
             );
@@ -78,7 +87,8 @@ function CalendarGrid({
               key={day.getTime()}
               selectedDate={selectedDate}
               day={day}
-              isCurrentMonth={isCurrentMonth}
+              isCurrentMonth={isInView}
+              viewMode={viewMode}
               onDateClick={(cell) => onDateClick(day, cell)}
             />
           );
@@ -92,39 +102,52 @@ export default function CalendarHeatmap({
   progress = 1,
   isStreaming = false,
 }: CalendarHeatmapProps) {
-  const { processedHeatmapData: heatmapData, openDescriptionPanel } =
-    useAppStore();
+  const {
+    processedHeatmapData: heatmapData,
+    openDescriptionPanel,
+    viewMonth,
+    setViewMonth,
+    viewMode,
+    setViewMode,
+  } = useAppStore();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>("monthly");
-  const [viewMonth, setViewMonth] = useState<Date>(
-    startOfMonth(selectedDate ?? new Date())
-  );
 
   const allDays = useMemo(
     () => getCalendarDays(viewMonth, viewMode),
     [viewMonth, viewMode]
   );
 
+  // const filteredHeatmapData = useMemo(() => {
+  //   if (!heatmapData || heatmapData.length === 0) return [];
+
+  //   return heatmapData.filter((cell) => {
+  //     const cellDate = new Date(cell.date);
+
+  //     switch (viewMode) {
+  //       case "monthly":
+  //         return isSameMonth(cellDate, viewMonth);
+  //       case "weekly":
+  //         return isSameWeek(cellDate, viewMonth, { weekStartsOn: 1 });
+  //       case "daily":
+  //         return isSameDay(cellDate, viewMonth);
+  //       default:
+  //         return false;
+  //     }
+  //   });
+  // }, [heatmapData, viewMonth, viewMode]);
+
   const filteredHeatmapData = useMemo(() => {
     if (!heatmapData || heatmapData.length === 0) return [];
 
+    const daySet = new Set(allDays.map((d) => d.toDateString()));
     return heatmapData.filter((cell) => {
       const cellDate = new Date(cell.date);
-
-      switch (viewMode) {
-        case "monthly":
-          return isSameMonth(cellDate, viewMonth);
-        case "weekly":
-          return isSameWeek(cellDate, viewMonth, { weekStartsOn: 1 });
-        case "daily":
-          return isSameDay(cellDate, viewMonth);
-        default:
-          return false;
-      }
+      return daySet.has(cellDate.toDateString());
     });
-  }, [heatmapData, viewMonth, viewMode]);
+  }, [heatmapData, allDays]);
 
   const handleMonthChange = useCallback((newMonth: Date) => {
+    console.log("newMonth", newMonth);
     setViewMonth(newMonth);
   }, []);
 
@@ -148,6 +171,16 @@ export default function CalendarHeatmap({
     [heatmapData]
   );
 
+  const handleClickTodayCTA = useCallback(() => {
+    const today = new Date();
+    const cell = heatmapData.find((d) =>
+      isSameDay(new Date(`${d.date}T00:00:00Z`), today)
+    );
+    if (cell) {
+      handleDateClick(today, cell);
+    }
+  }, [heatmapData, handleDateClick]);
+
   const renderHeatmap = () => {
     switch (viewMode) {
       case "monthly":
@@ -159,6 +192,7 @@ export default function CalendarHeatmap({
             isStreaming={isStreaming}
             progress={progress}
             days={allDays}
+            viewMode={viewMode}
           />
         );
       // TODO: Remove this once we have a proper weekly view
@@ -171,12 +205,17 @@ export default function CalendarHeatmap({
             isStreaming={isStreaming}
             progress={progress}
             days={allDays}
+            viewMode={viewMode}
           />
         );
 
       case "daily":
-
-        return <DailyHeatmap heatmapData={filteredHeatmapData} viewMonth={viewMonth} />;
+        return (
+          <DailyHeatmap
+            heatmapData={filteredHeatmapData}
+            viewMonth={viewMonth}
+          />
+        );
 
       default:
         return null;
@@ -190,6 +229,7 @@ export default function CalendarHeatmap({
         onMonthChange={handleMonthChange}
         viewMode={viewMode}
         onViewModeChange={handleViewModeChange}
+        onClickToday={handleClickTodayCTA}
       />
 
       <CalendarDays viewMode={viewMode} />

@@ -179,6 +179,10 @@ const DetailedViewContent = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="flex-1 overflow-y-auto"
+            style={{
+              overflowY: 'scroll',
+              maxHeight: 'calc(100vh - 70px)'
+            }}
           >
             {/* Main Content */}
             <div className="px-6 py-6">
@@ -314,7 +318,7 @@ export default function CellDetailedView({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed top-0 right-0 h-full z-50 bg-[#1a1d24] border border-[#2a2d36] shadow-2xl rounded-l-2xl"
+            className="fixed top-0 right-0 h-full z-50 bg-[#1a1d24] border border-[#2a2d36] shadow-2xl"
             style={{
               width: isCollapsed ? "60px" : "600px",
               maxWidth: "600px",

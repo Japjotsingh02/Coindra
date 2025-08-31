@@ -4,6 +4,14 @@ import {
   subMonths,
   startOfWeek,
   isSameMonth,
+  isAfter,
+  startOfMonth,
+  addWeeks,
+  addDays,
+  subWeeks,
+  subDays,
+  endOfWeek,
+  getMonth,
 } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar, ChevronLeft, ChevronRight, Grid, List } from "lucide-react";
@@ -15,6 +23,7 @@ type CalendarHeaderProps = {
   onMonthChange: (date: Date) => void;
   viewMode: ViewMode;
   onViewModeChange: (viewMode: ViewMode) => void;
+  onClickToday: () => void;
 };
 
 const CalendarHeader = ({
@@ -22,21 +31,47 @@ const CalendarHeader = ({
   onMonthChange,
   viewMode,
   onViewModeChange,
+  onClickToday,
 }: CalendarHeaderProps) => {
   const changeDate = useCallback(
     (amount: number) => {
       let newDate = new Date(viewMonth);
+
       switch (viewMode) {
-        case "monthly":
-          newDate = amount > 0 ? addMonths(viewMonth, amount) : subMonths(viewMonth, -amount);
+        case "monthly": {
+          newDate =
+            amount > 0
+              ? addMonths(viewMonth, amount)
+              : subMonths(viewMonth, -amount);
+          newDate = startOfMonth(newDate);
           break;
-        case "weekly":
-          newDate.setDate(viewMonth.getDate() + (7 * amount));
+        }
+        case "weekly": {
+          newDate =
+            amount > 0
+              ? addWeeks(viewMonth, amount)
+              : subWeeks(viewMonth, -amount);
+
+          const weekStart = startOfWeek(newDate, { weekStartsOn: 1 });
+          const weekEnd = endOfWeek(newDate, { weekStartsOn: 1 });
+
+          const startMonth = getMonth(weekStart);
+          const endMonth = getMonth(weekEnd);
+
+          if (startMonth !== endMonth) {
+            newDate = startOfMonth(weekEnd);
+          }
           break;
-        case "daily":
-          newDate.setDate(viewMonth.getDate() + amount);
+        }
+        case "daily": {
+          newDate =
+            amount > 0
+              ? addDays(viewMonth, amount)
+              : subDays(viewMonth, -amount);
           break;
+        }
       }
+
       onMonthChange(newDate);
     },
     [viewMonth, onMonthChange, viewMode]
@@ -45,6 +80,7 @@ const CalendarHeader = ({
   const onToday = useCallback(() => {
     const today = new Date();
     onMonthChange(today);
+    onClickToday();
   }, [onMonthChange]);
 
   const getTitle = () => {
@@ -53,8 +89,7 @@ const CalendarHeader = ({
         return format(viewMonth, "MMMM yyyy");
       case "weekly":
         const weekStart = startOfWeek(viewMonth, { weekStartsOn: 1 });
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekStart.getDate() + 6);
+        const weekEnd = addDays(weekStart, 6);
 
         if (isSameMonth(weekStart, weekEnd)) {
           return `${format(weekStart, "MMM d")} - ${format(
@@ -73,6 +108,19 @@ const CalendarHeader = ({
         return format(viewMonth, "MMMM yyyy");
     }
   };
+
+  const disableNext = useCallback(() => {
+    switch (viewMode) {
+      case "monthly":
+        return isAfter(addMonths(viewMonth, 1), startOfMonth(new Date()));
+      case "weekly":
+        return isAfter(addWeeks(viewMonth, 1), new Date());
+      case "daily":
+        return isAfter(addDays(viewMonth, 1), new Date());
+      default:
+        return false;
+    }
+  }, [viewMonth, viewMode]);
 
   return (
     <div className="flex items-center justify-between pt-2 pb-4">
@@ -96,7 +144,7 @@ const CalendarHeader = ({
             onClick={() => onViewModeChange("monthly")}
             className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
               viewMode === "monthly"
-                ? "bg-[#bb9c2d] text-white hover:bg-[#bb9c2d]/90"
+                ? "bg-[#1a1d24] text-[#bb9c2d] border-[#bb9c2d]/20"
                 : "bg-transparent text-white hover:bg-[#bb9c2d]/10 hover:text-[#bb9c2d]"
             }`}
           >
@@ -108,7 +156,7 @@ const CalendarHeader = ({
             onClick={() => onViewModeChange("weekly")}
             className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
               viewMode === "weekly"
-                ? "bg-[#bb9c2d] text-white hover:bg-[#bb9c2d]/90"
+                ? "bg-[#1a1d24] text-[#bb9c2d] border-[#bb9c2d]/20"
                 : "bg-transparent text-white hover:bg-[#bb9c2d]/10 hover:text-[#bb9c2d]"
             }`}
           >
@@ -120,7 +168,7 @@ const CalendarHeader = ({
             onClick={() => onViewModeChange("daily")}
             className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
               viewMode === "daily"
-                ? "bg-[#bb9c2d] text-white hover:bg-[#bb9c2d]/90"
+                ? "bg-[#1a1d24] text-[#bb9c2d] border-[#bb9c2d]/20"
                 : "bg-transparent text-white hover:bg-[#bb9c2d]/10 hover:text-[#bb9c2d]"
             }`}
           >
@@ -130,7 +178,13 @@ const CalendarHeader = ({
         <Button variant="outline" size="lg" onClick={() => changeDate(-1)}>
           <ChevronLeft className="size-5" />
         </Button>
-        <Button variant="outline" size="lg" onClick={() => changeDate(1)}>
+        <Button
+          variant="outline"
+          size="lg"
+          onClick={() => changeDate(1)}
+          disabled={disableNext()}
+          className="disabled:opacity-50 disabled:cursor-not-allowed"
+        >
           <ChevronRight className="size-5" />
         </Button>
       </div>
