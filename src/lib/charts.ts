@@ -275,7 +275,7 @@ export function getCandlestickOption(candles: Candle[]) {
       backgroundColor: "#1a1d24",
       borderColor: "#2a2d36",
       textStyle: { color: "#fff" },
-      formatter: (params: { data: [number, number, number, number]; axisValue: string }) => {
+      formatter: (params: { data: [number, number, number, number]; axisValue: string }[]) => {
         const d = params[0];
         const [open, close, low, high] = d.data;
         return `
