@@ -2,14 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchBinanceCandles } from "@/lib/binance";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  BinanceRealTimeData,
+  // BinanceRealTimeData,
   Candle,
-  KlineData,
-  OHLC,
-  TickerData,
+  // KlineData,
+  // OHLC,
+  // TickerData,
 } from "@/types/candle";
-import { useAppStore } from "@/store/useAppStore";
-import { RealtimeData } from "@/types/store.types";
+// import { useAppStore } from "@/store/useAppStore";
+// import { RealtimeData } from "@/types/store.types";
 
 // export const useBinanceQuery = (symbol: string) =>
 //   useQuery<Candle[], Error>({
@@ -57,79 +57,79 @@ export function useMonthlyCandles(symbol: string, currentMonth: Date) {
   return query;
 }
 
-export default function useBinanceRealTimeData(symbol: string = "BTCUSDT") {
-  const setRealtime = useAppStore((s) => s.setRealtime);
-  const setLatestCandle = useAppStore((s) => s.setLatestCandle);
+// export default function useBinanceRealTimeData(symbol: string = "BTCUSDT") {
+//   const setRealtime = useAppStore((s) => s.setRealtime);
+//   const setLatestCandle = useAppStore((s) => s.setLatestCandle);
 
-  const frameRequestRef = useRef<number | null>(null);
-  const queuedUpdate = useRef<Partial<BinanceRealTimeData> | null>(null);
+//   const frameRequestRef = useRef<number | null>(null);
+//   const queuedUpdate = useRef<Partial<BinanceRealTimeData> | null>(null);
 
-  const scheduleUpdate = (partial: Partial<RealtimeData>) => {
-    queuedUpdate.current = { ...queuedUpdate.current, ...partial };
-    if (!frameRequestRef.current) {
-      frameRequestRef.current = requestAnimationFrame(() => {
-        setRealtime(queuedUpdate.current || {});
-        queuedUpdate.current = null;
-        frameRequestRef.current = null;
-      });
-    }
-  };
+//   const scheduleUpdate = (partial: Partial<RealtimeData>) => {
+//     queuedUpdate.current = { ...queuedUpdate.current, ...partial };
+//     if (!frameRequestRef.current) {
+//       frameRequestRef.current = requestAnimationFrame(() => {
+//         setRealtime(queuedUpdate.current || {});
+//         queuedUpdate.current = null;
+//         frameRequestRef.current = null;
+//       });
+//     }
+//   };
 
-  useEffect(() => {
-    if (!symbol) return;
-    const formatted = symbol.replace("/", "").toLowerCase();
+//   useEffect(() => {
+//     if (!symbol) return;
+//     const formatted = symbol.replace("/", "").toLowerCase();
 
-    const tickerWs = new WebSocket(
-      `wss://stream.binance.com:9443/ws/${formatted}@ticker`
-    );
-    const klineWs = new WebSocket(
-      `wss://stream.binance.com:9443/ws/${formatted}@kline_1m`
-    );
+//     const tickerWs = new WebSocket(
+//       `wss://stream.binance.com:9443/ws/${formatted}@ticker`
+//     );
+//     const klineWs = new WebSocket(
+//       `wss://stream.binance.com:9443/ws/${formatted}@kline_1m`
+//     );
 
-    tickerWs.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data) as TickerData;
-        scheduleUpdate({
-          volume24h: parseFloat(data.v),
-          priceChange24h: parseFloat(data.p),
-          priceChangePercent24h: parseFloat(data.P),
-          high24h: parseFloat(data.h),
-          low24h: parseFloat(data.l),
-        });
-      } catch (error) {
-        console.error("Error parsing ticker data:", error);
-      }
-    };
+//     tickerWs.onmessage = (event) => {
+//       try {
+//         const data = JSON.parse(event.data) as TickerData;
+//         scheduleUpdate({
+//           volume24h: parseFloat(data.v),
+//           priceChange24h: parseFloat(data.p),
+//           priceChangePercent24h: parseFloat(data.P),
+//           high24h: parseFloat(data.h),
+//           low24h: parseFloat(data.l),
+//         });
+//       } catch (error) {
+//         console.error("Error parsing ticker data:", error);
+//       }
+//     };
 
-    klineWs.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data) as KlineData;
-        if (!data.k) return;
-        const k = data.k;
-        const liveCandle = [
-          parseFloat(k.o),
-          parseFloat(k.h),
-          parseFloat(k.l),
-          parseFloat(k.c),
-        ] as OHLC;
-        setLatestCandle(liveCandle);
-        scheduleUpdate({ price: parseFloat(k.c) });
-      } catch (error) {
-        console.error("Error parsing kline data:", error);
-      }
-    };
+//     klineWs.onmessage = (event) => {
+//       try {
+//         const data = JSON.parse(event.data) as KlineData;
+//         if (!data.k) return;
+//         const k = data.k;
+//         const liveCandle = [
+//           parseFloat(k.o),
+//           parseFloat(k.h),
+//           parseFloat(k.l),
+//           parseFloat(k.c),
+//         ] as OHLC;
+//         setLatestCandle(liveCandle);
+//         scheduleUpdate({ price: parseFloat(k.c) });
+//       } catch (error) {
+//         console.error("Error parsing kline data:", error);
+//       }
+//     };
 
-    return () => {
-      tickerWs.close();
-      klineWs.close();
-      if (frameRequestRef.current)
-        cancelAnimationFrame(frameRequestRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [symbol, setRealtime]);
+//     return () => {
+//       tickerWs.close();
+//       klineWs.close();
+//       if (frameRequestRef.current)
+//         cancelAnimationFrame(frameRequestRef.current);
+//     };
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [symbol, setRealtime]);
 
-  return useAppStore((s) => s.realtime);
-}
+//   return useAppStore((s) => s.realtime);
+// }
 
 export function useIntradayCandles(symbol: string = "BTCUSDT") {
   const [candles, setCandles] = useState<Candle[]>([]);
@@ -213,28 +213,28 @@ export function useIntradayCandles(symbol: string = "BTCUSDT") {
 }
 
 // Hook specifically for DescriptionModal with enhanced data
-export function useDescriptionModalRealTimeData(symbol: string) {
-  const realtimeData = useBinanceRealTimeData(symbol);
+// export function useDescriptionModalRealTimeData(symbol: string) {
+//   const realtimeData = useBinanceRealTimeData(symbol);
 
-  // Calculate additional metrics
-  const currentVolatility = useMemo(() => {
-    if (!realtimeData.high24h || !realtimeData.low24h || !realtimeData.price)
-      return null;
-    return (
-      ((realtimeData.high24h - realtimeData.low24h) / realtimeData.price) * 100
-    );
-  }, [realtimeData.high24h, realtimeData.low24h, realtimeData.price]);
+//   // Calculate additional metrics
+//   const currentVolatility = useMemo(() => {
+//     if (!realtimeData.high24h || !realtimeData.low24h || !realtimeData.price)
+//       return null;
+//     return (
+//       ((realtimeData.high24h - realtimeData.low24h) / realtimeData.price) * 100
+//     );
+//   }, [realtimeData.high24h, realtimeData.low24h, realtimeData.price]);
 
-  const priceChangeColor = useMemo(() => {
-    if (!realtimeData.priceChangePercent24h) return "text-gray-400";
-    return realtimeData.priceChangePercent24h >= 0
-      ? "text-green-400"
-      : "text-red-400";
-  }, [realtimeData.priceChangePercent24h]);
+//   const priceChangeColor = useMemo(() => {
+//     if (!realtimeData.priceChangePercent24h) return "text-gray-400";
+//     return realtimeData.priceChangePercent24h >= 0
+//       ? "text-green-400"
+//       : "text-red-400";
+//   }, [realtimeData.priceChangePercent24h]);
 
-  return {
-    ...realtimeData,
-    currentVolatility,
-    priceChangeColor,
-  };
-}
+//   return {
+//     ...realtimeData,
+//     currentVolatility,
+//     priceChangeColor,
+//   };
+// }

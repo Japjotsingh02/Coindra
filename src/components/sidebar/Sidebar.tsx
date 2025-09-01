@@ -13,6 +13,7 @@ import { DateRangeFilter } from "../dateRangeFilter/DateRangeFilter";
 import { useAppStore } from "@/store/useAppStore";
 import { fetchSymbols } from "@/lib/binance";
 import { Filters } from "@/types/store.types";
+import { ThemeToggle } from "@/components/uielements/themeToggle/theme-toggle";
 
 function SymbolSelector({
   filters,
@@ -27,7 +28,7 @@ function SymbolSelector({
 }) {
   return (
     <div className="space-y-3">
-      <label className="text-sm font-medium text-[#7c8796] tracking-wide uppercase block">
+      <label className="text-sm font-medium text-muted-secondary tracking-wide uppercase block">
         Trading Pair
       </label>
       <Select
@@ -36,19 +37,19 @@ function SymbolSelector({
         onValueChange={(value) => updateFilter("symbol", value)}
       >
         <SelectTrigger
-          className={`w-full rounded border border-[#1e2126] bg-[#16171E] px-3 py-2.5 ${
-            filters.symbol ? "text-[#bb9c2d]" : "text-[#aaabac]"
-          } text-base font-medium transition-all duration-200 hover:border-[#bb9c2d]/30 focus:border-[#bb9c2d] focus:ring-1 focus:ring-[#bb9c2d]/20 h-11!`}
+          className={`w-full rounded border border-surface-border bg-background-input px-3 py-2.5 ${
+            filters.symbol ? "text-brand" : "text-ash"
+          } text-base font-medium transition-all duration-200 hover:border-brand/30 focus:border-brand focus:ring-1 focus:ring-brand/20 h-11!`}
         >
           <SelectValue placeholder="Choose trading pair" />
         </SelectTrigger>
 
-        <SelectContent className="bg-[#16171E] border border-[#1e2126] rounded-lg shadow-xl">
+        <SelectContent className="bg-background-input border border-surface-border rounded-lg shadow-xl">
           {isLoading ? (
             <SelectItem
               disabled
               value="loading"
-              className="text-[#aaabac] text-sm bg-[#16171E] hover:bg-[#1e1f26] cursor-not-allowed"
+              className="text-ash text-sm bg-background-input hover:bg-surface-light cursor-not-allowed"
             >
               Loading pairs...
             </SelectItem>
@@ -57,7 +58,7 @@ function SymbolSelector({
               <SelectItem
                 key={symbol}
                 value={symbol}
-                className="text-[#aaabac] text-sm bg-[#16171E] hover:bg-[#1e1f26] hover:text-[#bb9c2d] transition-colors cursor-pointer"
+                className="text-ash text-sm bg-background-input hover:bg-surface-light hover:text-brand transition-colors cursor-pointer"
               >
                 {symbol}
               </SelectItem>
@@ -88,11 +89,11 @@ function FilterCheckboxes({
             onCheckedChange={(checked) =>
               updateFilter(key as keyof typeof filters, checked)
             }
-            className="h-6 w-6 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:stroke-[#bb9c2d] [&_svg]:!fill-transparent border-2 border-[#1e2126] data-[state=checked]:bg-transparent data-[state=checked]:border-[#1e2126]"
+            className="h-6 w-6 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:stroke-brand [&_svg]:!fill-transparent border-2 border-surface-border data-[state=checked]:bg-transparent data-[state=checked]:border-surface-border"
           />
           <label
             htmlFor={key}
-            className="text-xl font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-xl font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-label"
           >
             {key}
           </label>
@@ -102,11 +103,7 @@ function FilterCheckboxes({
   );
 }
 
-export default function Sidebar({
-  onChange,
-}: {
-  onChange: (filters: Filters) => void;
-}) {
+export default function Sidebar() {
   const { filters, setFilters } = useAppStore();
 
   const { data: symbols, isLoading } = useQuery<string[]>({
@@ -122,28 +119,31 @@ export default function Sidebar({
   const updateFilter = <K extends keyof Filters>(key: K, value: Filters[K]) => {
     const updated = { ...filters, [key]: value };
     setFilters(updated);
-    onChange(updated);
   };
 
   const handleDateChange = (range: { start: Date; end: Date }) => {
     updateFilter("dateRange", {
       startDate: range.start,
       endDate: range.end,
-    })
+    });
   };
 
   return (
-    <aside className="w-sm bg-[#0a0a0a] text-white p-6 flex flex-col gap-8 rounded-xl shadow-2xl border border-[#1e2126] backdrop-blur-sm">
-      <div className="flex items-center pb-4 border-b border-[#1e2126]/30">
-        <Image 
-          src="/logo.svg" 
-          alt="Coindra Logo" 
-          width={40} 
-          height={40} 
-          className="w-10 h-10"
-          priority
-        />
-        <h2 className="text-2xl font-bold text-[#bb9c2d] tracking-wide">Coindra</h2>
+    <aside className="w-sm bg-background-sidebar text-label p-6 flex flex-col gap-8 rounded-xl shadow-2xl border border-surface-border backdrop-blur-sm">
+      <div className="flex items-center justify-between pb-4">
+        <div className="flex items-center gap-1">
+          <div className="w-8 h-8 md:w-6 md:h-6 antialiased">
+            <Image 
+              src="/logo.svg" 
+              alt="Coindra Logo"
+              height={20}
+              width={20}
+              loading="lazy"
+            />
+          </div>
+          <h2 className="text-brand tracking-wide font-sans">Coindra</h2>
+        </div>
+        <ThemeToggle />
       </div>
 
       <div className="space-y-6">
@@ -155,14 +155,14 @@ export default function Sidebar({
         />
 
         <div className="space-y-3">
-          <label className="text-sm font-medium text-[#7c8796] tracking-wide uppercase block">
+          <label className="text-sm font-medium text-muted-secondary tracking-wide uppercase block">
             Data Filters
           </label>
           <FilterCheckboxes filters={filters} updateFilter={updateFilter} />
         </div>
 
         <div className="space-y-3">
-          <label className="text-sm font-medium text-[#7c8796] tracking-wide uppercase block">
+          <label className="text-sm font-medium text-muted-secondary tracking-wide uppercase block">
             Date Range
           </label>
           <DateRangeFilter

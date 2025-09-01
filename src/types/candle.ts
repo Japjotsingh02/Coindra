@@ -7,19 +7,19 @@ export interface Candle {
   volume: number;
 }
 
-  export interface EnhancedBinanceCandle extends Candle {
-  timestamp: number;
-  closeTime: number;
-  quoteAssetVolume: number;
-  numberOfTrades: number;
-  takerBuyBaseAssetVolume: number;
-  takerBuyQuoteAssetVolume: number;
-  priceChange: number;
-  priceChangePercent: number;
-  highLowRange: number;
-  volumeWeightedAveragePrice: number;
-  index: number;
-}
+//   export interface EnhancedBinanceCandle extends Candle {
+//   timestamp: number;
+//   closeTime: number;
+//   quoteAssetVolume: number;
+//   numberOfTrades: number;
+//   takerBuyBaseAssetVolume: number;
+//   takerBuyQuoteAssetVolume: number;
+//   priceChange: number;
+//   priceChangePercent: number;
+//   highLowRange: number;
+//   volumeWeightedAveragePrice: number;
+//   index: number;
+// }
 
 export type OHLC = [number, number, number, number];
 

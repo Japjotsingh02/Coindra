@@ -77,7 +77,7 @@ function CalendarGrid({
                   "w-full",
                   viewMode === "weekly" ? "h-32" : "h-24"
                 )} />
-                <div className="absolute inset-0 bg-[#bb9c2d]/5 rounded-md" />
+                <div className="absolute inset-0 bg-brand/5 rounded-md" />
               </div>
             );
           }
@@ -223,7 +223,7 @@ export default function CalendarHeatmap({
   };
 
   return (
-    <div className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-[#0a0a0a] px-12 py-6">
+    <div className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-background-dark px-12 py-6">
       <CalendarHeader
         viewMonth={viewMonth}
         onMonthChange={handleMonthChange}

@@ -30,10 +30,10 @@ export const DetailedViewSummaryCard = ({
 }) => {
   return (
     <div className="text-center">
-      <div className="text-xs text-[#7c8796] font-medium uppercase tracking-wide mb-1">
+      <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
         {title}
       </div>
-      <div className="text-lg font-bold text-white">{value}</div>
+      <div className="text-lg font-bold text-label">{value}</div>
     </div>
   );
 };
@@ -47,8 +47,8 @@ export const DetailedViewSummary = ({
 }) => {
   return (
     <div className="mt-6">
-      <div className="bg-gradient-to-r from-[#bb9c2d]/10 to-[#bc7129]/10 p-4 rounded-xl border border-[#bb9c2d]/20">
-        <h4 className="text-lg font-semibold text-[#bb9c2d] mb-3 text-center">
+      <div className="bg-gradient-to-r from-brand/10 to-[#bc7129]/10 p-4 rounded-xl border border-brand/20">
+        <h4 className="text-lg font-semibold text-brand mb-3 text-center">
           Quick Summary
         </h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -137,16 +137,16 @@ const DetailedViewContent = ({
   return (
     <>
       <div
-        className={`flex items-center justify-between px-6 py-5 border-b border-[#2a2d36] ${
+        className={`flex items-center justify-between px-6 py-5 border-b border-surface-ring ${
           isCollapsed ? "justify-center" : ""
         }`}
       >
         {!isCollapsed && (
           <div className="flex items-center space-x-3">
-            <h3 className="text-2xl font-semibold text-[#bb9c2d]">
+            <h3 className="text-2xl font-semibold text-brand">
               Market Analysis
             </h3>
-            <span className="text-sm text-[#7c8796] bg-[#2a2d36] px-2 py-1 rounded">
+            <span className="text-sm text-muted-secondary bg-surface-ring px-2 py-1 rounded">
               {cell.date}
             </span>
           </div>
@@ -155,19 +155,19 @@ const DetailedViewContent = ({
           {/* Collapse/Expand Button */}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 hover:bg-[#2a2d36] rounded-lg transition-colors"
+            className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
             title={isCollapsed ? "Expand" : "Collapse"}
           >
-            <ChevronLeft size={16} className="text-[#7c8796]" />
+            <ChevronLeft size={16} className="text-muted-secondary" />
           </button>
 
           {/* Close Button */}
           <button
             onClick={onChange}
-            className="p-2 hover:bg-[#2a2d36] rounded-lg transition-colors"
+            className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
             title="Close"
           >
-            <X size={16} className="text-[#7c8796]" />
+            <X size={16} className="text-muted-secondary" />
           </button>
         </div>
       </div>
@@ -180,8 +180,8 @@ const DetailedViewContent = ({
             exit={{ opacity: 0 }}
             className="flex-1 overflow-y-auto"
             style={{
-              overflowY: 'scroll',
-              maxHeight: 'calc(100vh - 70px)'
+              overflowY: "scroll",
+              maxHeight: "calc(100vh - 70px)",
             }}
           >
             {/* Main Content */}
@@ -318,7 +318,7 @@ export default function CellDetailedView({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed top-0 right-0 h-full z-50 bg-[#1a1d24] border border-[#2a2d36] shadow-2xl"
+            className="fixed top-0 right-0 h-full z-50 bg-surface border border-surface-ring shadow-2xl"
             style={{
               width: isCollapsed ? "60px" : "600px",
               maxWidth: "600px",
@@ -336,10 +336,10 @@ export default function CellDetailedView({
             {isCollapsed && (
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-8 h-8 bg-[#bb9c2d]/20 rounded-lg flex items-center justify-center mb-2">
-                    <span className="text-[#bb9c2d] text-lg font-bold">M</span>
+                  <div className="w-8 h-8 bg-brand/20 rounded-lg flex items-center justify-center mb-2">
+                    <span className="text-brand text-lg font-bold">M</span>
                   </div>
-                  <div className="text-xs text-[#7c8796] font-medium">
+                  <div className="text-xs text-muted-secondary font-medium">
                     Analysis
                   </div>
                 </div>

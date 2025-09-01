@@ -60,7 +60,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "bg-[#1a1d24] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl border border-[#2a2d36] p-6 shadow-2xl duration-300 sm:max-w-lg",
+          "bg-surface data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl border border-surface-ring p-6 shadow-2xl duration-300 sm:max-w-lg",
           className
         )}
         {...props}
@@ -69,9 +69,9 @@ function DialogContent({
         {showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
-            className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-full opacity-70 transition-all duration-200 hover:opacity-100 hover:bg-[#2a2d36] focus:ring-2 focus:ring-[#bb9c2d] focus:ring-offset-2 focus:outline-none disabled:pointer-events-none p-2"
+            className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-full opacity-70 transition-all duration-200 hover:opacity-100 hover:bg-surface-ring focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:outline-none disabled:pointer-events-none p-2"
           >
-            <XIcon className="size-5 text-[#7c8796] hover:text-white" />
+            <XIcon className="size-5 text-muted-secondary hover:text-white" />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         )}

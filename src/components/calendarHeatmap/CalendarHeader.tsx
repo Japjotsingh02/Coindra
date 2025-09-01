@@ -125,7 +125,7 @@ const CalendarHeader = ({
   return (
     <div className="flex items-center justify-between pt-2 pb-4">
       <div className="flex items-center space-x-4">
-        <h2 className="text-2xl font-semibold text-white">{getTitle()}</h2>
+        <h2 className="text-2xl font-semibold text-label">{getTitle()}</h2>
         <Button
           variant="outline"
           size="lg"
@@ -137,15 +137,15 @@ const CalendarHeader = ({
       </div>
 
       <div className="flex items-center space-x-2">
-        <div className="flex items-center border border-[#1e2126] rounded-lg bg-[#1e2126] overflow-hidden">
+        <div className="flex items-center border border-surface-border rounded-lg bg-surface-border overflow-hidden">
           <Button
             variant="ghost"
             size="lg"
             onClick={() => onViewModeChange("monthly")}
             className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
               viewMode === "monthly"
-                ? "bg-[#1a1d24] text-[#bb9c2d] border-[#bb9c2d]/20"
-                : "bg-transparent text-white hover:bg-[#bb9c2d]/10 hover:text-[#bb9c2d]"
+                ? "bg-surface text-brand border-brand/20"
+                : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
             }`}
           >
             <Calendar className="size-5" />
@@ -156,8 +156,8 @@ const CalendarHeader = ({
             onClick={() => onViewModeChange("weekly")}
             className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
               viewMode === "weekly"
-                ? "bg-[#1a1d24] text-[#bb9c2d] border-[#bb9c2d]/20"
-                : "bg-transparent text-white hover:bg-[#bb9c2d]/10 hover:text-[#bb9c2d]"
+                ? "bg-surface text-brand border-brand/20"
+                : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
             }`}
           >
             <Grid className="size-5" />
@@ -168,8 +168,8 @@ const CalendarHeader = ({
             onClick={() => onViewModeChange("daily")}
             className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
               viewMode === "daily"
-                ? "bg-[#1a1d24] text-[#bb9c2d] border-[#bb9c2d]/20"
-                : "bg-transparent text-white hover:bg-[#bb9c2d]/10 hover:text-[#bb9c2d]"
+                ? "bg-surface text-brand border-brand/20"
+                : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
             }`}
           >
             <List className="size-5" />
