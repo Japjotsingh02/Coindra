@@ -93,7 +93,7 @@ function FilterCheckboxes({
           />
           <label
             htmlFor={key}
-            className="text-xl font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-xl font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-label"
           >
             {key}
           </label>
@@ -129,7 +129,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-sm bg-background-sidebar text-white p-6 flex flex-col gap-8 rounded-xl shadow-2xl border border-surface-border backdrop-blur-sm">
+    <aside className="w-sm bg-background-sidebar text-label p-6 flex flex-col gap-8 rounded-xl shadow-2xl border border-surface-border backdrop-blur-sm">
       <div className="flex items-center justify-between pb-4">
         <div className="flex items-center gap-1">
           <div className="w-8 h-8 md:w-6 md:h-6 antialiased">

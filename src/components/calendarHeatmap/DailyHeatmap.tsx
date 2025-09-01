@@ -26,32 +26,32 @@ function DailyHeatmap({
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-background-input p-3 rounded border border-surface-ring">
                 <p className="text-sm text-muted-secondary">Open</p>
-                <p className="text-lg font-semibold text-white">
+                <p className="text-lg font-semibold text-label">
                   ${dayData.open}
                 </p>
               </div>
               <div className="bg-background-input p-3 rounded border border-surface-ring">
                 <p className="text-sm text-muted-secondary">Close</p>
-                <p className="text-lg font-semibold text-white">
+                <p className="text-lg font-semibold text-label">
                   ${dayData.close}
                 </p>
               </div>
               <div className="bg-background-input p-3 rounded border border-surface-ring">
                 <p className="text-sm text-muted-secondary">High</p>
-                <p className="text-lg font-semibold text-white">
+                <p className="text-lg font-semibold text-label">
                   ${dayData.high}
                 </p>
               </div>
               <div className="bg-background-input p-3 rounded border border-surface-ring">
                 <p className="text-sm text-muted-secondary">Low</p>
-                <p className="text-lg font-semibold text-white">
+                <p className="text-lg font-semibold text-label">
                   ${dayData.low}
                 </p>
               </div>
             </div>
             <div className="bg-background-input p-3 rounded border border-surface-ring">
               <p className="text-sm text-muted-secondary">Volume</p>
-              <p className="text-lg font-semibold text-white">
+              <p className="text-lg font-semibold text-label">
                 {(dayData.liquidity ?? 0).toLocaleString()}
               </p>
             </div>

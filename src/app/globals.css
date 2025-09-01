@@ -6,28 +6,192 @@
 @import "tw-animate-css";
 
 @theme {
-  --color-muted-secondary: #7c8796;
+  /* Brand Colors */
   --color-brand: #bb9c2d;
-  --color-surface-border: #1e2126;
+  /* --color-brand-orange: #bc7129; */
+  
+  /* Text Colors - Dark Theme */
+  --color-label: #ffffff;
+  --color-muted: #9ca3af;
+  --color-muted-secondary: #7c8796;
+  --color-disabled: #6b7280;
   --color-ash: #aaabac;
-  --color-background-input: #16171e;
-  --color-surface-light: #1e1f26;
+  
+  /* Background Colors - Dark Theme */
   --color-background-app: #080a0b;
   --color-background-dark: #0a0a0a;
+  --color-background-sidebar: #0a0a0a;
+  --color-background-input: #16171e;
+  --color-background-card: #1a1d24;
+  
+  /* Surface Colors - Dark Theme */
   --color-surface: #1a1d24;
+  --color-surface-light: #1e1f26;
+  --color-surface-border: #1e2126;
   --color-surface-ring: #2a2d36;
-
-  /* --animate-fade-in: fadeIn 0.5s ease-in-out; */
-  /* --animate-slide-up: slideUp 0.3s ease-out; */
+  
+  /* Border Colors - Dark Theme */
+  /* --color-border: #1e2126; */
+  /* --color-border-light: #2a2d36; */
+  /* --color-border-brand: #bb9c2d; */
+  /* --color-border-accent: #20232e; */
+  
+  /* Status Colors */
+  /* --color-success: #22c55e; */
+  /* --color-warning: #f59e0b; */
+  /* --color-error: #dc2626; */
+  /* --color-info: #3b82f6; */
+  
+  /* Chart Colors */
+  /* --color-chart-green: #22c55e;
+  --color-chart-red: #ef4444;
+  --color-chart-blue: #3b82f6;
+  --color-chart-yellow: #f59e0b;
+  --color-chart-orange: #f97316;
+  --color-chart-purple: #6466f1;
+  --color-chart-cyan: #06b6d4; */
+  
+  /* Volatility Colors - Dark Theme */
+  /* --color-volatility-low: #10b981;
+  --color-volatility-medium: #f59e0b;
+  --color-volatility-high: #f97316;
+  --color-volatility-extreme: #ef4444;
+  --color-volatility-neutral: #6b7280; */
+  
+  /* Performance Colors */
+  /* --color-performance-positive: #22c55e;
+  --color-performance-negative: #ef4444;
+  --color-performance-neutral: #9ca3af; */
+  
+  /* Semantic Colors - Dark Theme */
+  /* --color-accent: #bb9c2d;
+  --color-accent-foreground: #ffffff; */
+  /* --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+  --color-muted: #1e2126;
+  --color-muted-foreground: #7c8796; */
+  /* --color-popover: #1a1d24;
+  --color-popover-foreground: #ffffff; */
+  /* --color-card: #1a1d24;
+  --color-card-foreground: #ffffff; */
+  
+  /* Ring Colors - Dark Theme */
+  /* --color-ring: #bb9c2d;
+  --color-ring-muted: #2a2d36; */
+  
+  /* Additional Component Colors */
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  
+  /* Animation Colors */
+  --color-shimmer: rgba(255, 255, 255, 0.2);
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.3s ease-out;
 }
 
 html {
   color-scheme: dark;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--color-background-app);
+  color: var(--color-label);
 }
 
 html.light {
+  /* Brand Colors - Light Theme */
+  --color-brand: #d97706;
+  /* --color-brand-orange: #ea580c; */
+  
+  /* Text Colors - Light Theme */
+  --color-label: #0f172a;
+  --color-muted: #475569;
+  --color-muted-secondary: #64748b;
+  --color-disabled: #94a3b8;
+  --color-ash: #334155;
+  
+  /* Background Colors - Light Theme */
+  --color-background-app: #ffffff;
+  --color-background-dark: #f8fafc;
+  --color-background-sidebar: #f1f5f9;
+  --color-background-input: #ffffff;
+  --color-background-card: #ffffff;
+  
+  /* Surface Colors - Light Theme */
+  --color-surface: #ffffff;
+  --color-surface-light: #f8fafc;
+  --color-surface-border: #e2e8f0;
+  --color-surface-ring: #cbd5e1;
+  
+  /* Border Colors - Light Theme */
+  --color-border: #e2e8f0;
+  --color-border-light: #f1f5f9;
+  --color-border-brand: #d97706;
+  --color-border-accent: #cbd5e1;
+  
+  /* Status Colors - Light Theme */
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+  --color-info: #2563eb;
+  
+  /* Chart Colors - Light Theme */
+  --color-chart-green: #059669;
+  --color-chart-red: #dc2626;
+  --color-chart-blue: #2563eb;
+  --color-chart-yellow: #d97706;
+  --color-chart-orange: #ea580c;
+  --color-chart-purple: #7c3aed;
+  --color-chart-cyan: #0891b2;
+  
+  /* Volatility Colors - Light Theme */
+  --color-volatility-low: #059669;
+  --color-volatility-medium: #d97706;
+  --color-volatility-high: #ea580c;
+  --color-volatility-extreme: #dc2626;
+  --color-volatility-neutral: #64748b;
+  
+  /* Performance Colors - Light Theme */
+  --color-performance-positive: #059669;
+  --color-performance-negative: #dc2626;
+  --color-performance-neutral: #475569;
+  
+  /* Semantic Colors - Light Theme */
+  --color-accent: #d97706;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+  --color-muted: #f8fafc;
+  --color-muted-foreground: #64748b;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f172a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+  
+  /* Ring Colors - Light Theme */
+  --color-ring: #d97706;
+  --color-ring-muted: #cbd5e1;
+  
+  /* Additional Component Colors - Light Theme */
+  --color-gray-100: #f8fafc;
+  --color-gray-200: #f1f5f9;
+  --color-gray-300: #e2e8f0;
+  --color-gray-400: #cbd5e1;
+  --color-gray-500: #94a3b8;
+  --color-gray-600: #64748b;
+  --color-gray-700: #475569;
+  --color-gray-800: #334155;
+  --color-gray-900: #1e293b;
+  
+  /* Animation Colors - Light Theme */
+  --color-shimmer: rgba(0, 0, 0, 0.1);
+  --color-overlay: rgba(0, 0, 0, 0.3);
 }
 
 @layer base {

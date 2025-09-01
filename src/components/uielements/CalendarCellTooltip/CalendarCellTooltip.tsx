@@ -15,7 +15,7 @@ const TooltipMetric = ({
     <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
       {title}
     </div>
-    <div className="text-lg font-bold text-white">{value}</div>
+    <div className="text-lg font-bold text-label">{value}</div>
   </div>
 );
 
@@ -30,7 +30,7 @@ const TooltipPriceMetric = ({
     <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
       {title}
     </div>
-    <div className="text-base font-bold text-white">
+    <div className="text-base font-bold text-label">
       <span className="text-xs text-muted-secondary">₹</span>
       {value}
     </div>
@@ -144,7 +144,9 @@ export const CalendarCellTooltip = ({
             <RiskLevelBadge cell={cell} />
           </>
         ) : (
-          <p className="text-sm text-muted-secondary">No market data available</p>
+          <p className="text-sm text-muted-secondary">
+            No market data available
+          </p>
         )}
       </div>
     </div>

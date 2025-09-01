@@ -33,7 +33,7 @@ export const DetailedViewSummaryCard = ({
       <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
         {title}
       </div>
-      <div className="text-lg font-bold text-white">{value}</div>
+      <div className="text-lg font-bold text-label">{value}</div>
     </div>
   );
 };
@@ -180,8 +180,8 @@ const DetailedViewContent = ({
             exit={{ opacity: 0 }}
             className="flex-1 overflow-y-auto"
             style={{
-              overflowY: 'scroll',
-              maxHeight: 'calc(100vh - 70px)'
+              overflowY: "scroll",
+              maxHeight: "calc(100vh - 70px)",
             }}
           >
             {/* Main Content */}

@@ -291,7 +291,7 @@ export default function IntradayCandlestickChart({
             <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
               Current Price
             </div>
-            <div className="text-lg font-bold text-white">
+            <div className="text-lg font-bold text-label">
               ${candles[candles.length - 1]?.close?.toFixed(2) || "0.00"}
             </div>
           </div>
@@ -315,7 +315,7 @@ export default function IntradayCandlestickChart({
             <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
               Total Volume
             </div>
-            <div className="text-lg font-bold text-white">
+            <div className="text-lg font-bold text-label">
               {candles.reduce((sum, c) => sum + c.volume, 0).toLocaleString()}
             </div>
           </div>

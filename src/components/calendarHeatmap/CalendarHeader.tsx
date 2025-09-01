@@ -125,7 +125,7 @@ const CalendarHeader = ({
   return (
     <div className="flex items-center justify-between pt-2 pb-4">
       <div className="flex items-center space-x-4">
-        <h2 className="text-2xl font-semibold text-white">{getTitle()}</h2>
+        <h2 className="text-2xl font-semibold text-label">{getTitle()}</h2>
         <Button
           variant="outline"
           size="lg"

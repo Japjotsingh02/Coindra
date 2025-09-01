@@ -22,7 +22,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased bg-background text-gray-900">
+      <body className="font-sans antialiased bg-background-app text-label">
         <Providers>{children}</Providers>
       </body>
     </html>

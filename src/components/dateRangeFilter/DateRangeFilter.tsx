@@ -26,8 +26,8 @@ export function DateRangeFilter({
   initialRange?: { start: Date; end: Date };
 }) {
   const [date, setDate] = React.useState<{
-    from: Date;
-    to?: Date;
+    from: Date | undefined;
+    to?: Date | undefined;
   }>({
     from: initialRange?.start || new Date(),
     to: initialRange?.end || addDays(new Date(), 0),
@@ -41,11 +41,11 @@ export function DateRangeFilter({
             id="date"
             variant="outline"
             className={cn(
-              "w-full justify-start text-left font-normal bg-[#16171E] border border-[#1e2126] px-3 py-2.5 text-[#aaabac] text-base font-medium rounded transition-all duration-200 hover:border-[#bb9c2d]/30 hover:text-[#bb9c2d] hover:bg-[#1e1f26] focus:border-[#bb9c2d] focus:ring-1 focus:ring-[#bb9c2d]/20 h-11",
+              "w-full justify-start text-left font-normal bg-background-input border border-surface-border px-3 py-2.5 text-ash text-base font-medium rounded transition-all duration-200 hover:border-brand/30 hover:text-brand hover:bg-surface-light focus:border-brand focus:ring-1 focus:ring-brand/20 h-11",
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4 text-[#bb9c2d]" />
+            <CalendarIcon className="mr-2 h-4 w-4 text-brand" />
             {date?.from ? (
               date.to ? (
                 <>
@@ -61,7 +61,7 @@ export function DateRangeFilter({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto p-4 border border-[#1e2126] bg-[#16171E] rounded-lg shadow-2xl z-[9999]"
+          className="w-auto p-4 border border-surface-border bg-background-input rounded-lg shadow-2xl z-[9999]"
           align="start"
           side="bottom"
           sideOffset={8}
@@ -84,9 +84,9 @@ export function DateRangeFilter({
           <Calendar
             initialFocus
             mode="range"
-            defaultMonth={date.from}
+            defaultMonth={date.from || new Date()}
             selected={date}
-            onSelect={(range: any) => {
+            onSelect={(range) => {
               if (range?.from) {
                 setDate(range);
                 if (range.to) {
@@ -100,33 +100,33 @@ export function DateRangeFilter({
                 "flex flex-col sm:flex-row space-y-6 sm:space-x-6 sm:space-y-0",
               month: "space-y-4",
               caption:
-                "flex justify-center pt-1 relative items-center text-[#bb9c2d] font-semibold text-lg min-h-[2.5rem]",
-              caption_label: "text-[#bb9c2d] font-bold text-lg tracking-wide",
+                "flex justify-center pt-1 relative items-center text-brand font-semibold text-lg min-h-[2.5rem]",
+              caption_label: "text-brand font-bold text-lg tracking-wide",
               nav: "space-x-1 flex items-center",
               nav_button:
-                "h-7 w-7 bg-[#1e2126] p-0 opacity-80 hover:opacity-100 text-[#bb9c2d] hover:text-[#bb9c2d] hover:bg-[#bb9c2d]/10 rounded-md transition-all duration-200 border border-[#1e2126] hover:border-[#bb9c2d]/30",
+                "h-7 w-7 bg-surface-border p-0 opacity-80 hover:opacity-100 text-brand hover:text-brand hover:bg-brand/10 rounded-md transition-all duration-200 border border-surface-border hover:border-brand/30",
               nav_button_previous: "absolute left-2",
               nav_button_next: "absolute right-2",
               table: "w-full border-collapse space-y-1",
               head_row: "flex mb-2",
               head_cell:
-                "text-[#7c8796] rounded-md w-9 font-medium text-xs tracking-wide uppercase",
+                "text-muted-secondary rounded-md w-9 font-medium text-xs tracking-wide uppercase",
               row: "flex w-full mt-1",
-              cell: "h-9 w-9 text-center text-sm p-0 relative hover:bg-[#1e1f26] rounded-lg focus-within:relative focus-within:z-20 transition-all duration-200",
-              day: "h-9 w-9 p-0 font-medium aria-selected:opacity-100 text-[#aaabac] hover:text-white transition-colors duration-200",
+              cell: "h-9 w-9 text-center text-sm p-0 relative hover:bg-surface-light rounded-lg focus-within:relative focus-within:z-20 transition-all duration-200",
+              day: "h-9 w-9 p-0 font-medium aria-selected:opacity-100 text-ash hover:text-white transition-colors duration-200",
               day_selected:
-                "bg-[#bb9c2d] text-white hover:bg-[#bb9c2d]/90 hover:text-white focus:bg-[#bb9c2d] focus:text-white font-bold shadow-lg",
+                "bg-brand text-white hover:bg-brand/90 hover:text-white focus:bg-brand focus:text-white font-bold shadow-lg",
               day_today:
-                "bg-[#1e2126] text-[#bb9c2d] border-2 border-[#bb9c2d] font-bold",
+                "bg-surface-border text-brand border-2 border-brand font-bold",
               day_outside:
-                "text-[#7c8796] opacity-40 aria-selected:bg-[#bb9c2d]/20 aria-selected:text-[#bb9c2d]",
-              day_disabled: "text-[#7c8796] opacity-30",
+                "text-muted-secondary opacity-40 aria-selected:bg-brand/20 aria-selected:text-brand",
+              day_disabled: "text-muted-secondary opacity-30",
               day_range_middle:
-                "aria-selected:bg-[#bb9c2d]/20 aria-selected:text-[#bb9c2d] font-medium",
+                "aria-selected:bg-brand/20 aria-selected:text-brand font-medium",
               day_range_start:
-                "aria-selected:bg-[#bb9c2d] aria-selected:text-white font-bold",
+                "aria-selected:bg-brand aria-selected:text-white font-bold",
               day_range_end:
-                "aria-selected:bg-[#bb9c2d] aria-selected:text-white font-bold",
+                "aria-selected:bg-brand aria-selected:text-white font-bold",
               day_hidden: "invisible",
             }}
           />
