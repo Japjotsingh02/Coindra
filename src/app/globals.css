@@ -23,13 +23,13 @@
   --color-background-sidebar: #0a0a0a;
   --color-background-input: #16171e;
   --color-background-card: #1a1d24;
+  --color-background-mode: #27272a;
   
   /* Surface Colors - Dark Theme */
   --color-surface: #1a1d24;
   --color-surface-light: #1e1f26;
   --color-surface-border: #1e2126;
   --color-surface-ring: #2a2d36;
-  
   /* Border Colors - Dark Theme */
   /* --color-border: #1e2126; */
   /* --color-border-light: #2a2d36; */
@@ -119,9 +119,10 @@ html.light {
   /* Background Colors - Light Theme */
   --color-background-app: #ffffff;
   --color-background-dark: #f8fafc;
-  --color-background-sidebar: #f1f5f9;
+  --color-background-sidebar: #ffffff;
   --color-background-input: #ffffff;
   --color-background-card: #ffffff;
+  --color-background-mode: #f4f4f5;
   
   /* Surface Colors - Light Theme */
   --color-surface: #ffffff;
@@ -222,19 +223,19 @@ html.light {
 
   /* Display font for headings and important text */
   h1 {
-    @apply text-3xl font-bold;
+    @apply text-2xl 2xl:text-3xl font-bold;
   }
 
   h2 {
-    @apply text-2xl font-bold;
+    @apply text-xl 2xl:text-2xl font-bold;
   }
 
   h3 {
-    @apply text-xl font-bold;
+    @apply xl:text-lg 2xl:text-xl font-bold;
   }
 
   h4 {
-    @apply text-lg font-bold;
+    @apply text-lg xl:text-base 2xl:text-lg font-bold;
   }
 }
 
