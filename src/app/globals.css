@@ -231,11 +231,11 @@ html.light {
   }
 
   h3 {
-    @apply xl:text-lg 2xl:text-xl font-bold;
+    @apply text-lg 2xl:text-xl font-bold;
   }
 
   h4 {
-    @apply text-lg xl:text-base 2xl:text-lg font-bold;
+    @apply text-base 2xl:text-lg font-bold;
   }
 }
 

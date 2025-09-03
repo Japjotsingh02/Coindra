@@ -4,7 +4,11 @@ import { useMemo } from "react";
 import { isSameDay, isToday } from "date-fns";
 import type { HeatmapCell } from "@/types/heatmap";
 import { cn } from "@/lib/utils";
-import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useAppStore } from "@/store/useAppStore";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { CalendarCellTooltip } from "../uielements/calendarCellTooltip/CalendarCellTooltip";
@@ -29,15 +33,25 @@ const Sparkline = ({
   return (
     <div
       className={`absolute ${
-        viewMode === "monthly" ? "bottom-3" : "bottom-4"
-      } left-1 right-1 flex justify-center`}
+        viewMode === "monthly"
+          ? "bottom-1.5 sm:bottom-2 md:bottom-3 xl:bottom-2 2xl:bottom-3"
+          : "inset-0 items-center justify-center"
+      } left-0 right-0 flex justify-center`}
     >
       <div
-        className="w-[60px] h-[20px] overflow-hidden"
+        className={cn(
+          "w-[70%] h-[20%] sm:w-[55%] sm:h-[15%] xl:w-[45%] xl:h-[12%]",
+          "overflow-hidden"
+        )}
         role="img"
         aria-label={`7-day trend: ${cell.performance}`}
       >
-        <Sparklines data={cell.prices7d} width={60} height={20} margin={2}>
+        <Sparklines
+          data={cell.prices7d}
+          svgWidth={"100%"}
+          svgHeight={"100%"}
+          margin={2}
+        >
           <SparklinesLine
             color={
               cell.performance === "positive"
@@ -47,7 +61,7 @@ const Sparkline = ({
                 : "#9ca3af"
             }
             style={{
-              strokeWidth: 2,
+              strokeWidth: 6,
               fill: "none",
             }}
           />
@@ -80,7 +94,6 @@ const LiquidityScoreBar = ({
       threshold: 60,
       color: "from-blue-400 to-blue-500",
       label: "Good",
-      icon: "✨",
       glow: "rgba(59,130,246,0.6)",
       bg: "bg-[rgba(59,130,246,0.2)]",
       text: "text-blue-300",
@@ -89,7 +102,6 @@ const LiquidityScoreBar = ({
       threshold: 40,
       color: "from-yellow-400 to-yellow-500",
       label: "Moderate",
-      icon: "⭐",
       glow: "rgba(234,179,8,0.6)",
       bg: "bg-[rgba(234,179,8,0.2)]",
       text: "text-yellow-300",
@@ -98,7 +110,6 @@ const LiquidityScoreBar = ({
       threshold: 20,
       color: "from-orange-400 to-orange-500",
       label: "Low",
-      icon: "⚠️",
       glow: "rgba(249,115,22,0.6)",
       bg: "bg-[rgba(249,115,22,0.2)]",
       text: "text-orange-300",
@@ -107,7 +118,6 @@ const LiquidityScoreBar = ({
       threshold: 0,
       color: "from-red-400 to-red-500",
       label: "Very Low",
-      icon: "🚨",
       glow: "rgba(239,68,68,0.6)",
       bg: "bg-[rgba(239,68,68,0.2)]",
       text: "text-red-300",
@@ -119,31 +129,24 @@ const LiquidityScoreBar = ({
   return (
     <div
       className={cn(
-        "absolute left-2 right-2",
-        viewMode === "weekly" ? "bottom-20" : "bottom-16"
+        "absolute left-1 right-1 sm:left-2 sm:right-2",
+        viewMode === "weekly" ? "bottom-1 sm:bottom-2" : "bottom-16"
       )}
     >
-      {/* Score Header with Icon */}
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center space-x-1">
-          <span className="text-xs font-medium text-gray-400">Liquidity</span>
-          <span className="text-xs opacity-70">{current.icon}</span>
-        </div>
+      <div className="flex justify-end mb-1 lg:mb-2">
         <span
           className={cn(
-            "text-xs font-bold px-2 py-0.5 rounded-full transition-all duration-300",
+            "text-[4px] md:text-[8px] 2xl:text-xs lg:text-[8px] font-bold py-[2px] px-[3px] lg:px-1 lg:py-1 rounded-sm 2xl:rounded-md transition-all duration-300 text-right",
             current.bg,
             current.text
           )}
         >
-          {current.label}
+          {Math.round(normalizedScore)}%
         </span>
       </div>
-      <div className="relative w-full h-3 rounded-full bg-gray-800/40 border border-gray-700/30 overflow-visible backdrop-blur-sm">
+      <div className="relative w-full h-1 sm:h-1.5 md:h-2 rounded-full bg-gray-800/40 border border-gray-700/30 overflow-visible backdrop-blur-sm">
         {/* Track Pattern */}
         <div className="absolute inset-0 bg-gradient-to-r from-gray-700/30 to-gray-600/30" />
-
-        {/* Fill */}
         <div
           className={cn(
             "h-full rounded-full bg-gradient-to-r relative overflow-hidden transition-all duration-700 ease-out",
@@ -163,18 +166,6 @@ const LiquidityScoreBar = ({
             boxShadow: `0 0 8px 2px ${current.glow}`,
           }}
         />
-      </div>
-      {/* Score Percentage */}
-      <div className="text-right mt-2">
-        <span
-          className={cn(
-            "text-xs font-bold px-2 py-1 rounded-md transition-all duration-300",
-            current.bg,
-            current.text
-          )}
-        >
-          {Math.round(normalizedScore)}%
-        </span>
       </div>
     </div>
   );
@@ -218,11 +209,11 @@ export default function CalendarCell({
           type="button"
           onClick={handleClick}
           className={cn(
-            "relative w-full rounded-md transition-all duration-150 p-3 flex",
+            "relative w-full rounded-md transition-all duration-150 p-1.5 lg:p-2 xl:p-3 flex",
             "hover:scale-[1.02] focus:outline-none",
             {
-              "h-24": viewMode !== "weekly",
-              "h-56": viewMode === "weekly", // More height for weekly view
+              "h-12 sm:h-18 lg:h-19 2xl:h-24": viewMode !== "weekly",
+              "h-20 sm:h-40 xl:h-45 2xl:h-52": viewMode === "weekly",
               "opacity-60": !isCurrentMonth,
               "ring-2 ring-[#bc7129] ring-offset-0": selected,
               "bg-gradient-to-br from-surface to-surface-border border border-surface-ring":
@@ -235,18 +226,21 @@ export default function CalendarCell({
           style={background ? { background } : undefined}
         >
           <span
-            className={cn("text-xl font-medium", {
-              "text-brand": hasData,
-              "text-[#6b7280]": !isCurrentMonth,
-              "text-[#9ca3af]": !hasData && isCurrentMonth,
-            })}
+            className={cn(
+              "text-xs sm:text-sm md:text-base xl:text-sm 2xl:text-lg font-medium",
+              {
+                "text-brand": hasData,
+                "text-[#6b7280]": !isCurrentMonth,
+                "text-[#9ca3af]": !hasData && isCurrentMonth,
+              }
+            )}
           >
             {day.getDate()}
           </span>
 
           {today && (
             <span
-              className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#bc7129]"
+              className="absolute right-1.5 top-1.5 md:right-2 md:top-2 h-1 w-1 md:h-1.5 md:w-1.5 2xl:h-2 wxl:w-2 rounded-full bg-[#bc7129]"
               aria-label="Today"
             />
           )}
@@ -282,9 +276,9 @@ export default function CalendarCell({
                 <div className="h-3 bg-gradient-to-r from-surface-ring to-surface-border rounded opacity-40" />
               </div>
 
-              {/* Subtle corner accent */}
-              <div className="absolute top-2 right-2">
-                <div className="h-1.5 w-1.5 bg-brand/20 rounded-full" />
+              {/* Corner accent */}
+              <div className="absolute right-1.5 top-1.5 md:right-2 md:top-2">
+                <div className="h-1 w-1 md:h-1.5 md:w-1.5 2xl:h-2 wxl:w-2 bg-brand/20 rounded-full" />
               </div>
             </>
           )}
