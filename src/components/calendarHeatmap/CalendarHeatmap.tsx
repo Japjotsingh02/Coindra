@@ -24,11 +24,11 @@ const CalendarDays = ({ viewMode }: { viewMode: ViewMode }) => {
   if (viewMode === "daily") return null;
 
   return (
-    <div className="grid grid-cols-7 gap-3 px-2 py-2">
+    <div className="grid grid-cols-7 gap-1.5 lg:gap-2 2xl:gap-3 px-2 py-2">
       {DAYS.map((day) => (
         <div
           key={day}
-          className="text-center text-lg font-medium text-gray-500"
+          className="text-center text-xs sm:text-sm md:text-base xl:text-sm 2xl:text-base font-medium text-gray-500"
         >
           {day}
         </div>
@@ -58,7 +58,7 @@ function CalendarGrid({
 }: CalendarGridProps) {
   return (
     <TooltipProvider delayDuration={150}>
-      <div className="grid grid-cols-7 gap-3 pt-2 text-lg">
+      <div className="grid grid-cols-7 gap-1.5 lg:gap-2 2xl:gap-3 pt-2 text-xs sm:text-sm md:text-base xl:text-sm 2xl:text-lg">
         {days.map((day, index) => {
           let isInView = false;
 
@@ -73,10 +73,14 @@ function CalendarGrid({
           if (isStreaming && index >= Math.floor(days.length * progress)) {
             return (
               <div key={day.getTime()} className="relative">
-                <Skeleton className={cn(
-                  "w-full",
-                  viewMode === "weekly" ? "h-32" : "h-24"
-                )} />
+                <Skeleton
+                  className={cn(
+                    "w-full",
+                    viewMode === "weekly"
+                      ? "h-20 sm:h-40 xl:h-45 2xl:h-52"
+                      : "h-12 sm:h-18 lg:h-19 2xl:h-24"
+                  )}
+                />
                 <div className="absolute inset-0 bg-brand/5 rounded-md" />
               </div>
             );
@@ -223,7 +227,7 @@ export default function CalendarHeatmap({
   };
 
   return (
-    <div className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-background-dark px-12 py-6">
+    <div className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-background-dark p-3 sm:p-4 xl:p-5 2xl:p-6">
       <CalendarHeader
         viewMonth={viewMonth}
         onMonthChange={handleMonthChange}
