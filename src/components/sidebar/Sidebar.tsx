@@ -129,7 +129,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="max-w-sm w-2xs 2xl:w-sm bg-background-sidebar text-label p-5 2xl:p-6 flex flex-col gap-8 xl:gap-10 2xl:gap-12 rounded-xl border border-surface-border backdrop-blur-sm">
+    <aside className="max-w-sm w-2xs 2xl:w-sm h-full bg-background-sidebar text-label p-5 2xl:p-6 flex flex-col gap-8 xl:gap-10 2xl:gap-12 lg:rounded-xl lg:border border-surface-border backdrop-blur-sm">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           <div className="relative w-5 h-5 2xl:w-6 2xl:h-6 antialiased">

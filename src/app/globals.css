@@ -235,7 +235,11 @@ html.light {
   }
 
   h4 {
-    @apply text-base 2xl:text-lg font-bold;
+    @apply text-base 2xl:text-lg;
+  }
+
+  h5 {
+    @apply text-sm 2xl:text-base font-medium;
   }
 }
 
