@@ -82,7 +82,7 @@ export default function Home() {
       className="min-h-screen px-3 2xl:px-4 py-4 2xl:py-5"
       aria-label="Coindra (Crypto Market Explorer)"
     >
-      <div className="flex flex-col lg:flex-row gap-2 sm:gap-3 md:gap-4 xl:gap-4 2xl:gap-5">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-4 2xl:gap-5">
         <ResponsiveSidebar/>
         <div className="flex-1 overflow-auto min-h-0" aria-label="calendar-heatmap">
           {/* <Suspense fallback={<ModernCalendarSkeleton />}> */}

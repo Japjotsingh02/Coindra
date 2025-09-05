@@ -130,7 +130,7 @@ const LiquidityScoreBar = ({
     <div
       className={cn(
         "absolute left-1 right-1 sm:left-2 sm:right-2",
-        viewMode === "weekly" ? "bottom-1 sm:bottom-2" : "bottom-16"
+        viewMode === "weekly" ? "bottom-1 sm:bottom-2" : "bottom-1.5 sm:bottom-2 md:bottom-3 xl:bottom-2 2xl:bottom-3"
       )}
     >
       <div className="flex justify-end mb-1 lg:mb-2">
@@ -270,10 +270,10 @@ export default function CalendarCell({
               <div
                 className={cn(
                   "absolute left-1 right-1",
-                  viewMode === "weekly" ? "bottom-3" : "bottom-2"
+                  viewMode === "weekly" ? "bottom-1 sm:bottom-2" : "bottom-2"
                 )}
               >
-                <div className="h-3 bg-gradient-to-r from-surface-ring to-surface-border rounded opacity-40" />
+                <div className="h-1 sm:h-1.5 md:h-2 bg-gradient-to-r from-surface-ring to-surface-border rounded opacity-40" />
               </div>
 
               {/* Corner accent */}

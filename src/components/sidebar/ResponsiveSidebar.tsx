@@ -31,7 +31,7 @@ export default function ResponsiveSidebar() {
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="p-0 w-[85%] sm:w-[70%] bg-background"
+            className="p-0 w-fit border-0 bg-background-sidebar"
           >
             <Sidebar />
           </SheetContent>
