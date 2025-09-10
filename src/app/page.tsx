@@ -3,7 +3,7 @@
 import CalendarHeatmap from "@/components/calendarHeatmap/CalendarHeatmap";
 import { useMonthlyCandles } from "@/hooks/useBinanceData";
 import { useAppStore } from "@/store/useAppStore";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   ModernCalendarSkeleton,
   ModernWelcomeSkeleton,
@@ -62,6 +62,7 @@ function CalendarHeatmapView() {
 export default function Home() {
   const { filters, descriptionPanel, closeDescriptionPanel } = useAppStore();
   const symbol = filters.symbol;
+  const chartsRef = useRef<HTMLDivElement>(null);
 
   if (!symbol) {
     return (
@@ -83,22 +84,27 @@ export default function Home() {
       aria-label="Coindra (Crypto Market Explorer)"
     >
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-4 2xl:gap-5">
-        <ResponsiveSidebar/>
-        <div className="flex-1 overflow-auto min-h-0" aria-label="calendar-heatmap">
+        <ResponsiveSidebar />
+        <div
+          className="flex-1 overflow-auto min-h-0 flex flex-col gap-4 2xl:gap-5"
+          aria-label="calendar-heatmap"
+        >
           {/* <Suspense fallback={<ModernCalendarSkeleton />}> */}
           <CalendarHeatmapView />
           {/* </Suspense> */}
           <VisualizationLegend />
+          {descriptionPanel.props && (
+            <div ref={chartsRef} data-charts-section>
+              <CellDetailedView
+                open={descriptionPanel.open}
+                onChange={closeDescriptionPanel}
+                cell={descriptionPanel.props.cell}
+                history={descriptionPanel.props.history}
+              />
+            </div>
+          )}
         </div>
       </div>
-      {descriptionPanel.props && (
-        <CellDetailedView
-          open={descriptionPanel.open}
-          onChange={closeDescriptionPanel}
-          cell={descriptionPanel.props.cell}
-          history={descriptionPanel.props.history}
-        />
-      )}
     </main>
   );
 }

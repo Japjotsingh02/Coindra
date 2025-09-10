@@ -151,7 +151,6 @@ export default function CalendarHeatmap({
   }, [heatmapData, allDays]);
 
   const handleMonthChange = useCallback((newMonth: Date) => {
-    console.log("newMonth", newMonth);
     setViewMonth(newMonth);
   }, []);
 
@@ -170,6 +169,16 @@ export default function CalendarHeatmap({
       openDescriptionPanel({ cell, history }, () => {
         setSelectedDate(null);
       });
+
+      if (window.innerWidth < 1024) {
+        const chartsElement = document.querySelector('[data-charts-section]');
+        if (chartsElement) {
+          chartsElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [heatmapData]
