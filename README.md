@@ -43,7 +43,7 @@ Built with *Next.js, TailwindCSS, Zustand, React Query, WebSockets, and ECharts*
 
 ## 📷 Screenshots  
 
-> (Add screenshots of your heatmap + charts here once deployed!)  
+> (Will add screenshots of your heatmap)  
 
 ---
 
