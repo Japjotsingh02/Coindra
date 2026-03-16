@@ -1,10 +1,12 @@
 import { dark, light } from "@/settings/theme";
 import { Candle, OHLC } from "@/types/candle";
 import { HeatmapCell } from "@/types/heatmap";
+import { Filters } from "@/types/store.types";
 
 export function processHeatmapData(
   candles: Candle[],
-  rollingWindow: number = 7
+  rollingWindow: number = 7,
+  filters?: Partial<Filters>
 ): HeatmapCell[] {
   if (candles.length === 0) return [];
 
@@ -66,17 +68,47 @@ export function processHeatmapData(
         ? "negative"
         : "neutral";
 
-    const color = (() => {
-      const percentile = volatilityRolling / maxVolatility;
-
-      if (percentile > 0.75) return dark.colorPalette.volatility.high;
-      if (percentile > 0.5) return dark.colorPalette.volatility.medium;
-      if (percentile > 0.25) return dark.colorPalette.volatility.low;
-      return dark.colorPalette.volatility.neutral;
-    })();
-
     const liquidityRaw = candle.volume;
     const liquidityScore = (liquidityRaw / maxVolume) * 100;
+
+    // Decide palette based on active theme; default to dark if unknown (SSR)
+    const isLightTheme =
+      typeof document !== "undefined" &&
+      document.documentElement.classList.contains("light");
+    const palette = (isLightTheme ? light : dark).colorPalette;
+
+    const color = (() => {
+      // Determine which metric to use for coloring based on filters
+      const showVolatility = filters?.volatility !== false;
+      const showLiquidity = filters?.liquidity !== false;
+      const showPerformance = filters?.performance !== false;
+
+      // Priority: Performance > Volatility > Liquidity
+      if (showPerformance) {
+        if (performance === "positive") return palette.performance.positive;
+        if (performance === "negative") return palette.performance.negative;
+        return palette.performance.neutral;
+      } else if (showVolatility) {
+        const percentile = volatilityRolling / maxVolatility;
+        if (percentile > 0.75) return palette.volatility.high;
+        if (percentile > 0.5) return palette.volatility.medium;
+        if (percentile > 0.25) return palette.volatility.low;
+        return palette.volatility.neutral;
+      } else if (showLiquidity) {
+        const liquidityPercentile = liquidityScore / 100;
+        if (liquidityPercentile > 0.75) return palette.liquidity.high;
+        if (liquidityPercentile > 0.5) return palette.liquidity.medium;
+        if (liquidityPercentile > 0.25) return palette.liquidity.low;
+        return palette.liquidity.neutral;
+      }
+
+      // Default to volatility if no filters are enabled
+      const percentile = volatilityRolling / maxVolatility;
+      if (percentile > 0.75) return palette.volatility.high;
+      if (percentile > 0.5) return palette.volatility.medium;
+      if (percentile > 0.25) return palette.volatility.low;
+      return palette.volatility.neutral;
+    })();
 
     const prices7d = candles
       .slice(Math.max(0, idx - 6), idx + 1)
