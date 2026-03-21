@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchBinanceCandles } from "@/lib/binance";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { fetchBinanceCandles } from '@/lib/binance';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   // BinanceRealTimeData,
   Candle,
   // KlineData,
   // OHLC,
   // TickerData,
-} from "@/types/candle";
+} from '@/types/candle';
 // import { useAppStore } from "@/store/useAppStore";
 // import { RealtimeData } from "@/types/store.types";
 
@@ -22,28 +22,17 @@ import {
 
 export function useMonthlyCandles(symbol: string, currentMonth: Date) {
   const { startDate, endDate } = useMemo(() => {
-    const start = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth(),
-      1
-    );
-    const end = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth() + 1,
-      0,
-      23,
-      59,
-      59
-    );
+    const start = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+    const end = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0, 23, 59, 59);
 
     const paddedStart = new Date(start);
     paddedStart.setDate(start.getDate() - 7);
 
     return { startDate: paddedStart, endDate: end };
   }, [currentMonth]);
-  
+
   const query = useQuery({
-    queryKey: ["candles", symbol, startDate, endDate],
+    queryKey: ['candles', symbol, startDate, endDate],
     queryFn: () =>
       fetchBinanceCandles({
         symbol,
@@ -131,13 +120,13 @@ export function useMonthlyCandles(symbol: string, currentMonth: Date) {
 //   return useAppStore((s) => s.realtime);
 // }
 
-export function useIntradayCandles(symbol: string = "BTCUSDT") {
+export function useIntradayCandles(symbol: string = 'BTCUSDT') {
   const [candles, setCandles] = useState<Candle[]>([]);
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
     if (!symbol) return;
-    const formatted = symbol.replace("/", "").toUpperCase();
+    const formatted = symbol.replace('/', '').toUpperCase();
 
     let isMounted = true;
 
@@ -150,7 +139,7 @@ export function useIntradayCandles(symbol: string = "BTCUSDT") {
 
         const data = await fetchBinanceCandles({
           symbol: formatted,
-          interval: "1m",
+          interval: '1m',
           startTime: startOfDay.getTime(),
           endTime: endTime,
           limit: 1440,
@@ -160,25 +149,23 @@ export function useIntradayCandles(symbol: string = "BTCUSDT") {
 
         setCandles(data);
       } catch (error) {
-        console.error("Error fetching initial candles:", error);
+        console.error('Error fetching initial candles:', error);
       }
     };
 
     fetchPastData();
 
     // 2. Subscribe to WebSocket for live updates
-    const ws = new WebSocket(
-      `wss://stream.binance.com:9443/ws/${formatted.toLowerCase()}@kline_1m`
-    );
+    const ws = new WebSocket(`wss://stream.binance.com:9443/ws/${formatted.toLowerCase()}@kline_1m`);
     wsRef.current = ws;
 
-    ws.onmessage = (event) => {
+    ws.onmessage = event => {
       try {
         const msg = JSON.parse(event.data);
         const k = msg.k;
 
         const newCandle: Candle = {
-          date: new Date(k.t).toISOString().split("T")[0],
+          date: new Date(k.t).toISOString().split('T')[0],
           open: parseFloat(k.o),
           high: parseFloat(k.h),
           low: parseFloat(k.l),
@@ -186,7 +173,7 @@ export function useIntradayCandles(symbol: string = "BTCUSDT") {
           volume: parseFloat(k.v),
         };
 
-        setCandles((prev) => {
+        setCandles(prev => {
           if (!prev.length) return [newCandle];
 
           const last = prev[prev.length - 1];
@@ -199,7 +186,7 @@ export function useIntradayCandles(symbol: string = "BTCUSDT") {
           }
         });
       } catch (err) {
-        console.error("WS kline parse error", err);
+        console.error('WS kline parse error', err);
       }
     };
 

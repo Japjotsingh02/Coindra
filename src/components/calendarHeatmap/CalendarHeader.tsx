@@ -12,11 +12,11 @@ import {
   subDays,
   endOfWeek,
   getMonth,
-} from "date-fns";
-import { Button } from "@/components/ui/button";
-import { Calendar, ChevronLeft, ChevronRight, Grid, List } from "lucide-react";
-import { ViewMode } from "./CalendarHeatmap";
-import { useCallback } from "react";
+} from 'date-fns';
+import { Button } from '@/components/ui/button';
+import { Calendar, ChevronLeft, ChevronRight, Grid, List } from 'lucide-react';
+import { ViewMode } from './CalendarHeatmap';
+import { useCallback } from 'react';
 
 type CalendarHeaderProps = {
   viewMonth: Date;
@@ -38,19 +38,13 @@ const CalendarHeader = ({
       let newDate = new Date(viewMonth);
 
       switch (viewMode) {
-        case "monthly": {
-          newDate =
-            amount > 0
-              ? addMonths(viewMonth, amount)
-              : subMonths(viewMonth, -amount);
+        case 'monthly': {
+          newDate = amount > 0 ? addMonths(viewMonth, amount) : subMonths(viewMonth, -amount);
           newDate = startOfMonth(newDate);
           break;
         }
-        case "weekly": {
-          newDate =
-            amount > 0
-              ? addWeeks(viewMonth, amount)
-              : subWeeks(viewMonth, -amount);
+        case 'weekly': {
+          newDate = amount > 0 ? addWeeks(viewMonth, amount) : subWeeks(viewMonth, -amount);
 
           const weekStart = startOfWeek(newDate, { weekStartsOn: 1 });
           const weekEnd = endOfWeek(newDate, { weekStartsOn: 1 });
@@ -63,11 +57,8 @@ const CalendarHeader = ({
           }
           break;
         }
-        case "daily": {
-          newDate =
-            amount > 0
-              ? addDays(viewMonth, amount)
-              : subDays(viewMonth, -amount);
+        case 'daily': {
+          newDate = amount > 0 ? addDays(viewMonth, amount) : subDays(viewMonth, -amount);
           break;
         }
       }
@@ -85,37 +76,31 @@ const CalendarHeader = ({
 
   const getTitle = () => {
     switch (viewMode) {
-      case "monthly":
-        return format(viewMonth, "MMMM yyyy");
-      case "weekly":
+      case 'monthly':
+        return format(viewMonth, 'MMMM yyyy');
+      case 'weekly':
         const weekStart = startOfWeek(viewMonth, { weekStartsOn: 1 });
         const weekEnd = addDays(weekStart, 6);
 
         if (isSameMonth(weekStart, weekEnd)) {
-          return `${format(weekStart, "MMM d")} - ${format(
-            weekEnd,
-            "d, yyyy"
-          )}`;
+          return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'd, yyyy')}`;
         } else {
-          return `${format(weekStart, "MMM d")} - ${format(
-            weekEnd,
-            "MMM d, yyyy"
-          )}`;
+          return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}`;
         }
-      case "daily":
-        return format(viewMonth, "EEEE, MMMM d, yyyy");
+      case 'daily':
+        return format(viewMonth, 'EEEE, MMMM d, yyyy');
       default:
-        return format(viewMonth, "MMMM yyyy");
+        return format(viewMonth, 'MMMM yyyy');
     }
   };
 
   const disableNext = useCallback(() => {
     switch (viewMode) {
-      case "monthly":
+      case 'monthly':
         return isAfter(addMonths(viewMonth, 1), startOfMonth(new Date()));
-      case "weekly":
+      case 'weekly':
         return isAfter(addWeeks(viewMonth, 1), new Date());
-      case "daily":
+      case 'daily':
         return isAfter(addDays(viewMonth, 1), new Date());
       default:
         return false;
@@ -141,11 +126,11 @@ const CalendarHeader = ({
           <Button
             variant="ghost"
             size="lg"
-            onClick={() => onViewModeChange("monthly")}
+            onClick={() => onViewModeChange('monthly')}
             className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
-              viewMode === "monthly"
-                ? "bg-surface text-brand border-brand/20"
-                : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
+              viewMode === 'monthly'
+                ? 'bg-surface text-brand border-brand/20'
+                : 'bg-transparent text-white hover:bg-brand/10 hover:text-brand'
             }`}
           >
             <Calendar className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
@@ -153,11 +138,11 @@ const CalendarHeader = ({
           <Button
             variant="ghost"
             size="lg"
-            onClick={() => onViewModeChange("weekly")}
+            onClick={() => onViewModeChange('weekly')}
             className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
-              viewMode === "weekly"
-                ? "bg-surface text-brand border-brand/20"
-                : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
+              viewMode === 'weekly'
+                ? 'bg-surface text-brand border-brand/20'
+                : 'bg-transparent text-white hover:bg-brand/10 hover:text-brand'
             }`}
           >
             <Grid className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
@@ -165,11 +150,11 @@ const CalendarHeader = ({
           <Button
             variant="ghost"
             size="lg"
-            onClick={() => onViewModeChange("daily")}
+            onClick={() => onViewModeChange('daily')}
             className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
-              viewMode === "daily"
-                ? "bg-surface text-brand border-brand/20"
-                : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
+              viewMode === 'daily'
+                ? 'bg-surface text-brand border-brand/20'
+                : 'bg-transparent text-white hover:bg-brand/10 hover:text-brand'
             }`}
           >
             <List className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />

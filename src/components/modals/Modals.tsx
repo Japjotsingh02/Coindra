@@ -1,13 +1,10 @@
-import React from "react";
+import React from 'react';
 // import { useAppStore } from "../../store/useAppStore";
 
 function Modals() {
-//   const { modal, closeModal } = useAppStore();
+  //   const { modal, closeModal } = useAppStore();
 
-  return (
-    <>
-    </>
-  );
+  return <></>;
 }
 
 export default Modals;

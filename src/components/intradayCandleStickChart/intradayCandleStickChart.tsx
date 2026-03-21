@@ -1,34 +1,23 @@
-import React from "react";
-import { useIntradayCandles } from "@/hooks/useBinanceData";
-import ChartCard from "../uielements/chartCard/ChartCard";
-import { useCandlestickOption } from "@/hooks/useCandleStickOption";
+import React from 'react';
+import { useIntradayCandles } from '@/hooks/useBinanceData';
+import ChartCard from '../uielements/chartCard/ChartCard';
+import { useCandlestickOption } from '@/hooks/useCandleStickOption';
 
-export default function IntradayCandlestickChart({
-  symbol,
-}: {
-  symbol: string;
-}) {
+export default function IntradayCandlestickChart({ symbol }: { symbol: string }) {
   const candles = useIntradayCandles(symbol);
 
-  const { option, showVolume, setShowVolume } = useCandlestickOption(
-    candles,
-    "ETH/BTC"
-  );
+  const { option, showVolume, setShowVolume } = useCandlestickOption(candles);
 
   const handleVolumeToggle = () => {
-    setShowVolume((prev) => !prev);
+    setShowVolume(prev => !prev);
   };
 
   return (
     <div>
-      <button
-        className="px-3 py-1 rounded bg-brand text-white text-sm mb-2"
-        onClick={handleVolumeToggle}
-      >
-        {showVolume ? "Hide Volume" : "Show Volume"}
+      <button className="px-3 py-1 rounded bg-brand text-white text-sm mb-2" onClick={handleVolumeToggle}>
+        {showVolume ? 'Hide Volume' : 'Show Volume'}
       </button>
       <ChartCard title="Intraday Candlestick" option={option}></ChartCard>
-        
     </div>
   );
 

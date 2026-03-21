@@ -1,16 +1,10 @@
-import {
-  eachDayOfInterval,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-} from "date-fns";
+import { eachDayOfInterval, startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 
-export type ViewMode = "monthly" | "weekly" | "daily";
+export type ViewMode = 'monthly' | 'weekly' | 'daily';
 
 export function getCalendarDays(viewMonth: Date, viewMode: ViewMode): Date[] {
   switch (viewMode) {
-    case "monthly": {
+    case 'monthly': {
       const monthStart = startOfMonth(viewMonth);
       const monthEnd = endOfMonth(viewMonth);
 
@@ -20,7 +14,7 @@ export function getCalendarDays(viewMonth: Date, viewMode: ViewMode): Date[] {
       return eachDayOfInterval({ start: gridStart, end: gridEnd });
     }
 
-    case "weekly": {
+    case 'weekly': {
       const weekStart = startOfWeek(viewMonth, { weekStartsOn: 1 });
       const weekEnd = endOfWeek(viewMonth, { weekStartsOn: 1 });
 
@@ -30,7 +24,7 @@ export function getCalendarDays(viewMonth: Date, viewMode: ViewMode): Date[] {
       });
     }
 
-    case "daily": {
+    case 'daily': {
       return [viewMonth];
     }
 

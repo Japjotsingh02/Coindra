@@ -1,23 +1,23 @@
-import { Theme } from "@/types/theme";
+import { Theme } from '@/types/theme';
 
 export const light: Theme = {
   colorPalette: {
     volatility: {
-      low: { bg: "#00130b", border: "#234330" },
-      medium: { bg: "#5F5314", border: "#4B3F13" },
-      high: { bg: "#160e07", border: "#402321" },
-      neutral: { bg: "#000000", border: "#1a1c25" },
+      low: { bg: '#00130b', border: '#234330' },
+      medium: { bg: '#5F5314', border: '#4B3F13' },
+      high: { bg: '#160e07', border: '#402321' },
+      neutral: { bg: '#000000', border: '#1a1c25' },
     },
     performance: {
-      positive: { bg: "#22c55e", border: "#402321" },
-      negative: { bg: "#dc2626", border: "#1a1c25" },
-      neutral: { bg: "#9ca3af", border: "#1a1c25" },
+      positive: { bg: '#22c55e', border: '#402321' },
+      negative: { bg: '#dc2626', border: '#1a1c25' },
+      neutral: { bg: '#9ca3af', border: '#1a1c25' },
     },
     liquidity: {
-      low: { bg: "#eff6ff", border: "#bfdbfe" },
-      medium: { bg: "#eef2ff", border: "#c7d2fe" },
-      high: { bg: "#f5f3ff", border: "#ddd6fe" },
-      neutral: { bg: "#f3f4f6", border: "#e5e7eb" },
+      low: { bg: '#eff6ff', border: '#bfdbfe' },
+      medium: { bg: '#eef2ff', border: '#c7d2fe' },
+      high: { bg: '#f5f3ff', border: '#ddd6fe' },
+      neutral: { bg: '#f3f4f6', border: '#e5e7eb' },
     },
   },
 };

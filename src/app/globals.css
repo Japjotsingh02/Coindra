@@ -1,22 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900;9..40,1000&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900;9..40,1000&display=swap');
 
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @theme {
   /* Brand Colors */
   --color-brand: #bb9c2d;
   /* --color-brand-orange: #bc7129; */
-  
+
   /* Text Colors - Dark Theme */
   --color-label: #ffffff;
   --color-muted: #9ca3af;
   --color-muted-secondary: #7c8796;
   --color-disabled: #6b7280;
   --color-ash: #aaabac;
-  
+
   /* Background Colors - Dark Theme */
   --color-background-app: #080a0b;
   --color-background-dark: #0a0a0a;
@@ -24,7 +24,7 @@
   --color-background-input: #16171e;
   --color-background-card: #1a1d24;
   --color-background-mode: #27272a;
-  
+
   /* Surface Colors - Dark Theme */
   --color-surface: #1a1d24;
   --color-surface-light: #1e1f26;
@@ -35,13 +35,13 @@
   /* --color-border-light: #2a2d36; */
   /* --color-border-brand: #bb9c2d; */
   /* --color-border-accent: #20232e; */
-  
+
   /* Status Colors */
   /* --color-success: #22c55e; */
   /* --color-warning: #f59e0b; */
   /* --color-error: #dc2626; */
   /* --color-info: #3b82f6; */
-  
+
   /* Chart Colors */
   /* --color-chart-green: #22c55e;
   --color-chart-red: #ef4444;
@@ -50,19 +50,19 @@
   --color-chart-orange: #f97316;
   --color-chart-purple: #6466f1;
   --color-chart-cyan: #06b6d4; */
-  
+
   /* Volatility Colors - Dark Theme */
   /* --color-volatility-low: #10b981;
   --color-volatility-medium: #f59e0b;
   --color-volatility-high: #f97316;
   --color-volatility-extreme: #ef4444;
   --color-volatility-neutral: #6b7280; */
-  
+
   /* Performance Colors */
   /* --color-performance-positive: #22c55e;
   --color-performance-negative: #ef4444;
   --color-performance-neutral: #9ca3af; */
-  
+
   /* Semantic Colors - Dark Theme */
   /* --color-accent: #bb9c2d;
   --color-accent-foreground: #ffffff; */
@@ -74,11 +74,11 @@
   --color-popover-foreground: #ffffff; */
   /* --color-card: #1a1d24;
   --color-card-foreground: #ffffff; */
-  
+
   /* Ring Colors - Dark Theme */
   /* --color-ring: #bb9c2d;
   --color-ring-muted: #2a2d36; */
-  
+
   /* Additional Component Colors */
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
@@ -89,11 +89,11 @@
   --color-gray-700: #374151;
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
-  
+
   /* Animation Colors */
   --color-shimmer: rgba(255, 255, 255, 0.2);
   --color-overlay: rgba(0, 0, 0, 0.5);
-  
+
   --animate-fade-in: fadeIn 0.5s ease-in-out;
   --animate-slide-up: slideUp 0.3s ease-out;
 }
@@ -108,14 +108,14 @@ html.light {
   /* Brand Colors - Light Theme */
   --color-brand: #d97706;
   /* --color-brand-orange: #ea580c; */
-  
+
   /* Text Colors - Light Theme */
   --color-label: #0f172a;
   --color-muted: #475569;
   --color-muted-secondary: #64748b;
   --color-disabled: #94a3b8;
   --color-ash: #334155;
-  
+
   /* Background Colors - Light Theme */
   --color-background-app: #ffffff;
   --color-background-dark: #f8fafc;
@@ -123,25 +123,25 @@ html.light {
   --color-background-input: #ffffff;
   --color-background-card: #ffffff;
   --color-background-mode: #f4f4f5;
-  
+
   /* Surface Colors - Light Theme */
   --color-surface: #ffffff;
   --color-surface-light: #f8fafc;
   --color-surface-border: #e2e8f0;
   --color-surface-ring: #cbd5e1;
-  
+
   /* Border Colors - Light Theme */
   --color-border: #e2e8f0;
   --color-border-light: #f1f5f9;
   --color-border-brand: #d97706;
   --color-border-accent: #cbd5e1;
-  
+
   /* Status Colors - Light Theme */
   --color-success: #059669;
   --color-warning: #d97706;
   --color-error: #dc2626;
   --color-info: #2563eb;
-  
+
   /* Chart Colors - Light Theme */
   --color-chart-green: #059669;
   --color-chart-red: #dc2626;
@@ -150,19 +150,19 @@ html.light {
   --color-chart-orange: #ea580c;
   --color-chart-purple: #7c3aed;
   --color-chart-cyan: #0891b2;
-  
+
   /* Volatility Colors - Light Theme */
   --color-volatility-low: #059669;
   --color-volatility-medium: #d97706;
   --color-volatility-high: #ea580c;
   --color-volatility-extreme: #dc2626;
   --color-volatility-neutral: #64748b;
-  
+
   /* Performance Colors - Light Theme */
   --color-performance-positive: #059669;
   --color-performance-negative: #dc2626;
   --color-performance-neutral: #475569;
-  
+
   /* Semantic Colors - Light Theme */
   --color-accent: #d97706;
   --color-accent-foreground: #ffffff;
@@ -174,11 +174,11 @@ html.light {
   --color-popover-foreground: #0f172a;
   --color-card: #ffffff;
   --color-card-foreground: #0f172a;
-  
+
   /* Ring Colors - Light Theme */
   --color-ring: #d97706;
   --color-ring-muted: #cbd5e1;
-  
+
   /* Additional Component Colors - Light Theme */
   --color-gray-100: #f8fafc;
   --color-gray-200: #f1f5f9;
@@ -189,7 +189,7 @@ html.light {
   --color-gray-700: #475569;
   --color-gray-800: #334155;
   --color-gray-900: #1e293b;
-  
+
   /* Animation Colors - Light Theme */
   --color-shimmer: rgba(0, 0, 0, 0.1);
   --color-overlay: rgba(0, 0, 0, 0.3);
@@ -203,8 +203,14 @@ html.light {
 
 @layer components {
   body {
-    font-family: "Inter", "DM Sans", -apple-system, BlinkMacSystemFont,
-      "Segoe UI", "Roboto", sans-serif;
+    font-family:
+      'Inter',
+      'DM Sans',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      'Roboto',
+      sans-serif;
     /* font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     font-variation-settings: "opsz" 32;
     -webkit-font-smoothing: antialiased;
@@ -217,8 +223,10 @@ html.light {
   code,
   pre,
   .technical-data {
-    font-family: "JetBrains Mono", "Fira Code", "Monaco", "Consolas", monospace;
-    font-feature-settings: "liga" 1, "calt" 1;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-feature-settings:
+      'liga' 1,
+      'calt' 1;
   }
 
   /* Display font for headings and important text */

@@ -12,13 +12,13 @@ export async function GET() {
       console.log('CACHE HIT: /api/binance/exchangeInfo');
       return NextResponse.json(cachedData);
     }
-    
+
     console.log('CACHE MISS: /api/binance/exchangeInfo');
-    const res = await fetch("https://api.binance.com/api/v3/exchangeInfo");
+    const res = await fetch('https://api.binance.com/api/v3/exchangeInfo');
     const data = await res.json();
-    
+
     const symbols = data.symbols
-      .filter((s: { status: string; baseAsset: string; quoteAsset: string }) => s.status === "TRADING")
+      .filter((s: { status: string; baseAsset: string; quoteAsset: string }) => s.status === 'TRADING')
       .map((s: { status: string; baseAsset: string; quoteAsset: string }) => `${s.baseAsset}/${s.quoteAsset}`);
 
     // Cache for 1 day
@@ -26,7 +26,7 @@ export async function GET() {
 
     return NextResponse.json(symbols);
   } catch (error) {
-    console.error("Error fetching exchangeInfo:", error);
-    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+    console.error('Error fetching exchangeInfo:', error);
+    return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
   }
 }

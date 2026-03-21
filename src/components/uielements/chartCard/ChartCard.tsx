@@ -1,6 +1,6 @@
-import React, { memo } from "react";
-import ReactECharts from "echarts-for-react";
-import { EChartsOption } from "echarts-for-react";
+import React, { memo } from 'react';
+import ReactECharts from 'echarts-for-react';
+import { EChartsOption } from 'echarts-for-react';
 
 interface ChartCardProps {
   title: string;
@@ -17,17 +17,12 @@ const ChartCard = memo(({ title, option, children, forceKey, titleSiblingCompone
         <h5 className="text-brand">{title}</h5>
         {titleSiblingComponent}
       </div>
-      <ReactECharts
-        key={forceKey}
-        option={option}
-        style={{ height: 320 }}
-        className="rounded-lg"
-      />
+      <ReactECharts key={forceKey} option={option} style={{ height: 320 }} className="rounded-lg" />
       {children}
     </div>
   );
 });
 
-ChartCard.displayName = "ChartCard";
+ChartCard.displayName = 'ChartCard';
 
 export default ChartCard;
