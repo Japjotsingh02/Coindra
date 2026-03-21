@@ -37,7 +37,12 @@ export function DateRangeFilter({
             id="date"
             variant="outline"
             className={cn(
-              'w-full justify-start text-left font-normal bg-background-input border border-surface-border px-3 py-2.5 text-ash text-xs 2xl:text-base font-medium rounded transition-all duration-200 hover:border-brand/30 hover:text-brand hover:bg-surface-light focus:border-brand focus:ring-1 focus:ring-brand/20 h-8 2xl:h-11',
+              'w-full justify-start text-left font-normal',
+              'bg-background-input border border-surface-border px-3 py-2.5',
+              'text-ash text-xs 2xl:text-base font-medium rounded',
+              'transition-all duration-200 hover:border-brand/30',
+              'hover:text-brand hover:bg-surface-light focus:border-brand',
+              'focus:ring-1 focus:ring-brand/20 h-8 2xl:h-11',
               !date && 'text-muted-foreground'
             )}
           >
@@ -56,7 +61,10 @@ export function DateRangeFilter({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto p-4 border border-surface-border bg-background-input rounded-lg shadow-2xl z-[9999]"
+          className={cn(
+            'w-auto p-4 border border-surface-border bg-background-input',
+            'rounded-lg shadow-2xl z-[9999]'
+          )}
           align="start"
           side="bottom"
           sideOffset={8}

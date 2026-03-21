@@ -1,4 +1,5 @@
 'use client';
+import { cn } from '@/lib/utils';
 
 import CalendarHeatmap from '@/components/calendarHeatmap/CalendarHeatmap';
 import { useMonthlyCandles } from '@/hooks/useBinanceData';
@@ -31,7 +32,7 @@ function CalendarHeatmapView() {
           <p className="text-muted-secondary mb-4">Failed to load market data. Please try again.</p>
           <button
             onClick={() => refetch()}
-            className="px-4 py-2 bg-brand text-label rounded-lg hover:bg-brand/90 transition-colors"
+            className={cn('px-4 py-2 bg-brand text-label rounded-lg hover:bg-brand/90', 'transition-colors')}
           >
             Retry
           </button>

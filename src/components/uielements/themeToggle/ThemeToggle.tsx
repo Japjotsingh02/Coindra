@@ -1,4 +1,5 @@
 'use client';
+import { cn } from '@/lib/utils';
 
 import { Moon, Sun } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -32,7 +33,11 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="w-7 h-7 2xl:h-8 2xl:w-8 rounded-md hover:bg-background-mode transition-colors cursor-pointer flex items-center justify-center"
+      className={cn(
+        'w-7 h-7 2xl:h-8 2xl:w-8 rounded-md hover:bg-background-mode',
+        'transition-colors cursor-pointer flex items-center',
+        'justify-center'
+      )}
       title={`Switch to ${isDark ? 'light' : 'dark'} theme`}
     >
       <Sun

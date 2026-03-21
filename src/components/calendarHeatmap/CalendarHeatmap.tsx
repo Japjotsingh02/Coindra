@@ -28,7 +28,10 @@ const CalendarDays = ({ viewMode }: { viewMode: ViewMode }) => {
       {DAYS.map(day => (
         <div
           key={day}
-          className="text-center text-xs sm:text-sm md:text-base xl:text-sm 2xl:text-base font-medium text-gray-500"
+          className={cn(
+            'text-center text-xs sm:text-sm md:text-base xl:text-sm',
+            '2xl:text-base font-medium text-gray-500'
+          )}
         >
           {day}
         </div>
@@ -58,7 +61,12 @@ function CalendarGrid({
 }: CalendarGridProps) {
   return (
     <TooltipProvider delayDuration={150}>
-      <div className="grid grid-cols-7 gap-1.5 lg:gap-2 2xl:gap-3 pt-2 text-xs sm:text-sm md:text-base xl:text-sm 2xl:text-lg">
+      <div
+        className={cn(
+          'grid grid-cols-7 gap-1.5 lg:gap-2 2xl:gap-3 pt-2 text-xs',
+          'sm:text-sm md:text-base xl:text-sm 2xl:text-lg'
+        )}
+      >
         {days.map((day, index) => {
           let isInView = false;
 
@@ -221,7 +229,12 @@ export default function CalendarHeatmap({ progress = 1, isStreaming = false }: C
   };
 
   return (
-    <div className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-background-dark p-3 sm:p-4 xl:p-5 2xl:p-6">
+    <div
+      className={cn(
+        'rounded-lg shadow-md overflow-hidden border border-[#20232E]',
+        'bg-background-dark p-3 sm:p-4 xl:p-5 2xl:p-6'
+      )}
+    >
       <CalendarHeader
         viewMonth={viewMonth}
         onMonthChange={handleMonthChange}

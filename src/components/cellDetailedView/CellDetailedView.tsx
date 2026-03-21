@@ -1,4 +1,5 @@
 'use client';
+import { cn } from '@/lib/utils';
 import React, { useMemo, useState, useEffect } from 'react';
 import { isToday } from 'date-fns';
 import { getVolatilityBreakdownOption, getLiquidityContextOption, getRiskQuadrantScatterOption } from '@/lib/charts';
@@ -28,7 +29,7 @@ export const DetailedViewSummaryCard = ({ title, value }: { title: string; value
 export const DetailedViewSummary = ({ cell, avgVol }: { cell: HeatmapCell; avgVol: number }) => {
   return (
     <div className="mt-6">
-      <div className="bg-gradient-to-r from-brand/10 to-[#bc7129]/10 p-4 rounded-xl border border-brand/20">
+      <div className={cn('bg-gradient-to-r from-brand/10 to-[#bc7129]/10 p-4', 'rounded-xl border border-brand/20')}>
         <h4 className="text-lg font-semibold text-brand mb-3 text-center">Quick Summary</h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <DetailedViewSummaryCard title="Daily Volatility" value={cell.volatilityDaily.toFixed(2)} />
@@ -108,7 +109,12 @@ const DetailedViewContent = ({
         {!isCollapsed && (
           <div className="flex items-center space-x-3">
             <h3 className="font-semibold text-brand">Market Analysis</h3>
-            <span className="text-xs 2xl:text-sm text-muted-secondary bg-surface-ring px-1.5 py-0.5 2xl:px-2 2xl:py-1 rounded">
+            <span
+              className={cn(
+                'text-xs 2xl:text-sm text-muted-secondary bg-surface-ring',
+                'px-1.5 py-0.5 2xl:px-2 2xl:py-1 rounded'
+              )}
+            >
               {cell.date}
             </span>
           </div>
@@ -274,7 +280,7 @@ export default function CellDetailedView({ open, onChange, cell, history }: Desc
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed top-0 right-0 h-full z-50 bg-surface border border-surface-ring shadow-2xl"
+            className={cn('fixed top-0 right-0 h-full z-50 bg-surface border', 'border-surface-ring shadow-2xl')}
             style={{
               width: isCollapsed ? '60px' : '600px',
               maxWidth: '600px',

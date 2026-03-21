@@ -1,4 +1,5 @@
 'use client';
+import { cn } from '@/lib/utils';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { TrendingUp, BarChart3, ArrowUpDown, CheckCircle2, Circle, Sparkles } from 'lucide-react';
@@ -19,7 +20,10 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.3 }}
-          className="p-3 bg-gradient-to-br from-surface to-surface-border rounded-xl border border-surface-ring"
+          className={cn(
+            'p-3 bg-gradient-to-br from-surface to-surface-border',
+            'rounded-xl border border-surface-ring'
+          )}
         >
           <div className="space-y-3">
             <div className="text-center">
@@ -43,9 +47,15 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
                 </div>
               </div>
 
-              <div className="w-full h-8 bg-surface-border rounded-lg border border-surface-ring flex items-center justify-center relative overflow-hidden">
+              <div
+                className={cn(
+                  'w-full h-8 bg-surface-border rounded-lg border',
+                  'border-surface-ring flex items-center justify-center',
+                  'relative overflow-hidden'
+                )}
+              >
                 <motion.div
-                  className="w-20 h-1 bg-gradient-to-r from-green-500 via-red-600 to-gray-400 rounded-full"
+                  className={cn('w-20 h-1 bg-gradient-to-r from-green-500 via-red-600', 'to-gray-400 rounded-full')}
                   animate={{
                     scaleX: [1, 1.1, 1],
                     opacity: [0.7, 1, 0.7],
@@ -70,7 +80,7 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 + index * 0.1, duration: 0.3 }}
-          className="flex items-center space-x-2 p-2 rounded-lg hover:bg-surface-ring/50 transition-colors"
+          className={cn('flex items-center space-x-2 p-2 rounded-lg', 'hover:bg-surface-ring/50 transition-colors')}
         >
           <div className={`w-4 h-4 rounded ${item.color} ${item.text}`}></div>
           <span className="text-xs text-muted-secondary">{item.label}</span>
@@ -84,7 +94,12 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: index * 0.1, duration: 0.3 }}
-        className="group relative overflow-hidden rounded-xl border border-surface-ring bg-gradient-to-br from-surface to-surface-border p-3 hover:border-brand/30 transition-all duration-300"
+        className={cn(
+          'group relative overflow-hidden rounded-xl border',
+          'border-surface-ring bg-gradient-to-br from-surface',
+          'to-surface-border p-3 hover:border-brand/30 transition-all',
+          'duration-300'
+        )}
       >
         <div className="flex items-center space-x-3">
           {item.icon ? (
@@ -105,7 +120,14 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
             {item.description && <div className="text-[10px] 2xl:text-xs text-muted-secondary">{item.description}</div>}
           </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+        <div
+          className={cn(
+            'absolute inset-0 bg-gradient-to-r from-transparent',
+            'via-white/5 to-transparent -translate-x-full',
+            'group-hover:translate-x-full transition-transform',
+            'duration-1000'
+          )}
+        ></div>
       </motion.div>
     );
   });
@@ -163,7 +185,10 @@ const AnalysisSection = ({
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
-              className="p-4 bg-gradient-to-br from-surface to-surface-border rounded-xl border border-surface-ring"
+              className={cn(
+                'p-4 bg-gradient-to-br from-surface to-surface-border',
+                'rounded-xl border border-surface-ring'
+              )}
             >
               <div className="flex items-center gap-2 mb-3">
                 <section.icon className="h-4 w-4 text-brand" />
@@ -181,7 +206,7 @@ const AnalysisSection = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.3 }}
-        className="p-4 bg-gradient-to-r from-brand/5 to-transparent rounded-lg border border-brand/20"
+        className={cn('p-4 bg-gradient-to-r from-brand/5 to-transparent rounded-lg', 'border border-brand/20')}
       >
         <p className="text-xs 2xl:text-sm text-muted-secondary leading-relaxed">
           <Sparkles className="inline h-4 w-4 mr-2 text-brand" />
@@ -254,7 +279,7 @@ export function VisualizationLegend() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-      <Card className="bg-gradient-to-br from-surface to-surface-border border-surface-ring shadow-xl">
+      <Card className={cn('bg-gradient-to-br from-surface to-surface-border', 'border-surface-ring shadow-xl')}>
         <CardContent className="px-4 sm:px-6 xl:px-5 2xl:px-6 pt-1 pb-10">
           <div className="flex items-center justify-between mb-7">
             <div>
@@ -271,7 +296,7 @@ export function VisualizationLegend() {
             </motion.div>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-6 p-1 bg-surface-ring rounded-xl border border-surface-ring">
+          <div className={cn('flex flex-wrap gap-2 mb-6 p-1 bg-surface-ring rounded-xl', 'border border-surface-ring')}>
             {tabs
               .filter(tab => (availableTabs as readonly string[]).includes(tab.id))
               .map(tab => {
