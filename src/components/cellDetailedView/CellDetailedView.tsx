@@ -10,7 +10,6 @@ import { HeatmapCell } from "@/types/heatmap";
 import ChartCard from "../uielements/chartCard/ChartCard";
 import { useAppStore } from "@/store/useAppStore";
 import IntradayCandleStickChart from "../intradayCandleStickChart";
-import IntradayNewCandleStick from "../intradayCandleStickChart/IntradayNewCandleStick";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft } from "lucide-react";
 
@@ -76,12 +75,14 @@ const DetailedViewContent = ({
   isCollapsed,
   setIsCollapsed,
   onChange,
+  isMobile,
 }: {
   cell: HeatmapCell;
   history: HeatmapCell[];
   isCollapsed: boolean;
   setIsCollapsed: (isCollapsed: boolean) => void;
   onChange: () => void;
+  isMobile: boolean;
 }) => {
   const { filters } = useAppStore();
   const symbol = filters.symbol;
@@ -137,39 +138,39 @@ const DetailedViewContent = ({
   return (
     <>
       <div
-        className={`flex items-center justify-between px-6 py-5 border-b border-surface-ring ${
+        className={`flex items-center justify-between px-4 py-3 2xl:px-6 2xl:py-5 border-b border-surface-ring ${
           isCollapsed ? "justify-center" : ""
         }`}
       >
         {!isCollapsed && (
           <div className="flex items-center space-x-3">
-            <h3 className="text-2xl font-semibold text-brand">
-              Market Analysis
-            </h3>
-            <span className="text-sm text-muted-secondary bg-surface-ring px-2 py-1 rounded">
+            <h3 className="font-semibold text-brand">Market Analysis</h3>
+            <span className="text-xs 2xl:text-sm text-muted-secondary bg-surface-ring px-1.5 py-0.5 2xl:px-2 2xl:py-1 rounded">
               {cell.date}
             </span>
           </div>
         )}
-        <div className="flex items-center space-x-2">
-          {/* Collapse/Expand Button */}
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
-            title={isCollapsed ? "Expand" : "Collapse"}
-          >
-            <ChevronLeft size={16} className="text-muted-secondary" />
-          </button>
+        {!isMobile && (
+          <div className="flex items-center space-x-2">
+            {/* Collapse/Expand Button */}
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
+              title={isCollapsed ? "Expand" : "Collapse"}
+            >
+              <ChevronLeft size={16} className="text-muted-secondary" />
+            </button>
 
-          {/* Close Button */}
-          <button
-            onClick={onChange}
-            className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
-            title="Close"
-          >
-            <X size={16} className="text-muted-secondary" />
-          </button>
-        </div>
+            {/* Close Button */}
+            <button
+              onClick={onChange}
+              className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
+              title="Close"
+            >
+              <X size={16} className="text-muted-secondary" />
+            </button>
+          </div>
+        )}
       </div>
 
       <AnimatePresence mode="wait">
@@ -179,17 +180,16 @@ const DetailedViewContent = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="flex-1 overflow-y-auto"
-            style={{
+            style={!isMobile ? {
               overflowY: "scroll",
               maxHeight: "calc(100vh - 70px)",
-            }}
+            } : {}}
           >
             {/* Main Content */}
-            <div className="px-6 py-6">
+            <div className="p-4 2xl:p-6">
               {isSelectedDateToday && (
                 <div className="mb-6 space-y-4">
                   <IntradayCandleStickChart symbol={symbol} />
-                  <IntradayNewCandleStick symbol={symbol} />
                 </div>
               )}
 
@@ -293,6 +293,7 @@ export default function CellDetailedView({
         history={history}
         isCollapsed={false}
         setIsCollapsed={() => {}}
+        isMobile={true}
         onChange={onChange}
       />
     );
@@ -329,6 +330,7 @@ export default function CellDetailedView({
               history={history}
               isCollapsed={isCollapsed}
               setIsCollapsed={setIsCollapsed}
+              isMobile={false}
               onChange={onChange}
             />
 

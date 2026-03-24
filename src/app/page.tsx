@@ -1,10 +1,9 @@
 "use client";
 
 import CalendarHeatmap from "@/components/calendarHeatmap/CalendarHeatmap";
-import Sidebar from "@/components/sidebar/Sidebar";
 import { useMonthlyCandles } from "@/hooks/useBinanceData";
 import { useAppStore } from "@/store/useAppStore";
-import { useEffect, Suspense } from "react";
+import { useEffect, useRef } from "react";
 import {
   ModernCalendarSkeleton,
   ModernWelcomeSkeleton,
@@ -12,6 +11,7 @@ import {
 import { useStreamingTransform } from "@/hooks/useStreamingTransform";
 import CellDetailedView from "@/components/cellDetailedView/CellDetailedView";
 import { VisualizationLegend } from "@/components/uielements/visualizationLegend/VisualizationLegend";
+import ResponsiveSidebar from "@/components/sidebar/ResponsiveSidebar";
 
 function CalendarHeatmapView() {
   const { filters, setCandles, viewMonth } = useAppStore();
@@ -62,15 +62,16 @@ function CalendarHeatmapView() {
 export default function Home() {
   const { filters, descriptionPanel, closeDescriptionPanel } = useAppStore();
   const symbol = filters.symbol;
+  const chartsRef = useRef<HTMLDivElement>(null);
 
   if (!symbol) {
     return (
       <main
-        className="min-h-screen px-4 py-5"
+        className="min-h-screen px-2 px-3 2xl:px-4 py-4 2xl:py-5"
         aria-label="Coindra (Crypto Market Explorer)"
       >
-        <div className="flex gap-5">
-          <Sidebar />
+        <div className="flex flex-col xl:flex-row gap-2 sm:gap-3 md:gap-4 xl:gap-4 2xl:gap-6">
+          <ResponsiveSidebar />
           <ModernWelcomeSkeleton />
         </div>
       </main>
@@ -79,26 +80,31 @@ export default function Home() {
 
   return (
     <main
-      className="min-h-screen px-4 py-5"
+      className="min-h-screen px-3 2xl:px-4 py-4 2xl:py-5"
       aria-label="Coindra (Crypto Market Explorer)"
     >
-      <div className="flex gap-5">
-        <Sidebar />
-        <div className="flex-1 overflow-auto" aria-label="calendar-heatmap">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-4 2xl:gap-5">
+        <ResponsiveSidebar />
+        <div
+          className="flex-1 overflow-auto min-h-0 flex flex-col gap-4 2xl:gap-5"
+          aria-label="calendar-heatmap"
+        >
           {/* <Suspense fallback={<ModernCalendarSkeleton />}> */}
           <CalendarHeatmapView />
           {/* </Suspense> */}
           <VisualizationLegend />
+          {descriptionPanel.props && (
+            <div ref={chartsRef} data-charts-section>
+              <CellDetailedView
+                open={descriptionPanel.open}
+                onChange={closeDescriptionPanel}
+                cell={descriptionPanel.props.cell}
+                history={descriptionPanel.props.history}
+              />
+            </div>
+          )}
         </div>
       </div>
-      {descriptionPanel.props && (
-        <CellDetailedView
-          open={descriptionPanel.open}
-          onChange={closeDescriptionPanel}
-          cell={descriptionPanel.props.cell}
-          history={descriptionPanel.props.history}
-        />
-      )}
     </main>
   );
 }

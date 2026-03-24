@@ -123,70 +123,77 @@ const CalendarHeader = ({
   }, [viewMonth, viewMode]);
 
   return (
-    <div className="flex items-center justify-between pt-2 pb-4">
-      <div className="flex items-center space-x-4">
-        <h2 className="text-2xl font-semibold text-label">{getTitle()}</h2>
+    <div className="flex flex-col lg:flex-row sm:items-center justify-between pb-3 sm:pb-4 xl:pb-6 2xl:pb-8 gap-2 sm:gap-3 xl:gap-2 2xl:gap-4">
+      <div className="flex items-center justify-between lg:justify-normal lg:space-x-5 2xl:space-x-7 w-full">
+        <h3 className="font-semibold text-label">{getTitle()}</h3>
         <Button
           variant="outline"
-          size="lg"
+          size="sm"
           onClick={onToday}
-          className="text-lg"
+          className="text-xs sm:text-sm md:text-base xl:text-sm 2xl:text-lg cursor-pointer"
         >
           Today
         </Button>
       </div>
 
-      <div className="flex items-center space-x-2">
-        <div className="flex items-center border border-surface-border rounded-lg bg-surface-border overflow-hidden">
+      <div className="flex items-center justify-between lg:justify-end lg:space-x-3 w-full">
+        <div className="flex items-center border border-surface-border rounded-md bg-surface-border overflow-hidden">
           <Button
             variant="ghost"
             size="lg"
             onClick={() => onViewModeChange("monthly")}
-            className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
+            className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
               viewMode === "monthly"
                 ? "bg-surface text-brand border-brand/20"
                 : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
             }`}
           >
-            <Calendar className="size-5" />
+            <Calendar className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
           </Button>
           <Button
             variant="ghost"
             size="lg"
             onClick={() => onViewModeChange("weekly")}
-            className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
+            className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
               viewMode === "weekly"
                 ? "bg-surface text-brand border-brand/20"
                 : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
             }`}
           >
-            <Grid className="size-5" />
+            <Grid className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
           </Button>
           <Button
             variant="ghost"
             size="lg"
             onClick={() => onViewModeChange("daily")}
-            className={`rounded-none border-0 h-10 px-4 transition-all duration-200 ${
+            className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
               viewMode === "daily"
                 ? "bg-surface text-brand border-brand/20"
                 : "bg-transparent text-white hover:bg-brand/10 hover:text-brand"
             }`}
           >
-            <List className="size-5" />
+            <List className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
           </Button>
         </div>
-        <Button variant="outline" size="lg" onClick={() => changeDate(-1)}>
-          <ChevronLeft className="size-5" />
-        </Button>
-        <Button
-          variant="outline"
-          size="lg"
-          onClick={() => changeDate(1)}
-          disabled={disableNext()}
-          className="disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <ChevronRight className="size-5" />
-        </Button>
+        <div className="space-x-1">
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => changeDate(-1)}
+            className="h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4!"
+          >
+            <ChevronLeft className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => changeDate(1)}
+            disabled={disableNext()}
+            className="disabled:opacity-50 disabled:cursor-not-allowed h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4!"
+          >
+            <ChevronRight className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
+          </Button>
+        </div>
       </div>
     </div>
   );

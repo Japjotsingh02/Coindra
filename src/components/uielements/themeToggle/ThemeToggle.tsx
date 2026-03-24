@@ -32,11 +32,11 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="h-8 w-8 rounded-md border border-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center"
+      className="w-7 h-7 2xl:h-8 2xl:w-8 rounded-md hover:bg-background-mode transition-colors cursor-pointer flex items-center justify-center"
       title={`Switch to ${isDark ? 'light' : 'dark'} theme`}
     >
-      <Sun className={`h-4 w-4 transition-all ${isDark ? 'rotate-0 scale-100' : 'rotate-90 scale-0'}`} />
-      <Moon className={`absolute h-4 w-4 transition-all ${isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100'}`} />
+      <Sun className={`h-4 w-4 text-neutral-500 transition-all ${isDark ? 'rotate-0 scale-100' : 'rotate-90 scale-0'}`} />
+      <Moon className={`absolute h-4 w-4 text-neutral-500 transition-all ${isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100'}`} />
       <span className="sr-only">Toggle theme</span>
     </button>
   );

@@ -56,16 +56,17 @@ export const useAppStore = create<AppState>((set) => ({
   }),
   setFilters: (filters) => 
     set((state) => {
-    console.log(filters, state);
-      return ({
-      filters: { ...state.filters, ...filters },
-    })
-  }),
-  setCandles: (candles) =>
-    set({
-      candles,
-      processedHeatmapData: processHeatmapData(candles),
+      const newFilters = { ...state.filters, ...filters };
+      return {
+        filters: newFilters,
+        processedHeatmapData: processHeatmapData(state.candles, 7, newFilters),
+      };
     }),
+  setCandles: (candles) =>
+    set((state) => ({
+      candles,
+      processedHeatmapData: processHeatmapData(candles, 7, state.filters),
+    })),
   setSelectedDate: (date) => set({ selectedDate: date }),
   setViewMode: (mode) => set({ viewMode: mode }),
   setViewMonth: (date) => set({ viewMonth: date }),
