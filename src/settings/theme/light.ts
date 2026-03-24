@@ -13,5 +13,11 @@ export const light: Theme = {
       negative: { bg: "#dc2626", border: "#1a1c25" },
       neutral: { bg: "#9ca3af", border: "#1a1c25" },
     },
+    liquidity: {
+      low: { bg: "#eff6ff", border: "#bfdbfe" },
+      medium: { bg: "#eef2ff", border: "#c7d2fe" },
+      high: { bg: "#f5f3ff", border: "#ddd6fe" },
+      neutral: { bg: "#f3f4f6", border: "#e5e7eb" },
+    },
   },
 };

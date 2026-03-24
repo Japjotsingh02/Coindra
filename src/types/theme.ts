@@ -16,6 +16,12 @@ export interface ColorPalette {
     negative: ColorVariant;
     neutral: ColorVariant;
   };
+  liquidity: {
+    low: ColorVariant;
+    medium: ColorVariant;
+    high: ColorVariant;
+    neutral: ColorVariant;
+  };
 }
 
 export interface Theme {

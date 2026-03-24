@@ -38,5 +38,27 @@ export const dark: Theme = {
         border: "#1a1c25"
       },
     },
+    liquidity: {
+      low: { 
+        bg: '#0a101f',
+        backgroundImage: "linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.10) 30%, rgba(59,130,246,0.06) 60%, rgba(59,130,246,0.02) 100%)",
+        border: "#1e1e1e"
+      },
+      medium: { 
+        bg: '#0f172a',
+        backgroundImage: "linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.10) 30%, rgba(99,102,241,0.06) 60%, rgba(99,102,241,0.02) 100%)",
+        border: "#1e1e1e"
+      },
+      high: { 
+        bg: '#1e1b4b',
+        backgroundImage: "linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.10) 30%, rgba(139,92,246,0.06) 60%, rgba(139,92,246,0.02) 100%)",
+        border: "#1e1e1e"
+      },
+      neutral: { 
+        bg: '#141414',
+        backgroundImage: "linear-gradient(135deg, rgba(75,85,99,0.15) 0%, rgba(75,85,99,0.10) 30%, rgba(75,85,99,0.06) 60%, rgba(75,85,99,0.02) 100%)",
+        border: "#1e1e1e"
+      },
+    },
   },
 };
