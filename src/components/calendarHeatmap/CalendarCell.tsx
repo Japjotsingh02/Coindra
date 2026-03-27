@@ -6,7 +6,6 @@ import type { HeatmapCell } from "@/types/heatmap";
 import { cn } from "@/lib/utils";
 import {
   Tooltip,
-  TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useAppStore } from "@/store/useAppStore";

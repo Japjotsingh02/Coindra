@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
     console.log(`CACHE MISS (Redis) -> ${source}: ${cacheKey}`);
 
     return NextResponse.json(resultData);
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching Binance klines:", error);
     return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
   }

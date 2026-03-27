@@ -18,14 +18,14 @@ export async function GET() {
     const data = await res.json();
     
     const symbols = data.symbols
-      .filter((s: any) => s.status === "TRADING")
-      .map((s: any) => `${s.baseAsset}/${s.quoteAsset}`);
+      .filter((s: { status: string; baseAsset: string; quoteAsset: string }) => s.status === "TRADING")
+      .map((s: { status: string; baseAsset: string; quoteAsset: string }) => `${s.baseAsset}/${s.quoteAsset}`);
 
     // Cache for 1 day
     await redis.setex(cacheKey, 86400, symbols);
 
     return NextResponse.json(symbols);
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching exchangeInfo:", error);
     return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
   }
