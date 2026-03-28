@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 export function ModernCalendarSkeleton() {
   const containerVariants = {
@@ -43,10 +43,7 @@ export function ModernCalendarSkeleton() {
       animate="visible"
     >
       {/* Header Skeleton */}
-      <motion.div
-        className="flex items-center justify-between pt-2 pb-4"
-        variants={itemVariants}
-      >
+      <motion.div className="flex items-center justify-between pt-2 pb-4" variants={itemVariants}>
         <div className="flex items-center space-x-4">
           <motion.div
             className="h-8 w-32 bg-gradient-to-r from-surface-border to-surface-ring rounded-lg"
@@ -63,7 +60,7 @@ export function ModernCalendarSkeleton() {
         </div>
         <div className="flex items-center space-x-2">
           <div className="flex items-center border border-surface-border rounded-lg bg-surface-border overflow-hidden">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3].map(i => (
               <motion.div
                 key={i}
                 className="h-10 w-16 bg-gradient-to-r from-surface-ring to-surface-border"
@@ -90,17 +87,9 @@ export function ModernCalendarSkeleton() {
       </motion.div>
 
       {/* Days Header Skeleton */}
-      <motion.div
-        className="grid grid-cols-7 gap-3 px-2 py-2"
-        variants={itemVariants}
-      >
-        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, i) => (
-          <motion.div
-            key={day}
-            className="text-center"
-            variants={itemVariants}
-            transition={{ delay: i * 0.05 }}
-          >
+      <motion.div className="grid grid-cols-7 gap-3 px-2 py-2" variants={itemVariants}>
+        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, i) => (
+          <motion.div key={day} className="text-center" variants={itemVariants} transition={{ delay: i * 0.05 }}>
             <motion.div
               className="h-6 w-12 mx-auto bg-gradient-to-r from-surface-border to-surface-ring rounded"
               variants={pulseVariants}
@@ -112,17 +101,9 @@ export function ModernCalendarSkeleton() {
       </motion.div>
 
       {/* Calendar Grid Skeleton */}
-      <motion.div
-        className="grid grid-cols-7 gap-3 pt-2"
-        variants={itemVariants}
-      >
+      <motion.div className="grid grid-cols-7 gap-3 pt-2" variants={itemVariants}>
         {Array.from({ length: 35 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="relative"
-            variants={itemVariants}
-            transition={{ delay: i * 0.02 }}
-          >
+          <motion.div key={i} className="relative" variants={itemVariants} transition={{ delay: i * 0.02 }}>
             <motion.div
               className="h-24 w-full rounded-md bg-gradient-to-br from-surface-border via-surface-ring to-surface-border relative overflow-hidden"
               variants={pulseVariants}
@@ -133,14 +114,14 @@ export function ModernCalendarSkeleton() {
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
                 animate={{
-                  x: ["-100%", "100%"],
+                  x: ['-100%', '100%'],
                 }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
                 }}
               />
-              
+
               {/* Date placeholder */}
               <div className="absolute top-2 left-2">
                 <motion.div
@@ -150,7 +131,7 @@ export function ModernCalendarSkeleton() {
                   animate="animate"
                 />
               </div>
-              
+
               {/* Sparkline placeholder */}
               <div className="absolute bottom-2 left-1 right-1">
                 <motion.div
@@ -198,10 +179,7 @@ export function ModernWelcomeSkeleton() {
       initial="hidden"
       animate="visible"
     >
-      <motion.div
-        className="text-center space-y-6"
-        variants={itemVariants}
-      >
+      <motion.div className="text-center space-y-6" variants={itemVariants}>
         {/* Logo/Icon placeholder */}
         <motion.div
           className="mx-auto w-20 h-20 bg-gradient-to-br from-brand to-[#bc7129] rounded-full flex items-center justify-center"
@@ -227,14 +205,11 @@ export function ModernWelcomeSkeleton() {
         </motion.div>
 
         {/* Title */}
-        <motion.div
-          className="space-y-3"
-          variants={itemVariants}
-        >
+        <motion.div className="space-y-3" variants={itemVariants}>
           <motion.h2
             className="text-3xl font-bold bg-gradient-to-r from-brand to-[#bc7129] bg-clip-text text-transparent"
             animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
             }}
             transition={{
               duration: 3,
@@ -243,20 +218,14 @@ export function ModernWelcomeSkeleton() {
           >
             Welcome to Coindra
           </motion.h2>
-          <motion.p
-            className="text-muted-secondary text-lg max-w-md mx-auto leading-relaxed"
-            variants={itemVariants}
-          >
+          <motion.p className="text-muted-secondary text-lg max-w-md mx-auto leading-relaxed" variants={itemVariants}>
             Select a trading pair from the sidebar to explore market seasonality patterns
           </motion.p>
         </motion.div>
 
         {/* Decorative elements */}
-        <motion.div
-          className="flex justify-center space-x-2"
-          variants={itemVariants}
-        >
-          {[1, 2, 3].map((i) => (
+        <motion.div className="flex justify-center space-x-2" variants={itemVariants}>
+          {[1, 2, 3].map(i => (
             <motion.div
               key={i}
               className="w-2 h-2 bg-gradient-to-r from-brand to-[#bc7129] rounded-full"

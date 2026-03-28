@@ -1,17 +1,13 @@
-"use client";
-import React, { useMemo, useState, useEffect } from "react";
-import { isToday } from "date-fns";
-import {
-  getVolatilityBreakdownOption,
-  getLiquidityContextOption,
-  getRiskQuadrantScatterOption,
-} from "@/lib/charts";
-import { HeatmapCell } from "@/types/heatmap";
-import ChartCard from "../uielements/chartCard/ChartCard";
-import { useAppStore } from "@/store/useAppStore";
-import IntradayCandleStickChart from "../intradayCandleStickChart";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft } from "lucide-react";
+'use client';
+import React, { useMemo, useState, useEffect } from 'react';
+import { isToday } from 'date-fns';
+import { getVolatilityBreakdownOption, getLiquidityContextOption, getRiskQuadrantScatterOption } from '@/lib/charts';
+import { HeatmapCell } from '@/types/heatmap';
+import ChartCard from '../uielements/chartCard/ChartCard';
+import { useAppStore } from '@/store/useAppStore';
+import IntradayCandleStickChart from '../intradayCandleStickChart';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, ChevronLeft } from 'lucide-react';
 
 interface DescriptionModalProps {
   open: boolean;
@@ -20,49 +16,24 @@ interface DescriptionModalProps {
   history: HeatmapCell[];
 }
 
-export const DetailedViewSummaryCard = ({
-  title,
-  value,
-}: {
-  title: string;
-  value: string;
-}) => {
+export const DetailedViewSummaryCard = ({ title, value }: { title: string; value: string }) => {
   return (
     <div className="text-center">
-      <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">
-        {title}
-      </div>
+      <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">{title}</div>
       <div className="text-lg font-bold text-label">{value}</div>
     </div>
   );
 };
 
-export const DetailedViewSummary = ({
-  cell,
-  avgVol,
-}: {
-  cell: HeatmapCell;
-  avgVol: number;
-}) => {
+export const DetailedViewSummary = ({ cell, avgVol }: { cell: HeatmapCell; avgVol: number }) => {
   return (
     <div className="mt-6">
       <div className="bg-gradient-to-r from-brand/10 to-[#bc7129]/10 p-4 rounded-xl border border-brand/20">
-        <h4 className="text-lg font-semibold text-brand mb-3 text-center">
-          Quick Summary
-        </h4>
+        <h4 className="text-lg font-semibold text-brand mb-3 text-center">Quick Summary</h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <DetailedViewSummaryCard
-            title="Daily Volatility"
-            value={cell.volatilityDaily.toFixed(2)}
-          />
-          <DetailedViewSummaryCard
-            title="Rolling Volatility"
-            value={cell.volatilityRolling?.toFixed(2) ?? "N/A"}
-          />
-          <DetailedViewSummaryCard
-            title="Avg Liquidity"
-            value={avgVol.toFixed(0)}
-          />
+          <DetailedViewSummaryCard title="Daily Volatility" value={cell.volatilityDaily.toFixed(2)} />
+          <DetailedViewSummaryCard title="Rolling Volatility" value={cell.volatilityRolling?.toFixed(2) ?? 'N/A'} />
+          <DetailedViewSummaryCard title="Avg Liquidity" value={avgVol.toFixed(0)} />
         </div>
       </div>
     </div>
@@ -87,7 +58,7 @@ const DetailedViewContent = ({
   const { filters } = useAppStore();
   const symbol = filters.symbol;
 
-  const volHistory = history.map((c) => {
+  const volHistory = history.map(c => {
     const intradayVol = c.volatilityDaily;
     const openCloseMove = c.performancePct;
 
@@ -98,7 +69,7 @@ const DetailedViewContent = ({
     };
   });
 
-  const riskQuadrantData = history.map((c) => ({
+  const riskQuadrantData = history.map(c => ({
     date: c.date,
     risk: c?.volatilityRolling ?? c?.volatilityDaily ?? 0,
     return: c?.performancePct ?? 0,
@@ -106,24 +77,16 @@ const DetailedViewContent = ({
   }));
 
   const last7 = history.slice(-7);
-  const avgVol =
-    last7.reduce((sum, c) => sum + (c.liquidity ?? 0), 0) /
-    Math.max(last7.length, 1);
+  const avgVol = last7.reduce((sum, c) => sum + (c.liquidity ?? 0), 0) / Math.max(last7.length, 1);
 
-  const volBreakdownOpt = useMemo(
-    () => getVolatilityBreakdownOption(volHistory),
-    [volHistory]
-  );
+  const volBreakdownOpt = useMemo(() => getVolatilityBreakdownOption(volHistory), [volHistory]);
 
   const riskQuadrantOpt = useMemo(
     () => getRiskQuadrantScatterOption(riskQuadrantData, cell.date),
     [riskQuadrantData, cell.date]
   );
 
-  const liquidityOpt = useMemo(
-    () => getLiquidityContextOption(cell.liquidity ?? 0, avgVol),
-    [cell.liquidity, avgVol]
-  );
+  const liquidityOpt = useMemo(() => getLiquidityContextOption(cell.liquidity ?? 0, avgVol), [cell.liquidity, avgVol]);
 
   // Check if the selected date is today
   const isSelectedDateToday = useMemo(() => {
@@ -139,7 +102,7 @@ const DetailedViewContent = ({
     <>
       <div
         className={`flex items-center justify-between px-4 py-3 2xl:px-6 2xl:py-5 border-b border-surface-ring ${
-          isCollapsed ? "justify-center" : ""
+          isCollapsed ? 'justify-center' : ''
         }`}
       >
         {!isCollapsed && (
@@ -156,17 +119,13 @@ const DetailedViewContent = ({
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
               className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
-              title={isCollapsed ? "Expand" : "Collapse"}
+              title={isCollapsed ? 'Expand' : 'Collapse'}
             >
               <ChevronLeft size={16} className="text-muted-secondary" />
             </button>
 
             {/* Close Button */}
-            <button
-              onClick={onChange}
-              className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
-              title="Close"
-            >
+            <button onClick={onChange} className="p-2 hover:bg-surface-ring rounded-lg transition-colors" title="Close">
               <X size={16} className="text-muted-secondary" />
             </button>
           </div>
@@ -180,10 +139,14 @@ const DetailedViewContent = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="flex-1 overflow-y-auto"
-            style={!isMobile ? {
-              overflowY: "scroll",
-              maxHeight: "calc(100vh - 70px)",
-            } : {}}
+            style={
+              !isMobile
+                ? {
+                    overflowY: 'scroll',
+                    maxHeight: 'calc(100vh - 70px)',
+                  }
+                : {}
+            }
           >
             {/* Main Content */}
             <div className="p-4 2xl:p-6">
@@ -194,10 +157,7 @@ const DetailedViewContent = ({
               )}
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <ChartCard
-                  title="Volatility Breakdown"
-                  option={volBreakdownOpt}
-                />
+                <ChartCard title="Volatility Breakdown" option={volBreakdownOpt} />
                 <ChartCard title="Risk Quadrant" option={riskQuadrantOpt} />
                 <ChartCard title="Liquidity Context" option={liquidityOpt} />
               </div>
@@ -211,12 +171,7 @@ const DetailedViewContent = ({
   );
 };
 
-export default function CellDetailedView({
-  open,
-  onChange,
-  cell,
-  history,
-}: DescriptionModalProps) {
+export default function CellDetailedView({ open, onChange, cell, history }: DescriptionModalProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -227,56 +182,56 @@ export default function CellDetailedView({
     };
 
     checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Close panel on escape key (desktop only)
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && !isMobile) {
+      if (e.key === 'Escape' && !isMobile) {
         onChange();
       }
     };
 
     if (open && !isMobile) {
-      document.addEventListener("keydown", handleEscape);
-      return () => document.removeEventListener("keydown", handleEscape);
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
     }
   }, [open, onChange, isMobile]);
 
   // Prevent body scroll when panel is open (desktop only)
   useEffect(() => {
     if (open && !isMobile) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     }
 
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     };
   }, [open, isMobile]);
 
   const slideVariants = {
     hidden: {
-      x: "100%",
+      x: '100%',
       opacity: 0,
     },
     visible: {
       x: 0,
       opacity: 1,
       transition: {
-        type: "spring" as const,
+        type: 'spring' as const,
         damping: 25,
         stiffness: 200,
       },
     },
     exit: {
-      x: "100%",
+      x: '100%',
       opacity: 0,
       transition: {
-        type: "spring" as const,
+        type: 'spring' as const,
         damping: 25,
         stiffness: 200,
       },
@@ -321,8 +276,8 @@ export default function CellDetailedView({
             exit="exit"
             className="fixed top-0 right-0 h-full z-50 bg-surface border border-surface-ring shadow-2xl"
             style={{
-              width: isCollapsed ? "60px" : "600px",
-              maxWidth: "600px",
+              width: isCollapsed ? '60px' : '600px',
+              maxWidth: '600px',
             }}
           >
             <DetailedViewContent
@@ -341,9 +296,7 @@ export default function CellDetailedView({
                   <div className="w-8 h-8 bg-brand/20 rounded-lg flex items-center justify-center mb-2">
                     <span className="text-brand text-lg font-bold">M</span>
                   </div>
-                  <div className="text-xs text-muted-secondary font-medium">
-                    Analysis
-                  </div>
+                  <div className="text-xs text-muted-secondary font-medium">Analysis</div>
                 </div>
               </div>
             )}

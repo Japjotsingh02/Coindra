@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { redis } from "@/lib/redis";
-import transform from "@/helpers/transform";
-import { getKlinesData } from "@/services/klines.service";
+import { NextRequest, NextResponse } from 'next/server';
+import { redis } from '@/lib/redis';
+import transform from '@/helpers/transform';
+import { getKlinesData } from '@/services/klines.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     const endTimeParam = searchParams.get('endTime');
 
     if (!symbol) {
-      return NextResponse.json({ error: "Symbol is required" }, { status: 400 });
+      return NextResponse.json({ error: 'Symbol is required' }, { status: 400 });
     }
 
     const queryParams: Record<string, string | number> = {
@@ -40,11 +40,11 @@ export async function GET(req: NextRequest) {
 
     // Call our new service abstraction
     const { source, data } = await getKlinesData(queryParams);
-    
-    // Transform formatting mapping 
+
+    // Transform formatting mapping
     const resultData = transform(data);
 
-    let ttl = 60 * 5; 
+    let ttl = 60 * 5;
     if (interval === '1m') ttl = 30;
     else if (interval === '1h') ttl = 60 * 30;
     else if (interval === '1d') ttl = 60 * 60 * 12;
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(resultData);
   } catch (error) {
-    console.error("Error fetching Binance klines:", error);
-    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+    console.error('Error fetching Binance klines:', error);
+    return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
   }
 }

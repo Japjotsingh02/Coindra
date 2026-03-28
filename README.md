@@ -1,55 +1,57 @@
-# 📊 Coindra – Crypto Market Explorer  
+# 📊 Coindra – Crypto Market Explorer
 
-Coindra is a *modern, responsive crypto market visualization tool* that helps traders and analysts explore the market with *interactive heatmaps, sparklines, and real-time candlestick charts*.  
+Coindra is a _modern, responsive crypto market visualization tool_ that helps traders and analysts explore the market with _interactive heatmaps, sparklines, and real-time candlestick charts_.
 
-Built with *Next.js, TailwindCSS, Zustand, React Query, WebSockets, and ECharts*, it delivers fast, fluid, and data-driven insights for 500+ trading pairs.  
-
----
-
-## ✨ Features  
-
-- 🔥 *Interactive Heatmaps* – Explore crypto performance across  
-  - *Monthly* view  
-  - *Weekly* view  
-  - *Daily* view  
-
-- 📈 *Real-time Market Data*  
-  - WebSocket-powered streaming with <200ms updates  
-  - Optimized re-renders with Zustand state management  
-
-- 📊 *Advanced Visualizations*  
-  - Candlestick charts with intraday zoom  
-  - Liquidity bars with smooth gradients  
-  - Volatility-based color coding  
-  - 7-day performance sparklines  
-
-- 🎨 *Modern UI/UX*  
-  - Built with TailwindCSS + Framer Motion animations  
-  - Dark/light mode support  
-  - Responsive layouts for desktop, tablet, and mobile  
+Built with _Next.js, TailwindCSS, Zustand, React Query, WebSockets, and ECharts_, it delivers fast, fluid, and data-driven insights for 500+ trading pairs.
 
 ---
 
-## 🚀 Tech Stack  
+## ✨ Features
 
-- *Frontend:* Next.js 15, React 18, TypeScript  
-- *Styling:* TailwindCSS, shadcn/ui, Framer Motion  
-- *State Management:* Zustand  
-- *Data Fetching:* React Query + WebSockets  
-- *Charts:* ECharts & React Sparklines  
-- *Deployment:* Vercel  
+- 🔥 _Interactive Heatmaps_ – Explore crypto performance across
+  - _Monthly_ view
+  - _Weekly_ view
+  - _Daily_ view
+
+- 📈 _Real-time Market Data_
+  - WebSocket-powered streaming with <200ms updates
+  - Optimized re-renders with Zustand state management
+
+- 📊 _Advanced Visualizations_
+  - Candlestick charts with intraday zoom
+  - Liquidity bars with smooth gradients
+  - Volatility-based color coding
+  - 7-day performance sparklines
+
+- 🎨 _Modern UI/UX_
+  - Built with TailwindCSS + Framer Motion animations
+  - Dark/light mode support
+  - Responsive layouts for desktop, tablet, and mobile
 
 ---
 
-## 📷 Screenshots  
+## 🚀 Tech Stack
 
-> (Will add screenshots of your heatmap)  
+- _Frontend:_ Next.js 15, React 18, TypeScript
+- _Styling:_ TailwindCSS, shadcn/ui, Framer Motion
+- _State Management:_ Zustand
+- _Data Fetching:_ React Query + WebSockets
+- _Charts:_ ECharts & React Sparklines
+- _Deployment:_ Vercel
 
 ---
 
-## ⚡ Getting Started  
+## 📷 Screenshots
 
-### 1. Clone the repository  
+> (Will add screenshots of your heatmap)
+
+---
+
+## ⚡ Getting Started
+
+### 1. Clone the repository
+
 ```bash
 git clone https://github.com/yourusername/coindra.git
 cd coindra
+```

@@ -20,7 +20,7 @@ export function getIntervalMs(interval: string): number {
 }
 
 interface IsStaleParams {
-  dbKlines: any[];
+  dbKlines: { openTime: Date }[];
   limit: number;
   interval: string;
   startTime?: number;
@@ -33,7 +33,7 @@ export function isStale({ dbKlines, limit, interval, startTime, endTime }: IsSta
       const lastCandleTime = dbKlines[dbKlines.length - 1].openTime.getTime();
       const now = Date.now();
       const intervalMs = getIntervalMs(interval);
-      if (now - lastCandleTime <= intervalMs * 3) { 
+      if (now - lastCandleTime <= intervalMs * 3) {
         return false;
       }
     }
@@ -46,8 +46,7 @@ export function isStale({ dbKlines, limit, interval, startTime, endTime }: IsSta
       const firstCandleTime = dbKlines[0].openTime.getTime();
       const lastCandleTime = dbKlines[dbKlines.length - 1].openTime.getTime();
       const intervalMs = getIntervalMs(interval);
-      if (firstCandleTime <= startTime + intervalMs && 
-          lastCandleTime >= endTime - intervalMs) {
+      if (firstCandleTime <= startTime + intervalMs && lastCandleTime >= endTime - intervalMs) {
         return false;
       } else if (dbKlines.length === limit) {
         return false;

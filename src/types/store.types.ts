@@ -1,5 +1,5 @@
-import { Candle, OHLC } from "./candle";
-import { HeatmapCell } from "./heatmap";
+import { Candle, OHLC } from './candle';
+import { HeatmapCell } from './heatmap';
 
 type DateRange = {
   startDate: Date;
@@ -15,7 +15,7 @@ export type Filters = {
 };
 
 export enum ModalTypes {
-  Description = "description",
+  Description = 'description',
 }
 
 export type ModalProps = {
@@ -24,7 +24,7 @@ export type ModalProps = {
 };
 
 export type ModalState = {
-  type: ModalTypes | null; 
+  type: ModalTypes | null;
   props?: ModalProps;
   onClose?: () => void;
 };
@@ -55,8 +55,8 @@ export interface AppState {
   setFilters: (filters: Partial<Filters>) => void;
   selectedDate: Date | null;
   setSelectedDate: (date: Date | null) => void;
-  viewMode: "daily" | "weekly" | "monthly";
-  setViewMode: (mode: "daily" | "weekly" | "monthly") => void;
+  viewMode: 'daily' | 'weekly' | 'monthly';
+  setViewMode: (mode: 'daily' | 'weekly' | 'monthly') => void;
   candles: Candle[];
   setCandles: (candles: Candle[]) => void;
   processedHeatmapData: HeatmapCell[];

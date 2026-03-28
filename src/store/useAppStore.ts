@@ -1,11 +1,11 @@
-import { processHeatmapData } from "@/helpers/processData";
-import { OHLC } from "@/types/candle";
-import { AppState } from "@/types/store.types";
-import { create } from "zustand";
+import { processHeatmapData } from '@/helpers/processData';
+import { OHLC } from '@/types/candle';
+import { AppState } from '@/types/store.types';
+import { create } from 'zustand';
 
-export const useAppStore = create<AppState>((set) => ({
+export const useAppStore = create<AppState>(set => ({
   filters: {
-    symbol: "ETH/BTC",
+    symbol: 'ETH/BTC',
     volatility: true,
     liquidity: true,
     performance: true,
@@ -17,7 +17,7 @@ export const useAppStore = create<AppState>((set) => ({
   candles: [],
   processedHeatmapData: [],
   selectedDate: null,
-  viewMode: "monthly",
+  viewMode: 'monthly',
   modal: {
     type: null,
   },
@@ -35,8 +35,8 @@ export const useAppStore = create<AppState>((set) => ({
     open: false,
   },
   viewMonth: new Date(),
-  setRealtime: (partial) =>
-    set((state) => ({
+  setRealtime: partial =>
+    set(state => ({
       realtime: {
         ...state.realtime,
         ...partial,
@@ -45,29 +45,31 @@ export const useAppStore = create<AppState>((set) => ({
     })),
   setLatestCandle: (candle: OHLC) => set({ latestCandle: candle }),
   openModal: (type, props, onClose) => set({ modal: { type, props, onClose } }),
-  closeModal: () => set((state) => {
-    state.modal.onClose?.();
-    return { modal: { type: null } };
-  }),
+  closeModal: () =>
+    set(state => {
+      state.modal.onClose?.();
+      return { modal: { type: null } };
+    }),
   openDescriptionPanel: (props, onClose) => set({ descriptionPanel: { open: true, props, onClose } }),
-  closeDescriptionPanel: () => set((state) => {
-    state.descriptionPanel.onClose?.();
-    return { descriptionPanel: { open: false } };
-  }),
-  setFilters: (filters) => 
-    set((state) => {
+  closeDescriptionPanel: () =>
+    set(state => {
+      state.descriptionPanel.onClose?.();
+      return { descriptionPanel: { open: false } };
+    }),
+  setFilters: filters =>
+    set(state => {
       const newFilters = { ...state.filters, ...filters };
       return {
         filters: newFilters,
         processedHeatmapData: processHeatmapData(state.candles, 7, newFilters),
       };
     }),
-  setCandles: (candles) =>
-    set((state) => ({
+  setCandles: candles =>
+    set(state => ({
       candles,
       processedHeatmapData: processHeatmapData(candles, 7, state.filters),
     })),
-  setSelectedDate: (date) => set({ selectedDate: date }),
-  setViewMode: (mode) => set({ viewMode: mode }),
-  setViewMonth: (date) => set({ viewMonth: date }),
+  setSelectedDate: date => set({ selectedDate: date }),
+  setViewMode: mode => set({ viewMode: mode }),
+  setViewMonth: date => set({ viewMonth: date }),
 }));
