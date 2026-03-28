@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 export function ModernCalendarSkeleton() {
@@ -37,7 +38,7 @@ export function ModernCalendarSkeleton() {
 
   return (
     <motion.div
-      className="rounded-lg shadow-md overflow-hidden border border-[#20232E] bg-background-dark px-12 py-6"
+      className={cn('rounded-lg shadow-md overflow-hidden border border-[#20232E]', 'bg-background-dark px-12 py-6')}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -46,7 +47,7 @@ export function ModernCalendarSkeleton() {
       <motion.div className="flex items-center justify-between pt-2 pb-4" variants={itemVariants}>
         <div className="flex items-center space-x-4">
           <motion.div
-            className="h-8 w-32 bg-gradient-to-r from-surface-border to-surface-ring rounded-lg"
+            className={cn('h-8 w-32 bg-gradient-to-r from-surface-border', 'to-surface-ring rounded-lg')}
             variants={pulseVariants}
             initial="initial"
             animate="animate"
@@ -59,7 +60,12 @@ export function ModernCalendarSkeleton() {
           />
         </div>
         <div className="flex items-center space-x-2">
-          <div className="flex items-center border border-surface-border rounded-lg bg-surface-border overflow-hidden">
+          <div
+            className={cn(
+              'flex items-center border border-surface-border rounded-lg',
+              'bg-surface-border overflow-hidden'
+            )}
+          >
             {[1, 2, 3].map(i => (
               <motion.div
                 key={i}
@@ -72,13 +78,13 @@ export function ModernCalendarSkeleton() {
             ))}
           </div>
           <motion.div
-            className="h-10 w-10 bg-gradient-to-r from-surface-ring to-surface-border rounded-lg"
+            className={cn('h-10 w-10 bg-gradient-to-r from-surface-ring', 'to-surface-border rounded-lg')}
             variants={pulseVariants}
             initial="initial"
             animate="animate"
           />
           <motion.div
-            className="h-10 w-10 bg-gradient-to-r from-surface-ring to-surface-border rounded-lg"
+            className={cn('h-10 w-10 bg-gradient-to-r from-surface-ring', 'to-surface-border rounded-lg')}
             variants={pulseVariants}
             initial="initial"
             animate="animate"
@@ -91,7 +97,7 @@ export function ModernCalendarSkeleton() {
         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, i) => (
           <motion.div key={day} className="text-center" variants={itemVariants} transition={{ delay: i * 0.05 }}>
             <motion.div
-              className="h-6 w-12 mx-auto bg-gradient-to-r from-surface-border to-surface-ring rounded"
+              className={cn('h-6 w-12 mx-auto bg-gradient-to-r from-surface-border', 'to-surface-ring rounded')}
               variants={pulseVariants}
               initial="initial"
               animate="animate"
@@ -105,14 +111,17 @@ export function ModernCalendarSkeleton() {
         {Array.from({ length: 35 }).map((_, i) => (
           <motion.div key={i} className="relative" variants={itemVariants} transition={{ delay: i * 0.02 }}>
             <motion.div
-              className="h-24 w-full rounded-md bg-gradient-to-br from-surface-border via-surface-ring to-surface-border relative overflow-hidden"
+              className={cn(
+                'h-24 w-full rounded-md bg-gradient-to-br from-surface-border',
+                'via-surface-ring to-surface-border relative overflow-hidden'
+              )}
               variants={pulseVariants}
               initial="initial"
               animate="animate"
             >
               {/* Shimmer effect */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+                className={cn('absolute inset-0 bg-gradient-to-r from-transparent', 'via-white/5 to-transparent')}
                 animate={{
                   x: ['-100%', '100%'],
                 }}
@@ -182,7 +191,10 @@ export function ModernWelcomeSkeleton() {
       <motion.div className="text-center space-y-6" variants={itemVariants}>
         {/* Logo/Icon placeholder */}
         <motion.div
-          className="mx-auto w-20 h-20 bg-gradient-to-br from-brand to-[#bc7129] rounded-full flex items-center justify-center"
+          className={cn(
+            'mx-auto w-20 h-20 bg-gradient-to-br from-brand to-[#bc7129]',
+            'rounded-full flex items-center justify-center'
+          )}
           animate={{
             rotate: [0, 360],
             scale: [1, 1.1, 1],
@@ -207,7 +219,10 @@ export function ModernWelcomeSkeleton() {
         {/* Title */}
         <motion.div className="space-y-3" variants={itemVariants}>
           <motion.h2
-            className="text-3xl font-bold bg-gradient-to-r from-brand to-[#bc7129] bg-clip-text text-transparent"
+            className={cn(
+              'text-3xl font-bold bg-gradient-to-r from-brand to-[#bc7129]',
+              'bg-clip-text text-transparent'
+            )}
             animate={{
               backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
             }}

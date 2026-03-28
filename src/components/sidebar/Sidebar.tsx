@@ -1,4 +1,5 @@
 'use client';
+import { cn } from '@/lib/utils';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -22,7 +23,7 @@ function SymbolSelector({
 }) {
   return (
     <div className="space-y-3">
-      <label className="text-xs 2xl:text-sm font-medium text-muted-secondary tracking-wide uppercase block">
+      <label className={cn('text-xs 2xl:text-sm font-medium text-muted-secondary', 'tracking-wide uppercase block')}>
         Trading Pair
       </label>
       <Select
@@ -43,7 +44,7 @@ function SymbolSelector({
             <SelectItem
               disabled
               value="loading"
-              className="text-ash text-sm bg-background-input hover:bg-surface-light cursor-not-allowed"
+              className={cn('text-ash text-sm bg-background-input hover:bg-surface-light', 'cursor-not-allowed')}
             >
               Loading pairs...
             </SelectItem>
@@ -52,7 +53,10 @@ function SymbolSelector({
               <SelectItem
                 key={symbol}
                 value={symbol}
-                className="text-ash text-sm bg-background-input hover:bg-surface-light hover:text-brand transition-colors cursor-pointer"
+                className={cn(
+                  'text-ash text-sm bg-background-input hover:bg-surface-light',
+                  'hover:text-brand transition-colors cursor-pointer'
+                )}
               >
                 {symbol}
               </SelectItem>
@@ -81,11 +85,21 @@ function FilterCheckboxes({
             id={key}
             checked={!!filters[key as keyof typeof filters]}
             onCheckedChange={checked => updateFilter(key as keyof typeof filters, checked)}
-            className="h-5 w-5 2xl:h-6 2xl:w-6 [&_svg]:h-3 [&_svg]:w-3 2xl:[&_svg]:h-4 2xl:[&_svg]:w-4 [&_svg]:stroke-brand [&_svg]:!fill-transparent border-2 border-surface-border data-[state=checked]:bg-transparent data-[state=checked]:border-surface-border"
+            className={cn(
+              'h-5 w-5 2xl:h-6 2xl:w-6 [&_svg]:h-3 [&_svg]:w-3',
+              '2xl:[&_svg]:h-4 2xl:[&_svg]:w-4 [&_svg]:stroke-brand',
+              '[&_svg]:!fill-transparent border-2 border-surface-border',
+              'data-[state=checked]:bg-transparent',
+              'data-[state=checked]:border-surface-border'
+            )}
           />
           <label
             htmlFor={key}
-            className="text-sm 2xl:text-lg font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-label"
+            className={cn(
+              'text-sm 2xl:text-lg font-medium capitalize leading-none',
+              'peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+              'text-label'
+            )}
           >
             {key}
           </label>
@@ -121,7 +135,14 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="max-w-sm w-2xs 2xl:w-sm h-full bg-background-sidebar text-label p-5 2xl:p-6 flex flex-col gap-8 xl:gap-10 2xl:gap-12 lg:rounded-xl lg:border border-surface-border backdrop-blur-sm">
+    <aside
+      className={cn(
+        'max-w-sm w-2xs 2xl:w-sm h-full bg-background-sidebar',
+        'text-label p-5 2xl:p-6 flex flex-col gap-8 xl:gap-10',
+        '2xl:gap-12 lg:rounded-xl lg:border border-surface-border',
+        'backdrop-blur-sm'
+      )}
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           <div className="relative w-5 h-5 2xl:w-6 2xl:h-6 antialiased">
@@ -136,14 +157,18 @@ export default function Sidebar() {
         <SymbolSelector filters={filters} symbols={symbols || []} isLoading={isLoading} updateFilter={updateFilter} />
 
         <div className="space-y-3">
-          <label className="text-xs 2xl:text-sm font-medium text-muted-secondary tracking-wide uppercase block">
+          <label
+            className={cn('text-xs 2xl:text-sm font-medium text-muted-secondary', 'tracking-wide uppercase block')}
+          >
             Data Filters
           </label>
           <FilterCheckboxes filters={filters} updateFilter={updateFilter} />
         </div>
 
         <div className="space-y-3">
-          <label className="text-xs 2xl:text-sm font-medium text-muted-secondary tracking-wide uppercase block">
+          <label
+            className={cn('text-xs 2xl:text-sm font-medium text-muted-secondary', 'tracking-wide uppercase block')}
+          >
             Date Range
           </label>
           <DateRangeFilter

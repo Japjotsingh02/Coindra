@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import {
   format,
   addMonths,
@@ -108,8 +109,14 @@ const CalendarHeader = ({
   }, [viewMonth, viewMode]);
 
   return (
-    <div className="flex flex-col lg:flex-row sm:items-center justify-between pb-3 sm:pb-4 xl:pb-6 2xl:pb-8 gap-2 sm:gap-3 xl:gap-2 2xl:gap-4">
-      <div className="flex items-center justify-between lg:justify-normal lg:space-x-5 2xl:space-x-7 w-full">
+    <div
+      className={cn(
+        'flex flex-col lg:flex-row sm:items-center justify-between',
+        'pb-3 sm:pb-4 xl:pb-6 2xl:pb-8 gap-2 sm:gap-3 xl:gap-2',
+        '2xl:gap-4'
+      )}
+    >
+      <div className={cn('flex items-center justify-between lg:justify-normal', 'lg:space-x-5 2xl:space-x-7 w-full')}>
         <h3 className="font-semibold text-label">{getTitle()}</h3>
         <Button
           variant="outline"
@@ -122,7 +129,12 @@ const CalendarHeader = ({
       </div>
 
       <div className="flex items-center justify-between lg:justify-end lg:space-x-3 w-full">
-        <div className="flex items-center border border-surface-border rounded-md bg-surface-border overflow-hidden">
+        <div
+          className={cn(
+            'flex items-center border border-surface-border rounded-md',
+            'bg-surface-border overflow-hidden'
+          )}
+        >
           <Button
             variant="ghost"
             size="lg"
@@ -165,7 +177,7 @@ const CalendarHeader = ({
             variant="outline"
             size="lg"
             onClick={() => changeDate(-1)}
-            className="h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4!"
+            className={cn('h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4', 'xl:px-3! 2xl:px-4!')}
           >
             <ChevronLeft className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
           </Button>
@@ -174,7 +186,11 @@ const CalendarHeader = ({
             size="lg"
             onClick={() => changeDate(1)}
             disabled={disableNext()}
-            className="disabled:opacity-50 disabled:cursor-not-allowed h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4!"
+            className={cn(
+              'disabled:opacity-50 disabled:cursor-not-allowed h-7 sm:h-7',
+              'md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3!',
+              '2xl:px-4!'
+            )}
           >
             <ChevronRight className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
           </Button>

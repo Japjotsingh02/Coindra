@@ -118,22 +118,38 @@ const LiquidityScoreBar = ({ score, viewMode }: { score: number; viewMode: 'mont
           {Math.round(normalizedScore)}%
         </span>
       </div>
-      <div className="relative w-full h-1 sm:h-1.5 md:h-2 rounded-full bg-gray-800/40 border border-gray-700/30 overflow-visible backdrop-blur-sm">
+      <div
+        className={cn(
+          'relative w-full h-1 sm:h-1.5 md:h-2 rounded-full',
+          'bg-gray-800/40 border border-gray-700/30 overflow-visible',
+          'backdrop-blur-sm'
+        )}
+      >
         {/* Track Pattern */}
         <div className="absolute inset-0 bg-gradient-to-r from-gray-700/30 to-gray-600/30" />
         <div
           className={cn(
-            'h-full rounded-full bg-gradient-to-r relative overflow-hidden transition-all duration-700 ease-out',
+            'h-full rounded-full bg-gradient-to-r relative',
+            'overflow-hidden transition-all duration-700 ease-out',
             current.color
           )}
           style={{ width: `${normalizedScore}%` }}
         >
           {/* Shimmer */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_infinite]" />
+          <div
+            className={cn(
+              'absolute inset-0 bg-gradient-to-r from-transparent',
+              'via-white/20 to-transparent animate-[shimmer_2s_infinite]'
+            )}
+          />
         </div>
 
         <div
-          className="absolute top-0 h-full rounded-full blur-md opacity-50 pointer-events-none transition-all duration-1000 ease-out z-5"
+          className={cn(
+            'absolute top-0 h-full rounded-full blur-md opacity-50',
+            'pointer-events-none transition-all duration-1000 ease-out',
+            'z-5'
+          )}
           style={{
             width: `${normalizedScore}%`,
             filter: `blur(2px)`,
@@ -179,7 +195,8 @@ export default function CalendarCell({
           type="button"
           onClick={handleClick}
           className={cn(
-            'relative w-full rounded-md transition-all duration-150 p-1.5 lg:p-2 xl:p-3 flex',
+            'relative w-full rounded-md transition-all duration-150 p-1.5',
+            'lg:p-2 xl:p-3 flex',
             'hover:scale-[1.02] focus:outline-none',
             {
               'h-12 sm:h-18 lg:h-19 2xl:h-24': viewMode !== 'weekly',
@@ -206,7 +223,10 @@ export default function CalendarCell({
 
           {today && (
             <span
-              className="absolute right-1.5 top-1.5 md:right-2 md:top-2 h-1 w-1 md:h-1.5 md:w-1.5 2xl:h-2 wxl:w-2 rounded-full bg-[#bc7129]"
+              className={cn(
+                'absolute right-1.5 top-1.5 md:right-2 md:top-2 h-1 w-1',
+                'md:h-1.5 md:w-1.5 2xl:h-2 wxl:w-2 rounded-full bg-[#bc7129]'
+              )}
               aria-label="Today"
             />
           )}
@@ -229,7 +249,12 @@ export default function CalendarCell({
               <div
                 className={cn('absolute left-1 right-1', viewMode === 'weekly' ? 'bottom-1 sm:bottom-2' : 'bottom-2')}
               >
-                <div className="h-1 sm:h-1.5 md:h-2 bg-gradient-to-r from-surface-ring to-surface-border rounded opacity-40" />
+                <div
+                  className={cn(
+                    'h-1 sm:h-1.5 md:h-2 bg-gradient-to-r from-surface-ring',
+                    'to-surface-border rounded opacity-40'
+                  )}
+                />
               </div>
 
               {/* Corner accent */}
