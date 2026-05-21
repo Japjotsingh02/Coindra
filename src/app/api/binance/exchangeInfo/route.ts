@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { redis } from '@/lib/redis';
 
 export const dynamic = 'force-dynamic';
@@ -18,8 +18,13 @@ export async function GET() {
     const data = await res.json();
 
     const symbols = data.symbols
-      .filter((s: { status: string; baseAsset: string; quoteAsset: string }) => s.status === 'TRADING')
-      .map((s: { status: string; baseAsset: string; quoteAsset: string }) => `${s.baseAsset}/${s.quoteAsset}`);
+      .filter(
+        (s: { status: string; baseAsset: string; quoteAsset: string }) => s.status === 'TRADING'
+      )
+      .map(
+        (s: { status: string; baseAsset: string; quoteAsset: string }) =>
+          `${s.baseAsset}/${s.quoteAsset}`
+      );
 
     // Cache for 1 day
     await redis.setex(cacheKey, 86400, symbols);

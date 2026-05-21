@@ -1,4 +1,4 @@
-export interface Candle {
+﻿export interface Candle {
   date: string;
   open: number;
   high: number;

@@ -1,4 +1,4 @@
-import { Candle, OHLC } from './candle';
+﻿import { Candle, OHLC } from './candle';
 import { HeatmapCell } from './heatmap';
 
 type DateRange = {
