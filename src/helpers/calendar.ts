@@ -1,4 +1,4 @@
-import { eachDayOfInterval, startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
+﻿import { eachDayOfInterval, startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 
 export type ViewMode = 'monthly' | 'weekly' | 'daily';
 

@@ -1,24 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+﻿import { useQuery } from '@tanstack/react-query';
 import { fetchBinanceCandles } from '@/lib/binance';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  // BinanceRealTimeData,
-  Candle,
-  // KlineData,
-  // OHLC,
-  // TickerData,
-} from '@/types/candle';
-// import { useAppStore } from "@/store/useAppStore";
-// import { RealtimeData } from "@/types/store.types";
-
-// export const useBinanceQuery = (symbol: string) =>
-//   useQuery<Candle[], Error>({
-//     queryKey: ["binanceCandles", symbol],
-//     queryFn: () => fetchBinanceCandles({ symbol, interval: "1d", limit: 100 }),
-//     refetchInterval: 60 * 1000,
-//     staleTime: 30 * 1000,
-//     enabled: !!symbol,
-//   });
+import { Candle } from '@/types/candle';
 
 export function useMonthlyCandles(symbol: string, currentMonth: Date) {
   const { startDate, endDate } = useMemo(() => {
@@ -45,80 +28,6 @@ export function useMonthlyCandles(symbol: string, currentMonth: Date) {
 
   return query;
 }
-
-// export default function useBinanceRealTimeData(symbol: string = "BTCUSDT") {
-//   const setRealtime = useAppStore((s) => s.setRealtime);
-//   const setLatestCandle = useAppStore((s) => s.setLatestCandle);
-
-//   const frameRequestRef = useRef<number | null>(null);
-//   const queuedUpdate = useRef<Partial<BinanceRealTimeData> | null>(null);
-
-//   const scheduleUpdate = (partial: Partial<RealtimeData>) => {
-//     queuedUpdate.current = { ...queuedUpdate.current, ...partial };
-//     if (!frameRequestRef.current) {
-//       frameRequestRef.current = requestAnimationFrame(() => {
-//         setRealtime(queuedUpdate.current || {});
-//         queuedUpdate.current = null;
-//         frameRequestRef.current = null;
-//       });
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (!symbol) return;
-//     const formatted = symbol.replace("/", "").toLowerCase();
-
-//     const tickerWs = new WebSocket(
-//       `wss://stream.binance.com:9443/ws/${formatted}@ticker`
-//     );
-//     const klineWs = new WebSocket(
-//       `wss://stream.binance.com:9443/ws/${formatted}@kline_1m`
-//     );
-
-//     tickerWs.onmessage = (event) => {
-//       try {
-//         const data = JSON.parse(event.data) as TickerData;
-//         scheduleUpdate({
-//           volume24h: parseFloat(data.v),
-//           priceChange24h: parseFloat(data.p),
-//           priceChangePercent24h: parseFloat(data.P),
-//           high24h: parseFloat(data.h),
-//           low24h: parseFloat(data.l),
-//         });
-//       } catch (error) {
-//         console.error("Error parsing ticker data:", error);
-//       }
-//     };
-
-//     klineWs.onmessage = (event) => {
-//       try {
-//         const data = JSON.parse(event.data) as KlineData;
-//         if (!data.k) return;
-//         const k = data.k;
-//         const liveCandle = [
-//           parseFloat(k.o),
-//           parseFloat(k.h),
-//           parseFloat(k.l),
-//           parseFloat(k.c),
-//         ] as OHLC;
-//         setLatestCandle(liveCandle);
-//         scheduleUpdate({ price: parseFloat(k.c) });
-//       } catch (error) {
-//         console.error("Error parsing kline data:", error);
-//       }
-//     };
-
-//     return () => {
-//       tickerWs.close();
-//       klineWs.close();
-//       if (frameRequestRef.current)
-//         cancelAnimationFrame(frameRequestRef.current);
-//     };
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [symbol, setRealtime]);
-
-//   return useAppStore((s) => s.realtime);
-// }
 
 export function useIntradayCandles(symbol: string = 'BTCUSDT') {
   const [candles, setCandles] = useState<Candle[]>([]);
@@ -156,10 +65,12 @@ export function useIntradayCandles(symbol: string = 'BTCUSDT') {
     fetchPastData();
 
     // 2. Subscribe to WebSocket for live updates
-    const ws = new WebSocket(`wss://stream.binance.com:9443/ws/${formatted.toLowerCase()}@kline_1m`);
+    const ws = new WebSocket(
+      `wss://stream.binance.com:9443/ws/${formatted.toLowerCase()}@kline_1m`
+    );
     wsRef.current = ws;
 
-    ws.onmessage = event => {
+    ws.onmessage = (event) => {
       try {
         const msg = JSON.parse(event.data);
         const k = msg.k;
@@ -173,7 +84,7 @@ export function useIntradayCandles(symbol: string = 'BTCUSDT') {
           volume: parseFloat(k.v),
         };
 
-        setCandles(prev => {
+        setCandles((prev) => {
           if (!prev.length) return [newCandle];
 
           const last = prev[prev.length - 1];
@@ -198,30 +109,3 @@ export function useIntradayCandles(symbol: string = 'BTCUSDT') {
 
   return candles;
 }
-
-// Hook specifically for DescriptionModal with enhanced data
-// export function useDescriptionModalRealTimeData(symbol: string) {
-//   const realtimeData = useBinanceRealTimeData(symbol);
-
-//   // Calculate additional metrics
-//   const currentVolatility = useMemo(() => {
-//     if (!realtimeData.high24h || !realtimeData.low24h || !realtimeData.price)
-//       return null;
-//     return (
-//       ((realtimeData.high24h - realtimeData.low24h) / realtimeData.price) * 100
-//     );
-//   }, [realtimeData.high24h, realtimeData.low24h, realtimeData.price]);
-
-//   const priceChangeColor = useMemo(() => {
-//     if (!realtimeData.priceChangePercent24h) return "text-gray-400";
-//     return realtimeData.priceChangePercent24h >= 0
-//       ? "text-green-400"
-//       : "text-red-400";
-//   }, [realtimeData.priceChangePercent24h]);
-
-//   return {
-//     ...realtimeData,
-//     currentVolatility,
-//     priceChangeColor,
-//   };
-// }

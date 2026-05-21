@@ -1,4 +1,4 @@
-export function getIntervalMs(interval: string): number {
+﻿export function getIntervalMs(interval: string): number {
   const map: Record<string, number> = {
     '1m': 60 * 1000,
     '3m': 3 * 60 * 1000,

@@ -1,13 +1,15 @@
-'use client';
+﻿'use client';
 import { cn } from '@/lib/utils';
 
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/elements/card/Card';
 import { TrendingUp, BarChart3, ArrowUpDown, CheckCircle2, Circle, Sparkles } from 'lucide-react';
 import { useState, useEffect, useMemo, Fragment } from 'react';
 import { useAppStore } from '@/store/useAppStore';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Filters } from '@/types/store.types';
 import { analysisConfig, SectionArray } from '@/lib/analysisConfig';
+import { ui } from '@/lib/ui-styles';
+import { Button } from '@/components/ui/button';
 
 export type FilterKey = 'volatility' | 'liquidity' | 'performance';
 
@@ -20,15 +22,12 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.3 }}
-          className={cn(
-            'p-3 bg-gradient-to-br from-surface to-surface-border',
-            'rounded-xl border border-surface-ring'
-          )}
+          className={cn(ui.elevated, 'p-3')}
         >
           <div className="space-y-3">
             <div className="text-center">
               <div className="text-sm font-semibold text-label mb-2">{item.label}</div>
-              <div className="text-xs text-muted-secondary mb-3">{item.description}</div>
+              <div className={cn('text-xs mb-3', ui.muted)}>{item.description}</div>
             </div>
 
             <div className="space-y-2">
@@ -49,13 +48,16 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
 
               <div
                 className={cn(
-                  'w-full h-8 bg-surface-border rounded-lg border',
-                  'border-surface-ring flex items-center justify-center',
+                  'w-full h-8 bg-[#111111] rounded-[4px] border',
+                  'border-[#222222] flex items-center justify-center',
                   'relative overflow-hidden'
                 )}
               >
                 <motion.div
-                  className={cn('w-20 h-1 bg-gradient-to-r from-green-500 via-red-600', 'to-gray-400 rounded-full')}
+                  className={cn(
+                    'w-20 h-1 bg-gradient-to-r from-green-500 via-red-600',
+                    'to-gray-400 rounded-full'
+                  )}
                   animate={{
                     scaleX: [1, 1.1, 1],
                     opacity: [0.7, 1, 0.7],
@@ -80,10 +82,13 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 + index * 0.1, duration: 0.3 }}
-          className={cn('flex items-center space-x-2 p-2 rounded-lg', 'hover:bg-surface-ring/50 transition-colors')}
+          className={cn(
+            'flex items-center space-x-2 p-2 rounded-[4px]',
+            'hover:bg-[#111111] transition-colors'
+          )}
         >
           <div className={`w-4 h-4 rounded ${item.color} ${item.text}`}></div>
-          <span className="text-xs text-muted-secondary">{item.label}</span>
+          <span className={cn('text-xs', ui.muted)}>{item.label}</span>
         </motion.div>
       );
     }
@@ -94,12 +99,7 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: index * 0.1, duration: 0.3 }}
-        className={cn(
-          'group relative overflow-hidden rounded-xl border',
-          'border-surface-ring bg-gradient-to-br from-surface',
-          'to-surface-border p-3 hover:border-brand/30 transition-all',
-          'duration-300'
-        )}
+        className={cn('group relative overflow-hidden', cn(ui.elevated, ui.elevatedHover, 'p-3'))}
       >
         <div className="flex items-center space-x-3">
           {item.icon ? (
@@ -109,15 +109,21 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
               {item.icon}
             </div>
           ) : item.bg ? (
-            <div className={`w-8 h-8 rounded-lg bg-gradient-to-t ${item.color} flex items-center justify-center`}>
+            <div
+              className={`w-8 h-8 rounded-lg bg-gradient-to-t ${item.color} flex items-center justify-center`}
+            >
               <div className={`w-4 h-4 rounded ${item.bg}`}></div>
             </div>
           ) : (
             <div className={`w-4 h-4 rounded ${item.color || 'bg-gray-400'}`}></div>
           )}
           <div className="flex-1">
-            <div className={`text-xs 2xl:text-sm font-semibold ${item.text || 'text-label'}`}>{item.label}</div>
-            {item.description && <div className="text-[10px] 2xl:text-xs text-muted-secondary">{item.description}</div>}
+            <div className={`text-xs 2xl:text-sm font-semibold ${item.text || 'text-label'}`}>
+              {item.label}
+            </div>
+            {item.description && (
+              <div className={cn('text-[10px] 2xl:text-xs', ui.muted)}>{item.description}</div>
+            )}
           </div>
         </div>
         <div
@@ -158,16 +164,14 @@ const AnalysisSection = ({
           </div>
           <div>
             <h5 className="font-semibold text-label">{title}</h5>
-            <p className="text-xs text-muted-secondary">{subtitle}</p>
+            <p className={cn('text-xs', ui.muted)}>{subtitle}</p>
           </div>
         </div>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <Button
+          variant={filters[id] ? 'default' : 'outline'}
+          size="sm"
           onClick={() => handleFilterToggle(id)}
-          className={`flex items-center gap-1 2xl:gap-2 px-2.5 py-1.5 2xl:px-3 2xl:py-2 rounded-md 2xl:rounded-lg transition-all duration-200 ${
-            filters[id] ? 'bg-brand text-white' : 'bg-surface-border text-muted-secondary hover:bg-surface-ring'
-          }`}
+          className="gap-1 2xl:gap-2"
         >
           {filters[id] ? (
             <CheckCircle2 className="h-3 w-3 2xl:h-4 2xl:w-4" />
@@ -175,26 +179,25 @@ const AnalysisSection = ({
             <Circle className="h-3 w-3 2xl:h-4 2xl:w-4" />
           )}
           <span className="text-[10px] 2xl:text-xs font-medium">Enabled</span>
-        </motion.button>
+        </Button>
       </div>
 
-      {sections.map(section => (
+      {sections.map((section) => (
         <Fragment key={section.title}>
           {section.icon ? (
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
-              className={cn(
-                'p-4 bg-gradient-to-br from-surface to-surface-border',
-                'rounded-xl border border-surface-ring'
-              )}
+              className={cn(ui.elevated, 'p-4')}
             >
               <div className="flex items-center gap-2 mb-3">
                 <section.icon className="h-4 w-4 text-brand" />
                 <span className="text-sm font-semibold text-label">{section.title}</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">{LegendGrid(section.items)}</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {LegendGrid(section.items)}
+              </div>
             </motion.div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">{LegendGrid(section.items)}</div>
@@ -206,9 +209,9 @@ const AnalysisSection = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.3 }}
-        className={cn('p-4 bg-gradient-to-r from-brand/5 to-transparent rounded-lg', 'border border-brand/20')}
+        className={cn(ui.elevated, 'p-4 border-brand/30')}
       >
-        <p className="text-xs 2xl:text-sm text-muted-secondary leading-relaxed">
+        <p className={cn('text-xs 2xl:text-sm leading-relaxed', ui.muted)}>
           <Sparkles className="inline h-4 w-4 mr-2 text-brand" />
           {description}
         </p>
@@ -278,67 +281,78 @@ export function VisualizationLegend() {
   ];
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-      <Card className={cn('bg-gradient-to-br from-surface to-surface-border', 'border-surface-ring shadow-xl')}>
-        <CardContent className="px-4 sm:px-6 xl:px-5 2xl:px-6 pt-1 pb-10">
-          <div className="flex items-center justify-between mb-7">
-            <div>
-              <h4 className="font-semibold text-label">Data Visualization Guide</h4>
-              <p className="text-xs 2xl:text-sm text-muted-secondary">Understanding the {viewMode} view indicators</p>
-            </div>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-              className="p-2 bg-brand/10 rounded-lg"
-            >
-              <Sparkles className="h-4 w-4 2xl:h-5 2xl:w-5 text-brand" />
-            </motion.div>
-          </div>
-
-          <div className={cn('flex flex-wrap gap-2 mb-6 p-1 bg-surface-ring rounded-xl', 'border border-surface-ring')}>
-            {tabs
-              .filter(tab => (availableTabs as readonly string[]).includes(tab.id))
-              .map(tab => {
-                const Icon = tab.icon;
-                const isActive = activeTab === tab.id;
-                return (
-                  <motion.button
-                    key={tab.id}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex items-center justify-center gap-2 px-4 py-1.5 2xl:py-2 rounded-lg transition-all duration-300 basis-[calc(50%-4px)] sm:basis-auto flex-1 ${
-                      isActive
-                        ? 'bg-brand text-white shadow-lg shadow-brand/25'
-                        : 'text-muted-secondary hover:text-label hover:bg-surface-ring/50'
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span className="text-xs 2xl:text-sm font-medium">{tab.label}</span>
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute inset-0 bg-brand rounded-lg -z-10"
-                        transition={{
-                          type: 'spring',
-                          stiffness: 300,
-                          damping: 30,
-                        }}
-                      />
-                    )}
-                  </motion.button>
-                );
-              })}
-          </div>
-
-          {/* Tab Content */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Card
+        header={
           <div>
-            <AnimatePresence mode="wait">
-              <AnalysisSection id={activeTab} filters={filters} handleFilterToggle={handleFilterToggle} />
-            </AnimatePresence>
+            <h4 className="font-semibold text-label">Data Visualization Guide</h4>
+            <p className={cn('text-xs 2xl:text-sm', ui.muted)}>
+              Understanding the {viewMode} view indicators
+            </p>
           </div>
-        </CardContent>
+        }
+        headerAction={
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+            className="p-2 bg-brand/10 rounded-lg"
+          >
+            <Sparkles className="h-4 w-4 2xl:h-5 2xl:w-5 text-brand" />
+          </motion.div>
+        }
+        className="mt-3"
+      >
+        {/* Tab switcher */}
+        <div className={cn('flex flex-wrap gap-2 p-1', ui.elevated, 'flex items-center')}>
+          {tabs
+            .filter((tab) => (availableTabs as readonly string[]).includes(tab.id))
+            .map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <motion.button
+                  key={tab.id}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={cn(
+                    'cursor-pointer relative flex items-center justify-center gap-2 px-4 py-1.5 2xl:py-2 rounded-[4px] transition-all duration-300 basis-[calc(50%-4px)] sm:basis-auto flex-1',
+                    isActive
+                      ? 'bg-brand text-[#050505] font-semibold'
+                      : cn(ui.muted, 'hover:text-label')
+                  )}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span className="text-xs 2xl:text-sm font-medium">{tab.label}</span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 bg-brand rounded-[4px] -z-10"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </motion.button>
+              );
+            })}
+        </div>
+
+        {/* Tab content */}
+        <AnimatePresence mode="wait">
+          <AnalysisSection
+            id={activeTab}
+            filters={filters}
+            handleFilterToggle={handleFilterToggle}
+          />
+        </AnimatePresence>
       </Card>
     </motion.div>
   );
