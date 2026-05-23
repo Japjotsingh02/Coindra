@@ -1,29 +1,40 @@
-export type ColorVariant = {
-  bg?: string;
-  border?: string;
-  backgroundImage?: string;
+﻿export type VolatilityVariant = {
+  bg: string;
+  textColor?: string;
+  textShadow?: string;
 };
 
-export interface ColorPalette {
+export type PerformanceVariant = {
+  sparklineColor: string;
+  sparklineGlow: string;
+};
+
+export type LiquidityVariant = {
+  barGradient: string;
+  barBadge: string;
+};
+
+export type ColorPalette = {
   volatility: {
-    low: ColorVariant;
-    medium: ColorVariant;
-    high: ColorVariant;
-    neutral: ColorVariant;
+    low: VolatilityVariant;
+    medium: VolatilityVariant;
+    high: VolatilityVariant;
+    neutral: VolatilityVariant;
   };
   performance: {
-    positive: ColorVariant;
-    negative: ColorVariant;
-    neutral: ColorVariant;
+    positive: PerformanceVariant;
+    negative: PerformanceVariant;
+    neutral: PerformanceVariant;
   };
   liquidity: {
-    low: ColorVariant;
-    medium: ColorVariant;
-    high: ColorVariant;
-    neutral: ColorVariant;
+    low: LiquidityVariant;
+    medium: LiquidityVariant;
+    high: LiquidityVariant;
+    veryHigh: LiquidityVariant;
+    excellent: LiquidityVariant;
   };
-}
+};
 
-export interface Theme {
+export type Theme = {
   colorPalette: ColorPalette;
-}
+};

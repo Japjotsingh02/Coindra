@@ -1,4 +1,4 @@
-import { FilterKey } from '@/components/uielements/visualizationLegend/VisualizationLegend';
+﻿import { FilterKey } from '@/components/elements/visualizationLegend/VisualizationLegend';
 import { Activity, Target, BarChart, Zap, TrendingUp } from 'lucide-react';
 
 export type SectionArray = Array<{

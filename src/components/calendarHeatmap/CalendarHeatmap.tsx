@@ -1,16 +1,17 @@
-'use client';
+﻿'use client';
 
 import { isSameDay, isSameMonth } from 'date-fns';
 import CalendarCell from './CalendarCell';
 import { useAppStore } from '@/store/useAppStore';
 import CalendarHeader from './CalendarHeader';
 import { useCallback, useState, useMemo } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from '@/components/elements/skeleton/Skeleton';
 import type { HeatmapCell } from '@/types/heatmap';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import DailyHeatmap from './DailyHeatmap';
 import { getCalendarDays } from '@/helpers/calendar';
 import { cn } from '@/lib/utils';
+import { Card } from '@/components/elements/card/Card';
 
 export type ViewMode = 'monthly' | 'weekly' | 'daily';
 interface CalendarHeatmapProps {
@@ -24,13 +25,12 @@ const CalendarDays = ({ viewMode }: { viewMode: ViewMode }) => {
   if (viewMode === 'daily') return null;
 
   return (
-    <div className="grid grid-cols-7 gap-1.5 lg:gap-2 2xl:gap-3 px-2 py-2">
-      {DAYS.map(day => (
+    <div className="grid grid-cols-7 gap-1.5 lg:gap-2 2xl:gap-3 px-2">
+      {DAYS.map((day) => (
         <div
           key={day}
           className={cn(
-            'text-center text-xs sm:text-sm md:text-base xl:text-sm',
-            '2xl:text-base font-medium text-gray-500'
+            'text-center text-[11px] uppercase tracking-[0.12em] font-medium text-[#888888]'
           )}
         >
           {day}
@@ -63,7 +63,7 @@ function CalendarGrid({
     <TooltipProvider delayDuration={150}>
       <div
         className={cn(
-          'grid grid-cols-7 gap-1.5 lg:gap-2 2xl:gap-3 pt-2 text-xs',
+          'grid grid-cols-7 gap-1.5 lg:gap-2 2xl:gap-3 text-xs',
           'sm:text-sm md:text-base xl:text-sm 2xl:text-lg'
         )}
       >
@@ -84,10 +84,12 @@ function CalendarGrid({
                 <Skeleton
                   className={cn(
                     'w-full',
-                    viewMode === 'weekly' ? 'h-20 sm:h-40 xl:h-45 2xl:h-52' : 'h-12 sm:h-18 lg:h-19 2xl:h-24'
+                    viewMode === 'weekly'
+                      ? 'h-20 sm:h-40 xl:h-45 2xl:h-52'
+                      : 'h-12 sm:h-18 lg:h-19 2xl:h-24'
                   )}
                 />
-                <div className="absolute inset-0 bg-brand/5 rounded-md" />
+                <div className="absolute inset-0 bg-brand/5 rounded-[4px]" />
               </div>
             );
           }
@@ -99,7 +101,7 @@ function CalendarGrid({
               day={day}
               isCurrentMonth={isInView}
               viewMode={viewMode}
-              onDateClick={cell => onDateClick(day, cell)}
+              onDateClick={(cell) => onDateClick(day, cell)}
             />
           );
         })}
@@ -108,7 +110,10 @@ function CalendarGrid({
   );
 }
 
-export default function CalendarHeatmap({ progress = 1, isStreaming = false }: CalendarHeatmapProps) {
+export default function CalendarHeatmap({
+  progress = 1,
+  isStreaming = false,
+}: CalendarHeatmapProps) {
   const {
     processedHeatmapData: heatmapData,
     openDescriptionPanel,
@@ -143,8 +148,8 @@ export default function CalendarHeatmap({ progress = 1, isStreaming = false }: C
   const filteredHeatmapData = useMemo(() => {
     if (!heatmapData || heatmapData.length === 0) return [];
 
-    const daySet = new Set(allDays.map(d => d.toDateString()));
-    return heatmapData.filter(cell => {
+    const daySet = new Set(allDays.map((d) => d.toDateString()));
+    return heatmapData.filter((cell) => {
       const cellDate = new Date(cell.date);
       return daySet.has(cellDate.toDateString());
     });
@@ -164,7 +169,7 @@ export default function CalendarHeatmap({ progress = 1, isStreaming = false }: C
     (date: Date, cell?: HeatmapCell) => {
       if (!cell) return;
       setSelectedDate(date);
-      const index = heatmapData.findIndex(d => d.date === cell.date);
+      const index = heatmapData.findIndex((d) => d.date === cell.date);
       const history = heatmapData.slice(Math.max(0, index - 30), index + 1);
       openDescriptionPanel({ cell, history }, () => {
         setSelectedDate(null);
@@ -186,7 +191,7 @@ export default function CalendarHeatmap({ progress = 1, isStreaming = false }: C
 
   const handleClickTodayCTA = useCallback(() => {
     const today = new Date();
-    const cell = heatmapData.find(d => isSameDay(new Date(`${d.date}T00:00:00Z`), today));
+    const cell = heatmapData.find((d) => isSameDay(new Date(`${d.date}T00:00:00Z`), today));
     if (cell) {
       handleDateClick(today, cell);
     }
@@ -229,23 +234,21 @@ export default function CalendarHeatmap({ progress = 1, isStreaming = false }: C
   };
 
   return (
-    <div
-      className={cn(
-        'rounded-lg shadow-md overflow-hidden border border-[#20232E]',
-        'bg-background-dark p-3 sm:p-4 xl:p-5 2xl:p-6'
-      )}
+    <Card
+      headerAction={
+        <CalendarHeader
+          viewMonth={viewMonth}
+          onMonthChange={handleMonthChange}
+          viewMode={viewMode}
+          onViewModeChange={handleViewModeChange}
+          onClickToday={handleClickTodayCTA}
+        />
+      }
     >
-      <CalendarHeader
-        viewMonth={viewMonth}
-        onMonthChange={handleMonthChange}
-        viewMode={viewMode}
-        onViewModeChange={handleViewModeChange}
-        onClickToday={handleClickTodayCTA}
-      />
-
-      <CalendarDays viewMode={viewMode} />
-
-      {renderHeatmap()}
-    </div>
+      <div className="flex flex-col gap-4">
+        <CalendarDays viewMode={viewMode} />
+        {renderHeatmap()}
+      </div>
+    </Card>
   );
 }

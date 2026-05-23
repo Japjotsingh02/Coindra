@@ -1,74 +1,59 @@
-import { Theme } from '@/types/theme';
+﻿import { Theme } from '@/types/theme';
+
+const cellFill = (rgb: string) => `linear-gradient(135deg, ${rgb} 0%, #111 100%)`;
 
 export const dark: Theme = {
   colorPalette: {
     volatility: {
       low: {
-        bg: '#0f1a13',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(22,163,74,0.15) 0%, rgba(22,163,74,0.10) 30%, rgba(22,163,74,0.06) 60%, rgba(22,163,74,0.02) 100%)',
-        border: '#1e1e1e',
+        bg: cellFill('#0d1515'),
+        textColor: 'text-emerald-300',
+        textShadow: 'drop-shadow-[0_0_8px_rgba(0,255,102,0.55)]',
       },
       medium: {
-        bg: '#1a0d0d',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(251,191,36,0.15) 0%, rgba(251,191,36,0.10) 30%, rgba(251,191,36,0.06) 60%, rgba(251,191,36,0.02) 100%)',
-        border: '#1e1e1e',
+        bg: cellFill('#141000'),
       },
       high: {
-        bg: '#1a150f',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(248,113,113,0.15) 0%, rgba(248,113,113,0.10) 30%, rgba(248,113,113,0.06) 60%, rgba(248,113,113,0.02) 100%)',
-        border: '#1e1e1e',
+        bg: cellFill('#1a0d0d'),
       },
       neutral: {
-        bg: '#141414',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(75,85,99,0.15) 0%, rgba(75,85,99,0.10) 30%, rgba(75,85,99,0.06) 60%, rgba(75,85,99,0.02) 100%)',
-        border: '#1e1e1e',
+        bg: cellFill('148, 163, 184'),
       },
     },
     performance: {
       positive: {
-        backgroundImage:
-          'linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.10) 30%, rgba(34,197,94,0.06) 60%, rgba(34,197,94,0.02) 100%)',
-        border: '#402321',
+        sparklineColor: '#00FF66',
+        sparklineGlow: 'rgba(0, 255, 102, 0.85)',
       },
       negative: {
-        backgroundImage:
-          'linear-gradient(135deg, rgba(220,38,38,0.15) 0%, rgba(220,38,38,0.10) 30%, rgba(220,38,38,0.06) 60%, rgba(220,38,38,0.02) 100%)',
-        border: '#1a1c25',
+        sparklineColor: '#FF643C',
+        sparklineGlow: 'rgba(255, 100, 60, 0.55)',
       },
       neutral: {
-        backgroundImage:
-          'linear-gradient(135deg, rgba(156,163,175,0.15) 0%, rgba(156,163,175,0.10) 30%, rgba(156,163,175,0.06) 60%, rgba(156,163,175,0.02) 100%)',
-        border: '#1a1c25',
+        sparklineColor: '#777777',
+        sparklineGlow: 'rgba(0, 0, 0, 0.35)',
       },
     },
     liquidity: {
       low: {
-        bg: '#0a101f',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.10) 30%, rgba(59,130,246,0.06) 60%, rgba(59,130,246,0.02) 100%)',
-        border: '#1e1e1e',
+        barGradient: 'from-rose-400/90 to-rose-500/80',
+        barBadge: 'bg-rose-500/15 text-rose-300/95 border-rose-500/20',
       },
       medium: {
-        bg: '#0f172a',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.10) 30%, rgba(99,102,241,0.06) 60%, rgba(99,102,241,0.02) 100%)',
-        border: '#1e1e1e',
+        barGradient: 'from-orange-400/90 to-orange-500/80',
+        barBadge: 'bg-orange-500/15 text-orange-300/95 border-orange-500/20',
       },
       high: {
-        bg: '#1e1b4b',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.10) 30%, rgba(139,92,246,0.06) 60%, rgba(139,92,246,0.02) 100%)',
-        border: '#1e1e1e',
+        barGradient: 'from-amber-400/90 to-amber-500/80',
+        barBadge: 'bg-amber-500/15 text-amber-300/95 border-amber-500/20',
       },
-      neutral: {
-        bg: '#141414',
-        backgroundImage:
-          'linear-gradient(135deg, rgba(75,85,99,0.15) 0%, rgba(75,85,99,0.10) 30%, rgba(75,85,99,0.06) 60%, rgba(75,85,99,0.02) 100%)',
-        border: '#1e1e1e',
+      veryHigh: {
+        barGradient: 'from-sky-400/90 to-blue-500/80',
+        barBadge: 'bg-sky-500/15 text-sky-300/95 border-sky-500/20',
+      },
+      excellent: {
+        barGradient: 'from-emerald-400/90 to-emerald-500/80',
+        barBadge: 'bg-emerald-500/15 text-emerald-300/95 border-emerald-500/20',
       },
     },
   },
