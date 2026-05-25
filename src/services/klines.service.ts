@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+﻿import { prisma } from '@/lib/db';
 import { Prisma } from '@prisma/client';
 import axios from 'axios';
 import { isStale } from '@/helpers/isStale';
@@ -61,19 +61,21 @@ export async function getKlinesData(queryParams: Record<string, string | number>
     throw new Error('Invalid API response format');
   }
 
-  const parsedBinanceData = res.data.map((candle: [number, string, string, string, string, string, ...unknown[]]) => ({
-    openTime: new Date(candle[0]),
-    date: new Date(candle[0]).toISOString().split('T')[0],
-    open: parseFloat(candle[1]),
-    high: parseFloat(candle[2]),
-    low: parseFloat(candle[3]),
-    close: parseFloat(candle[4]),
-    volume: parseFloat(candle[5]),
-  }));
+  const parsedBinanceData = res.data.map(
+    (candle: [number, string, string, string, string, string, ...unknown[]]) => ({
+      openTime: new Date(candle[0]),
+      date: new Date(candle[0]).toISOString().split('T')[0],
+      open: parseFloat(candle[1]),
+      high: parseFloat(candle[2]),
+      low: parseFloat(candle[3]),
+      close: parseFloat(candle[4]),
+      volume: parseFloat(candle[5]),
+    })
+  );
 
   if (parsedBinanceData.length > 0) {
     await prisma.kline.createMany({
-      data: parsedBinanceData.map(k => ({
+      data: parsedBinanceData.map((k) => ({
         symbol,
         interval,
         openTime: k.openTime,

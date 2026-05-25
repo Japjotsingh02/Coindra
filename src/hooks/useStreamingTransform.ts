@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+﻿import React, { useState, useEffect, useMemo } from 'react';
 import { Candle } from '@/types/candle';
 
 interface StreamingTransformState {
@@ -33,7 +33,7 @@ export function useStreamingTransform(
         const chunk = candles.slice(currentIndex, currentIndex + chunkSize);
         const progress = Math.min((currentIndex + chunkSize) / candles.length, 1);
 
-        setState(prev => ({
+        setState((prev) => ({
           data: [...prev.data, ...chunk],
           progress,
         }));
@@ -41,11 +41,11 @@ export function useStreamingTransform(
         currentIndex += chunkSize;
 
         // Small delay for smooth streaming effect
-        await new Promise(resolve => setTimeout(resolve, streamingDelay));
+        await new Promise((resolve) => setTimeout(resolve, streamingDelay));
       }
 
       // Ensure we end with 100% progress
-      setState(prev => ({ ...prev, progress: 1 }));
+      setState((prev) => ({ ...prev, progress: 1 }));
     };
 
     streamData();
