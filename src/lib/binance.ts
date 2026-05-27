@@ -47,7 +47,6 @@ export const fetchBinanceCandles = async (params: BinanceCandleParams) => {
     throw new Error('Invalid API response format');
   }
 
-  // Transform the data with additional metadata
   return res.data.map((candle: BinanceKline) => ({
     date: new Date(candle[0]).toISOString().split('T')[0],
     open: parseFloat(candle[1]),

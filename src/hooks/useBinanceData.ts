@@ -89,10 +89,8 @@ export function useIntradayCandles(symbol: string = 'BTCUSDT') {
 
           const last = prev[prev.length - 1];
           if (last.date === newCandle.date) {
-            // update current candle (still forming)
             return [...prev.slice(0, -1), newCandle];
           } else {
-            // new minute candle, append
             return [...prev, newCandle];
           }
         });
