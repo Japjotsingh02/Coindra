@@ -126,25 +126,6 @@ export default function CalendarHeatmap({
 
   const allDays = useMemo(() => getCalendarDays(viewMonth, viewMode), [viewMonth, viewMode]);
 
-  // const filteredHeatmapData = useMemo(() => {
-  //   if (!heatmapData || heatmapData.length === 0) return [];
-
-  //   return heatmapData.filter((cell) => {
-  //     const cellDate = new Date(cell.date);
-
-  //     switch (viewMode) {
-  //       case "monthly":
-  //         return isSameMonth(cellDate, viewMonth);
-  //       case "weekly":
-  //         return isSameWeek(cellDate, viewMonth, { weekStartsOn: 1 });
-  //       case "daily":
-  //         return isSameDay(cellDate, viewMonth);
-  //       default:
-  //         return false;
-  //     }
-  //   });
-  // }, [heatmapData, viewMonth, viewMode]);
-
   const filteredHeatmapData = useMemo(() => {
     if (!heatmapData || heatmapData.length === 0) return [];
 
