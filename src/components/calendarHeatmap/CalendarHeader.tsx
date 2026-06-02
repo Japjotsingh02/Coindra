@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+﻿import { cn } from '@/lib/utils';
 import {
   format,
   addMonths,
@@ -26,6 +26,8 @@ type CalendarHeaderProps = {
   onViewModeChange: (viewMode: ViewMode) => void;
   onClickToday: () => void;
 };
+
+const pillBtn = cn('shadow-none', 'transition-all duration-200');
 
 const CalendarHeader = ({
   viewMonth,
@@ -73,21 +75,21 @@ const CalendarHeader = ({
     const today = new Date();
     onMonthChange(today);
     onClickToday();
-  }, [onMonthChange]);
+  }, [onMonthChange, onClickToday]);
 
   const getTitle = () => {
     switch (viewMode) {
       case 'monthly':
         return format(viewMonth, 'MMMM yyyy');
-      case 'weekly':
+      case 'weekly': {
         const weekStart = startOfWeek(viewMonth, { weekStartsOn: 1 });
         const weekEnd = addDays(weekStart, 6);
 
         if (isSameMonth(weekStart, weekEnd)) {
           return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'd, yyyy')}`;
-        } else {
-          return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}`;
         }
+        return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}`;
+      }
       case 'daily':
         return format(viewMonth, 'EEEE, MMMM d, yyyy');
       default:
@@ -108,91 +110,62 @@ const CalendarHeader = ({
     }
   }, [viewMonth, viewMode]);
 
+  const viewModes: { mode: ViewMode; icon: typeof Calendar }[] = [
+    { mode: 'monthly', icon: Calendar },
+    { mode: 'weekly', icon: Grid },
+    { mode: 'daily', icon: List },
+  ];
+
   return (
     <div
       className={cn(
         'flex flex-col lg:flex-row sm:items-center justify-between',
-        'pb-3 sm:pb-4 xl:pb-6 2xl:pb-8 gap-2 sm:gap-3 xl:gap-2',
-        '2xl:gap-4'
+        'gap-2 sm:gap-3 xl:gap-2 2xl:gap-4'
       )}
     >
-      <div className={cn('flex items-center justify-between lg:justify-normal', 'lg:space-x-5 2xl:space-x-7 w-full')}>
+      <div
+        className={cn(
+          'flex items-center justify-between lg:justify-normal',
+          'lg:space-x-5 2xl:space-x-7 w-full'
+        )}
+      >
         <h3 className="font-semibold text-label">{getTitle()}</h3>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onToday}
-          className="text-xs sm:text-sm md:text-base xl:text-sm 2xl:text-lg cursor-pointer"
-        >
+        <Button variant="outline" size="lg" onClick={onToday} className="cursor-pointer">
           Today
         </Button>
       </div>
 
-      <div className="flex items-center justify-between lg:justify-end lg:space-x-3 w-full">
+      <div className="flex items-center justify-between lg:justify-end lg:gap-4 w-full">
         <div
           className={cn(
-            'flex items-center border border-surface-border rounded-md',
-            'bg-surface-border overflow-hidden'
+            'bg-[#111111] border border-[#222222] text-[#888888] rounded-[4px]',
+            'flex items-center gap-2 p-1!'
           )}
         >
-          <Button
-            variant="ghost"
-            size="lg"
-            onClick={() => onViewModeChange('monthly')}
-            className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
-              viewMode === 'monthly'
-                ? 'bg-surface text-brand border-brand/20'
-                : 'bg-transparent text-white hover:bg-brand/10 hover:text-brand'
-            }`}
-          >
-            <Calendar className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="lg"
-            onClick={() => onViewModeChange('weekly')}
-            className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
-              viewMode === 'weekly'
-                ? 'bg-surface text-brand border-brand/20'
-                : 'bg-transparent text-white hover:bg-brand/10 hover:text-brand'
-            }`}
-          >
-            <Grid className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="lg"
-            onClick={() => onViewModeChange('daily')}
-            className={`rounded-none border-0 h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3! 2xl:px-4! transition-all duration-200 ${
-              viewMode === 'daily'
-                ? 'bg-surface text-brand border-brand/20'
-                : 'bg-transparent text-white hover:bg-brand/10 hover:text-brand'
-            }`}
-          >
-            <List className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
-          </Button>
+          {viewModes.map(({ mode, icon: Icon }) => (
+            <Button
+              key={mode}
+              variant="ghost"
+              size="md"
+              onClick={() => onViewModeChange(mode)}
+              className={viewMode === mode ? 'bg-white/[0.08] text-white/90' : ''}
+            >
+              <Icon className="size-2.5 sm:size-3 md:size-3 xl:size-3 2xl:size-4" />
+            </Button>
+          ))}
         </div>
-        <div className="space-x-1">
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={() => changeDate(-1)}
-            className={cn('h-7 sm:h-7 md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4', 'xl:px-3! 2xl:px-4!')}
-          >
-            <ChevronLeft className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
+        <div className="flex items-center gap-1.5">
+          <Button variant="outline" size="lg" onClick={() => changeDate(-1)} className={pillBtn}>
+            <ChevronLeft className="size-3 sm:size-3.5 md:size-3.5 xl:size-3.5 2xl:size-4.5" />
           </Button>
           <Button
             variant="outline"
             size="lg"
             onClick={() => changeDate(1)}
             disabled={disableNext()}
-            className={cn(
-              'disabled:opacity-50 disabled:cursor-not-allowed h-7 sm:h-7',
-              'md:h-8 xl:h-7 2xl:h-8 px-1.5 sm:px-2 md:px-4 xl:px-3!',
-              '2xl:px-4!'
-            )}
+            className={cn(pillBtn, 'disabled:opacity-40 disabled:cursor-not-allowed')}
           >
-            <ChevronRight className="size-3 sm:size-3.5 md:size-4.5 xl:size-3.5 2xl:size-4.5" />
+            <ChevronRight className="size-3 sm:size-3.5 md:size-3.5 xl:size-3.5 2xl:size-4.5" />
           </Button>
         </div>
       </div>

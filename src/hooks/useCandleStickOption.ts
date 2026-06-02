@@ -1,4 +1,4 @@
-import { Candle } from '@/types/candle';
+﻿import { Candle } from '@/types/candle';
 import { EChartsOption } from 'echarts-for-react';
 import { useMemo, useState } from 'react';
 
@@ -18,9 +18,9 @@ export function useCandlestickOption(candles: Candle[]) {
       };
     }
 
-    const ohlc = candles.map(c => [c.open, c.close, c.low, c.high]);
-    const volumes = candles.map(c => c.volume);
-    const dates = candles.map(c => c.date);
+    const ohlc = candles.map((c) => [c.open, c.close, c.low, c.high]);
+    const volumes = candles.map((c) => c.volume);
+    const dates = candles.map((c) => c.date);
 
     return {
       backgroundColor: 'transparent',
@@ -111,7 +111,9 @@ export function useCandlestickOption(candles: Candle[]) {
                 yAxisIndex: 1,
                 itemStyle: {
                   color: (p: { dataIndex: number }) =>
-                    ohlc[p.dataIndex][1] >= ohlc[p.dataIndex][0] ? 'rgba(34,197,94,0.6)' : 'rgba(239,68,68,0.6)',
+                    ohlc[p.dataIndex][1] >= ohlc[p.dataIndex][0]
+                      ? 'rgba(34,197,94,0.6)'
+                      : 'rgba(239,68,68,0.6)',
                 },
               },
             ]

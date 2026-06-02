@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { redis } from '@/lib/redis';
 import transform from '@/helpers/transform';
 import { getKlinesData } from '@/services/klines.service';
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     if (endTimeParam) queryParams.endTime = parseInt(endTimeParam, 10);
 
     const sortedKeys = Object.keys(queryParams).sort();
-    const cacheKeyParts = sortedKeys.map(k => `${k}=${queryParams[k]}`).join('&');
+    const cacheKeyParts = sortedKeys.map((k) => `${k}=${queryParams[k]}`).join('&');
     const cacheKey = `binance:klines:${cacheKeyParts}`;
 
     const cachedData = await redis.get(cacheKey);

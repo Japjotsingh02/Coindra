@@ -1,17 +1,23 @@
-'use client';
+﻿'use client';
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react'; // icon for mobile
+import { Menu } from 'lucide-react';
 import Sidebar from './Sidebar';
 import Image from 'next/image';
 
 export default function ResponsiveSidebar() {
   return (
     <>
-      <div className="lg:hidden flex justify-between items-center bg-background py-1.5 px-3">
+      <div className="lg:hidden flex justify-between items-center py-1.5 px-3 border-b border-[#222222] bg-[#0a0a0a]">
         <div className="relative w-6 h-6 antialiased">
-          <Image src="/logo.svg" alt="Coindra Logo" fill className="object-contain" loading="lazy" />
+          <Image
+            src="/logo.svg"
+            alt="Coindra Logo"
+            fill
+            className="object-contain"
+            loading="lazy"
+          />
         </div>
         <Sheet>
           <SheetTrigger asChild>
@@ -19,7 +25,10 @@ export default function ResponsiveSidebar() {
               <Menu className="h-5! w-5! text-base p-0!" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="p-0 w-fit border-0 bg-background-sidebar">
+          <SheetContent
+            side="left"
+            className="p-0 w-fit border-0 border-r border-[#222222] bg-[#0a0a0a]"
+          >
             <Sidebar />
           </SheetContent>
         </Sheet>

@@ -1,4 +1,4 @@
-type TransformInput = {
+﻿type TransformInput = {
   date?: string;
   openTime?: Date | string | number;
   open: number;
@@ -9,7 +9,7 @@ type TransformInput = {
 };
 
 const transform = (data: TransformInput[]) => {
-  return data.map(k => ({
+  return data.map((k) => ({
     date: k.date || (k.openTime ? new Date(k.openTime).toISOString().split('T')[0] : ''),
     open: k.open,
     high: k.high,

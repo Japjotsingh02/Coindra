@@ -1,4 +1,4 @@
-import { EChartsOption } from 'echarts-for-react';
+﻿import { EChartsOption } from 'echarts-for-react';
 
 export function getLiquidityContextOption(todayVol: number, avgVol: number): EChartsOption {
   return {
@@ -115,7 +115,7 @@ export function getVolatilityBreakdownOption(
     },
     xAxis: {
       type: 'category',
-      data: history.map(h => h.date),
+      data: history.map((h) => h.date),
       axisLabel: { color: '#7c8796', fontSize: 10 },
       axisLine: { lineStyle: { color: '#2a2d36' } },
       axisTick: { show: false },
@@ -135,7 +135,7 @@ export function getVolatilityBreakdownOption(
         type: 'line',
         smooth: true,
         symbol: 'none',
-        data: history.map(h => h.intradayVol.toFixed(2)),
+        data: history.map((h) => h.intradayVol.toFixed(2)),
         lineStyle: { color: '#3b82f6', width: 2 },
         itemStyle: { color: '#3b82f6' },
         color: {
@@ -155,7 +155,7 @@ export function getVolatilityBreakdownOption(
         type: 'line',
         smooth: true,
         symbol: 'none',
-        data: history.map(h => h.openCloseMove.toFixed(2)),
+        data: history.map((h) => h.openCloseMove.toFixed(2)),
         lineStyle: { color: '#22c55e', width: 2 },
         itemStyle: { color: '#22c55e' },
         areaStyle: {
@@ -184,14 +184,14 @@ export function getRiskQuadrantScatterOption(
 ) {
   if (!data.length) return {};
 
-  const risks = data.map(d => d.risk).sort((a, b) => a - b);
-  const returns = data.map(d => d.return).sort((a, b) => a - b);
+  const risks = data.map((d) => d.risk).sort((a, b) => a - b);
+  const returns = data.map((d) => d.return).sort((a, b) => a - b);
 
   const mid = Math.floor(data.length / 2);
   const medianRisk = data.length % 2 ? risks[mid] : (risks[mid - 1] + risks[mid]) / 2;
   const medianReturn = data.length % 2 ? returns[mid] : (returns[mid - 1] + returns[mid]) / 2;
 
-  const highlightPoint = data.find(d => d.date === highlightDate);
+  const highlightPoint = data.find((d) => d.date === highlightDate);
 
   const getColorByQuadrant = (r: number, ret: number) => {
     if (r <= medianRisk && ret >= medianReturn) return '#22c55e';
@@ -244,7 +244,13 @@ export function getRiskQuadrantScatterOption(
           const volume = val[3] || 0;
           return Math.min(40, Math.max(10, Math.sqrt(volume) / 50));
         },
-        data: data.map(d => [d.risk, d.return, d.date, d.volume, getColorByQuadrant(d.risk, d.return)]),
+        data: data.map((d) => [
+          d.risk,
+          d.return,
+          d.date,
+          d.volume,
+          getColorByQuadrant(d.risk, d.return),
+        ]),
         itemStyle: {
           color: (p: { data: [number, number, string, number, string] }) => p.data[4],
           opacity: 0.85,

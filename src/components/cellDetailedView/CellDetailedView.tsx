@@ -1,14 +1,20 @@
-'use client';
+﻿'use client';
 import { cn } from '@/lib/utils';
 import React, { useMemo, useState, useEffect } from 'react';
 import { isToday } from 'date-fns';
-import { getVolatilityBreakdownOption, getLiquidityContextOption, getRiskQuadrantScatterOption } from '@/lib/charts';
+import {
+  getVolatilityBreakdownOption,
+  getLiquidityContextOption,
+  getRiskQuadrantScatterOption,
+} from '@/lib/charts';
 import { HeatmapCell } from '@/types/heatmap';
-import ChartCard from '../uielements/chartCard/ChartCard';
+import ChartCard from '../elements/chartCard/ChartCard';
 import { useAppStore } from '@/store/useAppStore';
 import IntradayCandleStickChart from '../intradayCandleStickChart';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ui } from '@/lib/ui-styles';
 
 interface DescriptionModalProps {
   open: boolean;
@@ -20,8 +26,8 @@ interface DescriptionModalProps {
 export const DetailedViewSummaryCard = ({ title, value }: { title: string; value: string }) => {
   return (
     <div className="text-center">
-      <div className="text-xs text-muted-secondary font-medium uppercase tracking-wide mb-1">{title}</div>
-      <div className="text-lg font-bold text-label">{value}</div>
+      <div className={cn(ui.sectionLabel, 'mb-1')}>{title}</div>
+      <div className={cn('text-lg font-bold text-label', ui.numeric)}>{value}</div>
     </div>
   );
 };
@@ -29,11 +35,17 @@ export const DetailedViewSummaryCard = ({ title, value }: { title: string; value
 export const DetailedViewSummary = ({ cell, avgVol }: { cell: HeatmapCell; avgVol: number }) => {
   return (
     <div className="mt-6">
-      <div className={cn('bg-gradient-to-r from-brand/10 to-[#bc7129]/10 p-4', 'rounded-xl border border-brand/20')}>
-        <h4 className="text-lg font-semibold text-brand mb-3 text-center">Quick Summary</h4>
+      <div className={cn(ui.elevated, 'p-4')}>
+        <h4 className="text-lg font-semibold text-label mb-3 text-center">Quick Summary</h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <DetailedViewSummaryCard title="Daily Volatility" value={cell.volatilityDaily.toFixed(2)} />
-          <DetailedViewSummaryCard title="Rolling Volatility" value={cell.volatilityRolling?.toFixed(2) ?? 'N/A'} />
+          <DetailedViewSummaryCard
+            title="Daily Volatility"
+            value={cell.volatilityDaily.toFixed(2)}
+          />
+          <DetailedViewSummaryCard
+            title="Rolling Volatility"
+            value={cell.volatilityRolling?.toFixed(2) ?? 'N/A'}
+          />
           <DetailedViewSummaryCard title="Avg Liquidity" value={avgVol.toFixed(0)} />
         </div>
       </div>
@@ -59,7 +71,7 @@ const DetailedViewContent = ({
   const { filters } = useAppStore();
   const symbol = filters.symbol;
 
-  const volHistory = history.map(c => {
+  const volHistory = history.map((c) => {
     const intradayVol = c.volatilityDaily;
     const openCloseMove = c.performancePct;
 
@@ -70,7 +82,7 @@ const DetailedViewContent = ({
     };
   });
 
-  const riskQuadrantData = history.map(c => ({
+  const riskQuadrantData = history.map((c) => ({
     date: c.date,
     risk: c?.volatilityRolling ?? c?.volatilityDaily ?? 0,
     return: c?.performancePct ?? 0,
@@ -87,7 +99,10 @@ const DetailedViewContent = ({
     [riskQuadrantData, cell.date]
   );
 
-  const liquidityOpt = useMemo(() => getLiquidityContextOption(cell.liquidity ?? 0, avgVol), [cell.liquidity, avgVol]);
+  const liquidityOpt = useMemo(
+    () => getLiquidityContextOption(cell.liquidity ?? 0, avgVol),
+    [cell.liquidity, avgVol]
+  );
 
   // Check if the selected date is today
   const isSelectedDateToday = useMemo(() => {
@@ -102,38 +117,32 @@ const DetailedViewContent = ({
   return (
     <>
       <div
-        className={`flex items-center justify-between px-4 py-3 2xl:px-6 2xl:py-5 border-b border-surface-ring ${
-          isCollapsed ? 'justify-center' : ''
-        }`}
+        className={cn(
+          'flex items-center justify-between px-4 py-3 2xl:px-6 2xl:py-5 border-b border-[#222222]',
+          isCollapsed && 'justify-center'
+        )}
       >
         {!isCollapsed && (
           <div className="flex items-center space-x-3">
-            <h3 className="font-semibold text-brand">Market Analysis</h3>
-            <span
-              className={cn(
-                'text-xs 2xl:text-sm text-muted-secondary bg-surface-ring',
-                'px-1.5 py-0.5 2xl:px-2 2xl:py-1 rounded'
-              )}
-            >
+            <h3 className="text-lg font-semibold text-label">Market Analysis</h3>
+            <span className={cn(ui.elevated, 'text-xs px-2 py-1', ui.muted, ui.numeric)}>
               {cell.date}
             </span>
           </div>
         )}
         {!isMobile && (
-          <div className="flex items-center space-x-2">
-            {/* Collapse/Expand Button */}
-            <button
+          <div className="flex items-center gap-1.5">
+            <Button
+              variant="ghost"
+              size="md"
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="p-2 hover:bg-surface-ring rounded-lg transition-colors"
               title={isCollapsed ? 'Expand' : 'Collapse'}
             >
-              <ChevronLeft size={16} className="text-muted-secondary" />
-            </button>
-
-            {/* Close Button */}
-            <button onClick={onChange} className="p-2 hover:bg-surface-ring rounded-lg transition-colors" title="Close">
-              <X size={16} className="text-muted-secondary" />
-            </button>
+              <ChevronLeft size={16} />
+            </Button>
+            <Button variant="ghost" size="md" onClick={onChange} title="Close">
+              <X size={16} />
+            </Button>
           </div>
         )}
       </div>
@@ -280,7 +289,11 @@ export default function CellDetailedView({ open, onChange, cell, history }: Desc
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={cn('fixed top-0 right-0 h-full z-50 bg-surface border', 'border-surface-ring shadow-2xl')}
+            className={cn(
+              'fixed top-0 right-0 h-full z-50',
+              ui.panel,
+              'border-l backdrop-blur-2xl shadow-2xl'
+            )}
             style={{
               width: isCollapsed ? '60px' : '600px',
               maxWidth: '600px',
@@ -299,10 +312,10 @@ export default function CellDetailedView({ open, onChange, cell, history }: Desc
             {isCollapsed && (
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-8 h-8 bg-brand/20 rounded-lg flex items-center justify-center mb-2">
+                  <div className={cn(ui.elevated, 'w-8 h-8 flex items-center justify-center mb-2')}>
                     <span className="text-brand text-lg font-bold">M</span>
                   </div>
-                  <div className="text-xs text-muted-secondary font-medium">Analysis</div>
+                  <div className={cn('text-xs font-medium', ui.muted)}>Analysis</div>
                 </div>
               </div>
             )}

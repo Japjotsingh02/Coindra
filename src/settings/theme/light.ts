@@ -1,23 +1,57 @@
-import { Theme } from '@/types/theme';
+﻿import { Theme } from '@/types/theme';
 
 export const light: Theme = {
   colorPalette: {
     volatility: {
-      low: { bg: '#00130b', border: '#234330' },
-      medium: { bg: '#5F5314', border: '#4B3F13' },
-      high: { bg: '#160e07', border: '#402321' },
-      neutral: { bg: '#000000', border: '#1a1c25' },
+      low: {
+        bg: '#f0fdf4',
+        textColor: 'text-emerald-700',
+      },
+      medium: {
+        bg: '#fffbeb',
+      },
+      high: {
+        bg: '#fef2f2',
+      },
+      neutral: {
+        bg: '#f8fafc',
+      },
     },
     performance: {
-      positive: { bg: '#22c55e', border: '#402321' },
-      negative: { bg: '#dc2626', border: '#1a1c25' },
-      neutral: { bg: '#9ca3af', border: '#1a1c25' },
+      positive: {
+        sparklineColor: '#16a34a',
+        sparklineGlow: 'rgba(22, 163, 74, 0.6)',
+      },
+      negative: {
+        sparklineColor: '#dc2626',
+        sparklineGlow: 'rgba(220, 38, 38, 0.4)',
+      },
+      neutral: {
+        sparklineColor: '#94a3b8',
+        sparklineGlow: 'rgba(0, 0, 0, 0.15)',
+      },
     },
     liquidity: {
-      low: { bg: '#eff6ff', border: '#bfdbfe' },
-      medium: { bg: '#eef2ff', border: '#c7d2fe' },
-      high: { bg: '#f5f3ff', border: '#ddd6fe' },
-      neutral: { bg: '#f3f4f6', border: '#e5e7eb' },
+      low: {
+        barGradient: 'from-rose-400/90 to-rose-500/80',
+        barBadge: 'bg-rose-500/15 text-rose-600/95 border-rose-500/30',
+      },
+      medium: {
+        barGradient: 'from-orange-400/90 to-orange-500/80',
+        barBadge: 'bg-orange-500/15 text-orange-600/95 border-orange-500/30',
+      },
+      high: {
+        barGradient: 'from-amber-400/90 to-amber-500/80',
+        barBadge: 'bg-amber-500/15 text-amber-600/95 border-amber-500/30',
+      },
+      veryHigh: {
+        barGradient: 'from-sky-400/90 to-blue-500/80',
+        barBadge: 'bg-sky-500/15 text-sky-600/95 border-sky-500/30',
+      },
+      excellent: {
+        barGradient: 'from-emerald-400/90 to-emerald-500/80',
+        barBadge: 'bg-emerald-500/15 text-emerald-600/95 border-emerald-500/30',
+      },
     },
   },
 };
