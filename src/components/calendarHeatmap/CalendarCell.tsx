@@ -96,7 +96,7 @@ const LiquidityScoreBar = ({
       <div
         className={cn(
           'relative w-full h-1 sm:h-1.5 md:h-1.5 rounded-full overflow-hidden',
-          'bg-[#111111] border border-[#222222] backdrop-blur-sm'
+          'bg-surface-light border border-surface-border backdrop-blur-sm'
         )}
       >
         <div
@@ -155,16 +155,16 @@ export default function CalendarCell({
           className={cn(
             'group relative w-full overflow-hidden rounded-[4px] backdrop-blur-sm cursor-pointer',
             'transition-all duration-200 p-1.5 lg:p-2 xl:p-3 flex',
-            'hover:brightness-110 hover:scale-[1.02] hover:z-10 hover:border-[#444444]',
-            'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/50',
-            'focus-visible:ring-offset-2 focus-visible:ring-offset-[#080A0F]',
+            'hover:brightness-[var(--cell-hover-brightness)] hover:scale-[1.02] hover:z-10 hover:border-surface-ring',
+            'focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/50',
+            'focus-visible:ring-offset-2 focus-visible:ring-offset-ring-offset',
             {
               'h-12 sm:h-18 lg:h-19 2xl:h-24': viewMode !== 'weekly',
               'h-20 sm:h-40 xl:h-45 2xl:h-52': viewMode === 'weekly',
-              'ring-2 ring-amber-400 ring-offset-2 ring-offset-[#080A0F] shadow-[0_0_16px_rgba(245,158,11,0.35)] z-10':
+              'ring-2 ring-brand ring-offset-2 ring-offset-ring-offset shadow-[0_0_16px_var(--color-brand-ring-glow)] z-10':
                 selected,
-              'bg-[#111111]': !hasData,
-              'border border-[#222222]': hasData,
+              'bg-surface-light border border-surface-border': !hasData,
+              'border border-surface-border': hasData,
             },
             className
           )}
@@ -180,10 +180,10 @@ export default function CalendarCell({
               hasData && cell.volatilityColor.textColor
                 ? cell.volatilityColor.textColor
                 : hasData
-                  ? 'text-white/70'
+                  ? 'text-label/70'
                   : undefined,
               hasData && cell.volatilityColor.textShadow,
-              !hasData && 'text-white/25'
+              !hasData && 'text-label/25'
             )}
           >
             {day.getDate()}
@@ -194,7 +194,7 @@ export default function CalendarCell({
               className={cn(
                 'absolute right-1.5 top-1.5 md:right-2 md:top-2 z-[2]',
                 'h-1 w-1 md:h-1.5 md:w-1.5 rounded-full',
-                'bg-amber-400 shadow-[0_0_0_2px_rgba(245,158,11,0.3),0_0_8px_rgba(245,158,11,0.45)]'
+                'bg-brand shadow-[0_0_0_2px_var(--color-brand-dot-ring),0_0_8px_var(--color-brand-dot-glow)]'
               )}
               aria-label="Today"
             />

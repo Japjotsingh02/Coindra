@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { cn } from '@/lib/utils';
 import React, { useMemo, useState, useEffect } from 'react';
 import { isToday } from 'date-fns';
@@ -118,7 +118,7 @@ const DetailedViewContent = ({
     <>
       <div
         className={cn(
-          'flex items-center justify-between px-4 py-3 2xl:px-6 2xl:py-5 border-b border-[#222222]',
+          'flex items-center justify-between px-4 py-3 2xl:px-6 2xl:py-5 border-b border-surface-border',
           isCollapsed && 'justify-center'
         )}
       >

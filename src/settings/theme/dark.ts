@@ -1,37 +1,35 @@
-﻿import { Theme } from '@/types/theme';
-
-const cellFill = (rgb: string) => `linear-gradient(135deg, ${rgb} 0%, #111 100%)`;
+import { Theme } from '@/types/theme';
 
 export const dark: Theme = {
   colorPalette: {
     volatility: {
       low: {
-        bg: cellFill('#0d1515'),
+        bg: 'var(--heatmap-vol-low-bg)',
         textColor: 'text-emerald-300',
-        textShadow: 'drop-shadow-[0_0_8px_rgba(0,255,102,0.55)]',
+        textShadow: 'drop-shadow-[0_0_8px_var(--heatmap-vol-low-text-shadow)]',
       },
       medium: {
-        bg: cellFill('#141000'),
+        bg: 'var(--heatmap-vol-medium-bg)',
       },
       high: {
-        bg: cellFill('#1a0d0d'),
+        bg: 'var(--heatmap-vol-high-bg)',
       },
       neutral: {
-        bg: cellFill('148, 163, 184'),
+        bg: 'var(--heatmap-vol-neutral-bg)',
       },
     },
     performance: {
       positive: {
-        sparklineColor: '#00FF66',
-        sparklineGlow: 'rgba(0, 255, 102, 0.85)',
+        sparklineColor: 'var(--heatmap-sparkline-positive)',
+        sparklineGlow: 'var(--heatmap-sparkline-positive-glow)',
       },
       negative: {
-        sparklineColor: '#FF643C',
-        sparklineGlow: 'rgba(255, 100, 60, 0.55)',
+        sparklineColor: 'var(--heatmap-sparkline-negative)',
+        sparklineGlow: 'var(--heatmap-sparkline-negative-glow)',
       },
       neutral: {
-        sparklineColor: '#777777',
-        sparklineGlow: 'rgba(0, 0, 0, 0.35)',
+        sparklineColor: 'var(--heatmap-sparkline-neutral)',
+        sparklineGlow: 'var(--heatmap-sparkline-neutral-glow)',
       },
     },
     liquidity: {

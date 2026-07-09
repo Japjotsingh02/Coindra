@@ -1,34 +1,34 @@
-﻿import { Theme } from '@/types/theme';
+import { Theme } from '@/types/theme';
 
 export const light: Theme = {
   colorPalette: {
     volatility: {
       low: {
-        bg: '#f0fdf4',
+        bg: 'var(--heatmap-vol-low-bg)',
         textColor: 'text-emerald-700',
       },
       medium: {
-        bg: '#fffbeb',
+        bg: 'var(--heatmap-vol-medium-bg)',
       },
       high: {
-        bg: '#fef2f2',
+        bg: 'var(--heatmap-vol-high-bg)',
       },
       neutral: {
-        bg: '#f8fafc',
+        bg: 'var(--heatmap-vol-neutral-bg)',
       },
     },
     performance: {
       positive: {
-        sparklineColor: '#16a34a',
-        sparklineGlow: 'rgba(22, 163, 74, 0.6)',
+        sparklineColor: 'var(--heatmap-sparkline-positive)',
+        sparklineGlow: 'var(--heatmap-sparkline-positive-glow)',
       },
       negative: {
-        sparklineColor: '#dc2626',
-        sparklineGlow: 'rgba(220, 38, 38, 0.4)',
+        sparklineColor: 'var(--heatmap-sparkline-negative)',
+        sparklineGlow: 'var(--heatmap-sparkline-negative-glow)',
       },
       neutral: {
-        sparklineColor: '#94a3b8',
-        sparklineGlow: 'rgba(0, 0, 0, 0.15)',
+        sparklineColor: 'var(--heatmap-sparkline-neutral)',
+        sparklineGlow: 'var(--heatmap-sparkline-neutral-glow)',
       },
     },
     liquidity: {
