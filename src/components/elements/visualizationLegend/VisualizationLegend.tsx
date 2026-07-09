@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { cn } from '@/lib/utils';
 
 import { Card } from '@/components/elements/card/Card';
@@ -48,8 +48,8 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
 
               <div
                 className={cn(
-                  'w-full h-8 bg-[#111111] rounded-[4px] border',
-                  'border-[#222222] flex items-center justify-center',
+                  'w-full h-8 bg-surface-light rounded-[4px] border',
+                  'border-surface-border flex items-center justify-center',
                   'relative overflow-hidden'
                 )}
               >
@@ -84,7 +84,7 @@ const LegendGrid = (items: SectionArray[0]['items']) =>
           transition={{ delay: 0.2 + index * 0.1, duration: 0.3 }}
           className={cn(
             'flex items-center space-x-2 p-2 rounded-[4px]',
-            'hover:bg-[#111111] transition-colors'
+            'hover:bg-surface-light transition-colors'
           )}
         >
           <div className={`w-4 h-4 rounded ${item.color} ${item.text}`}></div>

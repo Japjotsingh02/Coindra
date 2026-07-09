@@ -80,14 +80,14 @@ function FilterCheckboxes({
             checked={!!filters[key as keyof typeof filters]}
             onCheckedChange={(checked) => updateFilter(key as keyof typeof filters, checked)}
             className={cn(
-              'h-5 w-5 2xl:h-6 2xl:w-6 border-2 border-[#222222]',
+              'h-5 w-5 2xl:h-6 2xl:w-6 border-2 border-surface-border',
               'data-[state=checked]:[&_svg]:text-brand'
             )}
           />
           <label
             htmlFor={key}
             className={cn(
-              'text-sm font-medium capitalize leading-none text-[#888888]',
+              'text-sm font-medium capitalize leading-none text-ash',
               'peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
             )}
           >
@@ -129,7 +129,7 @@ export default function Sidebar() {
               alt="Coindra Logo"
               fill
               className="object-contain"
-              loading="lazy"
+              // loading="lazy"
             />
           </div>
           <h2 className="text-brand tracking-tight font-semibold">Coindra</h2>

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
@@ -80,7 +80,7 @@ function DialogContent({
               'disabled:pointer-events-none p-2'
             )}
           >
-            <XIcon className="size-5 text-muted-secondary hover:text-white" />
+            <XIcon className="size-5 text-muted-secondary hover:text-label" />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         )}

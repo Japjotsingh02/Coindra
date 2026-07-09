@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import * as React from 'react';
 import { addDays, format } from 'date-fns';
@@ -79,7 +79,7 @@ export function DateRangeFilter({
               nav: 'space-x-1 flex items-center',
               nav_button: cn(
                 ui.elevated,
-                'h-7 w-7 p-0 opacity-80 hover:opacity-100 text-[#888888] hover:text-label'
+                'h-7 w-7 p-0 opacity-80 hover:opacity-100 text-ash hover:text-label'
               ),
               nav_button_previous: 'absolute left-2',
               nav_button_next: 'absolute right-2',
@@ -87,7 +87,7 @@ export function DateRangeFilter({
               head_row: 'flex mb-2',
               head_cell: cn(ui.subheading, 'rounded-[4px] w-9'),
               row: 'flex w-full mt-1',
-              cell: 'h-9 w-9 text-center text-sm p-0 relative hover:bg-[#111111] rounded-[4px] focus-within:relative focus-within:z-20 transition-all duration-200',
+              cell: 'h-9 w-9 text-center text-sm p-0 relative hover:bg-surface-light rounded-[4px] focus-within:relative focus-within:z-20 transition-all duration-200',
               day: cn(
                 'h-9 w-9 p-0 font-medium aria-selected:opacity-100',
                 ui.muted,

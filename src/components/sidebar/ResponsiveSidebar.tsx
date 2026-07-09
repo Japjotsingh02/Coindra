@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
@@ -9,14 +9,14 @@ import Image from 'next/image';
 export default function ResponsiveSidebar() {
   return (
     <>
-      <div className="lg:hidden flex justify-between items-center py-1.5 px-3 border-b border-[#222222] bg-[#0a0a0a]">
+      <div className="lg:hidden flex justify-between items-center py-1.5 px-3 border-b border-surface-border bg-surface">
         <div className="relative w-6 h-6 antialiased">
           <Image
             src="/logo.svg"
             alt="Coindra Logo"
             fill
             className="object-contain"
-            loading="lazy"
+            // loading="lazy"
           />
         </div>
         <Sheet>
@@ -27,7 +27,7 @@ export default function ResponsiveSidebar() {
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="p-0 w-fit border-0 border-r border-[#222222] bg-[#0a0a0a]"
+            className="p-0 w-fit border-0 border-r border-surface-border bg-surface"
           >
             <Sidebar />
           </SheetContent>

@@ -1,4 +1,4 @@
-﻿@import 'tailwindcss';
+@import 'tailwindcss';
 @import 'tw-animate-css';
 
 @theme {
@@ -7,191 +7,148 @@
 
   /* Brand Colors */
   --color-brand: #f59e0b;
-  /* --color-brand-orange: #bc7129; */
 
   /* Text Colors - Dark Theme */
   --color-label: #ffffff;
   --color-muted: #9ca3af;
   --color-muted-secondary: #888888;
-  --color-disabled: #666666;
   --color-ash: #888888;
 
   /* Background Colors - Dark Theme */
   --color-background-app: #050505;
   --color-background-dark: #0a0a0a;
-  --color-background-sidebar: #0a0a0a;
-  --color-background-input: #111111;
-  --color-background-card: #0a0a0a;
   --color-background-mode: #111111;
 
   /* Surface Colors - Dark Theme */
   --color-surface: #0a0a0a;
   --color-surface-light: #111111;
   --color-surface-border: #222222;
-  --color-surface-ring: #222222;
-  /* Border Colors - Dark Theme */
-  /* --color-border: #1e2126; */
-  /* --color-border-light: #2a2d36; */
-  /* --color-border-brand: #bb9c2d; */
-  /* --color-border-accent: #20232e; */
+  --color-surface-ring: #444444;
 
-  /* Status Colors */
-  /* --color-success: #22c55e; */
-  /* --color-warning: #f59e0b; */
-  /* --color-error: #dc2626; */
-  /* --color-info: #3b82f6; */
+  /* Hover effects - Dark Theme */
+  --cell-hover-brightness: 1.1;
 
-  /* Chart Colors */
-  /* --color-chart-green: #22c55e;
-  --color-chart-red: #ef4444;
-  --color-chart-blue: #3b82f6;
-  --color-chart-yellow: #f59e0b;
-  --color-chart-orange: #f97316;
-  --color-chart-purple: #6466f1;
-  --color-chart-cyan: #06b6d4; */
-
-  /* Volatility Colors - Dark Theme */
-  /* --color-volatility-low: #10b981;
-  --color-volatility-medium: #f59e0b;
-  --color-volatility-high: #f97316;
-  --color-volatility-extreme: #ef4444;
-  --color-volatility-neutral: #6b7280; */
-
-  /* Performance Colors */
-  /* --color-performance-positive: #22c55e;
-  --color-performance-negative: #ef4444;
-  --color-performance-neutral: #9ca3af; */
-
-  /* Semantic Colors - Dark Theme */
-  /* --color-accent: #bb9c2d;
-  --color-accent-foreground: #ffffff; */
-  /* --color-destructive: #dc2626;
-  --color-destructive-foreground: #ffffff;
-  --color-muted: #1e2126;
-  --color-muted-foreground: #7c8796; */
-  /* --color-popover: #1a1d24;
-  --color-popover-foreground: #ffffff; */
-  /* --color-card: #1a1d24;
-  --color-card-foreground: #ffffff; */
-
-  /* Ring Colors - Dark Theme */
-  /* --color-ring: #bb9c2d;
-  --color-ring-muted: #2a2d36; */
-
-  /* Additional Component Colors */
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
   --color-gray-400: #9ca3af;
   --color-gray-500: #6b7280;
   --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
 
-  /* Animation Colors */
-  --color-shimmer: rgba(255, 255, 255, 0.2);
-  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-performance-positive: #00FF66;
+  --color-performance-negative: #FF643C;
 
-  --animate-fade-in: fadeIn 0.5s ease-in-out;
-  --animate-slide-up: slideUp 0.3s ease-out;
+  /* Component Colors - Dark Theme */
+  --color-ring-offset: #080a0f;
+  --color-brand-ring-glow: rgba(245, 158, 11, 0.35);
+  --color-brand-dot-ring: rgba(245, 158, 11, 0.3);
+  --color-brand-dot-glow: rgba(245, 158, 11, 0.45);
+  --color-tooltip-bg: rgb(13 15 20 / 0.95);
+  --color-tooltip-border: rgba(255, 255, 255, 0.08);
+
+  /* Heatmap - Dark Theme */
+  --heatmap-vol-low-bg: linear-gradient(135deg, #0d1515 0%, #111 100%);
+  --heatmap-vol-medium-bg: linear-gradient(135deg, #141000 0%, #111 100%);
+  --heatmap-vol-high-bg: linear-gradient(135deg, #1a0d0d 0%, #111 100%);
+  --heatmap-vol-neutral-bg: linear-gradient(135deg, 148, 163, 184 0%, #111 100%);
+  --heatmap-vol-low-text-shadow: rgba(0, 255, 102, 0.55);
+  --heatmap-sparkline-positive: #00ff66;
+  --heatmap-sparkline-positive-glow: rgba(0, 255, 102, 0.85);
+  --heatmap-sparkline-negative: #ff643c;
+  --heatmap-sparkline-negative-glow: rgba(255, 100, 60, 0.55);
+  --heatmap-sparkline-neutral: #777777;
+  --heatmap-sparkline-neutral-glow: rgba(0, 0, 0, 0.35);
+
+  --shadow-elevated: none;
+  --shadow-panel: none;
+
+  /* Ambient background orbs - Dark Theme */
+  --ambient-orb-warm: rgba(245, 158, 11, 0.06);
+  --ambient-orb-amber: rgba(217, 119, 6, 0.04);
+  --ambient-orb-sky: rgba(14, 165, 233, 0.03);
 }
 
 html {
   color-scheme: dark;
   background-color: var(--color-background-app);
   color: var(--color-label);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 html.light {
-  /* Brand Colors - Light Theme */
-  --color-brand: #d97706;
-  /* --color-brand-orange: #ea580c; */
+  color-scheme: light;
 
-  /* Text Colors - Light Theme */
-  --color-label: #0f172a;
-  --color-muted: #475569;
-  --color-muted-secondary: #64748b;
-  --color-disabled: #94a3b8;
-  --color-ash: #334155;
+  /* Brand */
+  --color-brand: #f59e0b;
 
-  /* Background Colors - Light Theme */
-  --color-background-app: #ffffff;
-  --color-background-dark: #f8fafc;
-  --color-background-sidebar: #ffffff;
-  --color-background-input: #ffffff;
-  --color-background-card: #ffffff;
-  --color-background-mode: #f4f4f5;
+  /* Text */
+  --color-label: #1c1917;
+  --color-muted: #57534e;
+  --color-muted-secondary: #78716c;
+  --color-ash: #78716c;
 
-  /* Surface Colors - Light Theme */
-  --color-surface: #ffffff;
-  --color-surface-light: #f8fafc;
-  --color-surface-border: #e2e8f0;
-  --color-surface-ring: #cbd5e1;
+  /* Backgrounds — warm cream like the reference design */
+  --color-background-app: #F7F1E7;
+  --color-background-dark: #f2efe4;
+  --color-background-mode: #e7e3d4;
 
-  /* Border Colors - Light Theme */
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
-  --color-border-brand: #d97706;
-  --color-border-accent: #cbd5e1;
+  /* Surfaces — card darker than page, inner cells darker than card */
+  --color-surface: #FBF8F1;
+  --color-surface-light: #F4EDE2;
+  --color-surface-border: #89745629;
+  --color-surface-ring: #8974564d;
 
-  /* Status Colors - Light Theme */
-  --color-success: #059669;
-  --color-warning: #d97706;
-  --color-error: #dc2626;
-  --color-info: #2563eb;
+  /* Hover effects — subtle in light mode */
+  --cell-hover-brightness: 0.985;
 
-  /* Chart Colors - Light Theme */
-  --color-chart-green: #059669;
-  --color-chart-red: #dc2626;
-  --color-chart-blue: #2563eb;
-  --color-chart-yellow: #d97706;
-  --color-chart-orange: #ea580c;
-  --color-chart-purple: #7c3aed;
-  --color-chart-cyan: #0891b2;
+  /* Performance */
+  --color-performance-positive: #15803d;
+  --color-performance-negative: #b91c1c;
 
-  /* Volatility Colors - Light Theme */
-  --color-volatility-low: #059669;
-  --color-volatility-medium: #d97706;
-  --color-volatility-high: #ea580c;
-  --color-volatility-extreme: #dc2626;
-  --color-volatility-neutral: #64748b;
+  /* Ring & focus — same amber as dark mode */
+  --color-ring-offset: #f5f2ec;
+  --color-brand-ring-glow: rgba(245, 158, 11, 0.35);
+  --color-brand-dot-ring: rgba(245, 158, 11, 0.3);
+  --color-brand-dot-glow: rgba(245, 158, 11, 0.45);
 
-  /* Performance Colors - Light Theme */
-  --color-performance-positive: #059669;
-  --color-performance-negative: #dc2626;
-  --color-performance-neutral: #475569;
+  /* Component — tooltip: warm espresso, dark-on-light contrast
+     (not the cool near-black of dark mode) */
+  --color-tooltip-bg: rgb(41 35 27 / 0.97);
+  --color-tooltip-border: rgba(245, 158, 11, 0.2);
 
-  /* Semantic Colors - Light Theme */
-  --color-accent: #d97706;
-  --color-accent-foreground: #ffffff;
-  --color-destructive: #dc2626;
-  --color-destructive-foreground: #ffffff;
-  --color-muted: #f8fafc;
-  --color-muted-foreground: #64748b;
-  --color-popover: #ffffff;
-  --color-popover-foreground: #0f172a;
-  --color-card: #ffffff;
-  --color-card-foreground: #0f172a;
+  /* Grays — warm stone scale */
+  --color-gray-400: #b8b0a0;
+  --color-gray-500: #a8a29e;
+  --color-gray-600: #78716c;
 
-  /* Ring Colors - Light Theme */
-  --color-ring: #d97706;
-  --color-ring-muted: #cbd5e1;
+  /* Elevation */
+  --shadow-elevated: 0 1px 2px rgba(28, 25, 23, 0.04), 0 4px 16px rgba(28, 25, 23, 0.06);
+  --shadow-panel: 0 1px 3px rgba(28, 25, 23, 0.05), 0 8px 24px rgba(28, 25, 23, 0.07);
 
-  /* Additional Component Colors - Light Theme */
-  --color-gray-100: #f8fafc;
-  --color-gray-200: #f1f5f9;
-  --color-gray-300: #e2e8f0;
-  --color-gray-400: #cbd5e1;
-  --color-gray-500: #94a3b8;
-  --color-gray-600: #64748b;
-  --color-gray-700: #475569;
-  --color-gray-800: #334155;
-  --color-gray-900: #1e293b;
+  /* Heatmap — flat pastel fills like the reference design */
+  --heatmap-vol-low-bg: #d9f3e4;
+  --heatmap-vol-medium-bg: #fdf0c4;
+  --heatmap-vol-high-bg: #fbd9dc;
+  --heatmap-vol-neutral-bg: #eae6d8;
+  --heatmap-sparkline-positive: #16a34a;
+  --heatmap-sparkline-positive-glow: rgba(22, 163, 74, 0.4);
+  --heatmap-sparkline-negative: #dc4c4c;
+  --heatmap-sparkline-negative-glow: rgba(220, 76, 76, 0.35);
+  --heatmap-sparkline-neutral: #a39d8d;
+  --heatmap-sparkline-neutral-glow: rgba(163, 157, 141, 0.25);
 
-  /* Animation Colors - Light Theme */
-  --color-shimmer: rgba(0, 0, 0, 0.1);
-  --color-overlay: rgba(0, 0, 0, 0.3);
+  /* Ambient background orbs — same amber tint as dark mode */
+  --ambient-orb-warm: rgba(245, 158, 11, 0.08);
+  --ambient-orb-amber: rgba(217, 119, 6, 0.06);
+  --ambient-orb-sky: rgba(14, 165, 233, 0.04);
+}
+
+/* Light mode tooltip is dark espresso, so remap its text vars for readability */
+html.light [data-slot='tooltip-content'] {
+  --color-ash: #b3aca0;
+  --color-muted: #d9d4ca;
+  --color-label: #faf8f3;
+  --color-performance-positive: #4ade80;
+  --color-performance-negative: #f87171;
 }
 
 @layer base {
@@ -201,8 +158,20 @@ html.light {
 }
 
 @layer components {
-  .terminal-section-label {
-    @apply text-[10px] font-medium uppercase tracking-[0.12em] text-[#888888];
+  .ambient-orb-warm {
+    background-color: var(--ambient-orb-warm, rgba(245, 158, 11, 0.06));
+  }
+
+  .ambient-orb-amber {
+    background-color: var(--ambient-orb-amber, rgba(217, 119, 6, 0.04));
+  }
+
+  .ambient-orb-sky {
+    background-color: var(--ambient-orb-sky, rgba(14, 165, 233, 0.03));
+  }
+
+  .view-mode-active {
+    @apply bg-brand/12 text-brand font-medium shadow-sm;
   }
 
   .font-mono,
@@ -236,26 +205,6 @@ html.light {
   }
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  0% {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
@@ -265,14 +214,3 @@ html.light {
   }
 }
 
-@layer components {
-  .heatmap-cell-gloss {
-    background: linear-gradient(
-      165deg,
-      rgba(255, 255, 255, 0.07) 0%,
-      rgba(255, 255, 255, 0.02) 28%,
-      transparent 52%,
-      rgba(0, 0, 0, 0.12) 100%
-    );
-  }
-}

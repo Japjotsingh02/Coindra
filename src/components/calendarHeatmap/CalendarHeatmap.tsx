@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { isSameDay, isSameMonth } from 'date-fns';
 import CalendarCell from './CalendarCell';
@@ -29,9 +29,7 @@ const CalendarDays = ({ viewMode }: { viewMode: ViewMode }) => {
       {DAYS.map((day) => (
         <div
           key={day}
-          className={cn(
-            'text-center text-[11px] uppercase tracking-[0.12em] font-medium text-[#888888]'
-          )}
+          className={cn('text-center text-[11px] uppercase tracking-[0.12em] font-medium text-ash')}
         >
           {day}
         </div>

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
@@ -31,7 +31,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "bg-[#111111] border border-[#222222] hover:border-[#444444] text-[#888888] hover:text-label flex w-fit items-center justify-between gap-2 rounded-[4px] px-3 py-2 text-sm whitespace-nowrap shadow-none transition-all duration-200 outline-none focus-visible:border-[#444444] focus-visible:ring-1 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "bg-surface-light border border-surface-border hover:border-surface-ring text-ash hover:text-label flex w-fit items-center justify-between gap-2 rounded-[4px] px-3 py-2 text-sm whitespace-nowrap shadow-none transition-all duration-200 outline-none focus-visible:border-surface-ring focus-visible:ring-1 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -55,7 +55,7 @@ function SelectContent({
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          'bg-[#0a0a0a] text-label border-[#222222]',
+          'bg-surface text-label border-surface-border',
           'data-[state=open]:animate-in data-[state=closed]:animate-out',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
           'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
@@ -109,7 +109,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "focus:bg-[#111111] focus:text-label text-[#888888] [&_svg:not([class*='text-'])]:text-[#888888] relative flex w-full cursor-default items-center gap-2 rounded-[4px] py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "focus:bg-surface-light focus:text-label text-ash [&_svg:not([class*='text-'])]:text-ash relative flex w-full cursor-default items-center gap-2 rounded-[4px] py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className
       )}
       {...props}

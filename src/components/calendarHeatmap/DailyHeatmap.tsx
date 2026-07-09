@@ -1,4 +1,4 @@
-﻿import { HeatmapCell } from '@/types/heatmap';
+import { HeatmapCell } from '@/types/heatmap';
 import { format, isSameDay } from 'date-fns';
 import React, { useMemo } from 'react';
 import { cn } from '@/lib/utils';

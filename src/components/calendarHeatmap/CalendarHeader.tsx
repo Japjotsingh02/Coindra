@@ -1,4 +1,4 @@
-﻿import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import {
   format,
   addMonths,
@@ -138,7 +138,7 @@ const CalendarHeader = ({
       <div className="flex items-center justify-between lg:justify-end lg:gap-4 w-full">
         <div
           className={cn(
-            'bg-[#111111] border border-[#222222] text-[#888888] rounded-[4px]',
+            'bg-surface-light border border-surface-border text-ash rounded-[4px]',
             'flex items-center gap-2 p-1!'
           )}
         >
@@ -148,7 +148,7 @@ const CalendarHeader = ({
               variant="ghost"
               size="md"
               onClick={() => onViewModeChange(mode)}
-              className={viewMode === mode ? 'bg-white/[0.08] text-white/90' : ''}
+              className={viewMode === mode ? 'view-mode-active' : 'text-ash hover:text-label'}
             >
               <Icon className="size-2.5 sm:size-3 md:size-3 xl:size-3 2xl:size-4" />
             </Button>
